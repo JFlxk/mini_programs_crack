@@ -1,0 +1,387 @@
+<view class="page" style="padding-top:{{recordType==='audio'?paddingTop:''}}">
+    <view class="navbar _ddcb06a" hidden="{{recordType==='video'}}" style="height:{{$navBar$navigationBarHeight}};background-color:{{$navBar$backgroundColor}};color:{{$navBar$color}}">
+        <view class="backgroundimg {{$navBar$types?'types':''}} _ddcb06a" style="width:{{$navBar$imageWidth}}px;height:{{$navBar$types?$navBar$navigationBarHeight:$navBar$imageHeight}}" wx:if="{{$navBar$imgs}}">
+            <image bindload="$navBar$imgLoaded" class="_ddcb06a" src="{{$navBar$imgs}}" style="width:{{$navBar$imageWidth}}px;height:{{$navBar$types?$navBar$navigationBarHeight:$navBar$imageHeight}}"></image>
+            <view class="background _ddcb06a" wx:if="{{!$navBar$types}}"></view>
+        </view>
+        <view class="_ddcb06a" style="{{'height: '+$navBar$statusBarHeight}}" wx:if="{{!$navBar$isOrder}}"></view>
+        <view class="agencyZoneBar_box _ddcb06a" wx:if="{{$navBar$isOrder}}">
+            <view class="agency_imgBox _ddcb06a">
+                <view class="agency_img _ddcb06a" style="background:url('{{$navBar$agency_img}}')no-repeat;background-size: 100%;"></view>
+            </view>
+        </view>
+        <view class="capsule _ddcb06a" wx:if="{{$navBar$back==='true'||$navBar$home==='true'}}">
+            <view bindtap="$navBar$back" class="capsule-item _ddcb06a" wx:if="{{$navBar$back==='true'}}">
+                <text class="iconfont icon-daohanglan-fanhui _ddcb06a"></text>
+            </view>
+            <view bindtap="$navBar$backHome" class="capsule-item _ddcb06a" wx:if="{{$navBar$home==='true'}}">
+                <text class="iconfont icon-daohanglan-fanhuishouye _ddcb06a"></text>
+            </view>
+        </view>
+        <view class="title {{$navBar$titleStyle?$navBar$titleStyle:''}} _ddcb06a" style="color:{{$navBar$color}}">{{$navBar$text}}</view>
+    </view>
+    <view class="mainContainer" hidden="{{recordType==='video'}}" style="padding-top:{{paddingTop}}">
+        <view class="preview-box" style="height:{{previewBoxHeight}}">
+            <view bindtap="tpa_errorBtn" class="error_btn" hidden="{{!textTitle||isCustom}}">
+                <view class="error_text">纠错</view>
+            </view>
+            <text bindtap="showRemind" class="iconfont icon-tishi"></text>
+            <text bindtap="close" class="iconfont icon-guanbi- close" hidden="{{!textTitle||recordState_audio!=='init'}}"></text>
+            <view catchtap="collect_tap" class="collect-box" hidden="{{!textTitle||isCustom}}">
+                <text class="iconfont {{isCollect?'icon-xingxing2':'icon-xingxing1'}}"></text>
+                <view class="collect-text">收藏素材</view>
+            </view>
+            <view class="empty-box">
+                <view class="select-text-btn" hidden="{{isShowLibrary||textTitle||recordState_audio!=='init'}}" wx:if="{{!freeReading}}">
+                    <view>
+                        <text catchtap="showLibrary" class="iconfont icon-readaloud_icon_add" data-wpyshowlibrary-a=""></text>
+                        <view class="choose-read">选择朗读内容</view>
+                    </view>
+                    <view class="reading-tips">直接点击下方按钮可进入“自由朗读”</view>
+                </view>
+                <view class="free-reading" hidden="{{!freeReading&&!(recordState_audio!=='init'&&!textTitle)}}">
+                    <image class="reading-img" src="http://reading.oss.iyougu.com/ldtmp/icon/read%20aloud_def_ikon-min.png"></image>
+                    <view class="text">{{organizatio_id==3791?'自由朗读宣传卡中心创新产品业务、企业文化的原创作品':'自由朗读'}}</view>
+                    <view class="r-text" wx:if="{{!freeReading}}">{{organizatio_id==3791?'':'没有找到您想读的素材？那么请自由发挥吧！'}}</view>
+                </view>
+                <view class="reading-content" hidden="{{!textTitle}}" wx:if="{{!freeReading}}">
+                    <scroll-view scrollY class="scroll-view">
+                        <view class="reading-title ">{{textTitle}}</view>
+                        <view class="author hidden-t" wx:if="{{textAuthor}}">{{textAuthor}}</view>
+                        <view class="ctx {{textAlign?textAlign:''}}">
+                            <view class="_readContent" style="--fontsize_ch:{{$readContent$fontsize+'rpx'}};--fontsize_en:{{$readContent$fontsize/2+'rpx'}};">
+                                <block wx:for="{{$readContent$arr}}" wx:key="index">
+                                    <view class="space" wx:if="{{item===0}}"></view>
+                                    <view class="space en" wx:elif="{{item===1}}"></view>
+                                    <text wx:else>{{item}}</text>
+                                </block>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </view>
+            </view>
+        </view>
+        <view class="bottomContainer">
+            <view class="progress-box" id="progress-box">
+                <view class="weui-progress">
+                    <view class="weui-progress__bar">
+                        <progress activeColor="#3B87DD" backgroundColor="#E3E3E3" percent="{{recordPercent}}" strokeWidth="2"></progress>
+                    </view>
+                    <view class="dot" hidden="{{recordState_audio!=='working'}}" id="dot" style="left:{{loadingLeft}}px">
+                        <view class="block" style="animation-play-state: play"></view>
+                        <view class="block" style="animation-play-state: play"></view>
+                        <view class="block" style="animation-play-state: play"></view>
+                        <view class="block" style="animation-play-state: play"></view>
+                    </view>
+                    <view class="dot" hidden="{{recordState_audio==='working'}}" id="dot" style="left:{{loadingLeft}}px">
+                        <view class="block" style="animation-play-state: paused"></view>
+                        <view class="block" style="animation-play-state: paused"></view>
+                        <view class="block" style="animation-play-state: paused"></view>
+                        <view class="block" style="animation-play-state: paused"></view>
+                    </view>
+                </view>
+                <view class="time">
+                    <view>{{recordDurationText}}</view>
+                    <view>10:00</view>
+                </view>
+            </view>
+            <view class="record-type" wx:if="{{recordTypeShow}}">
+                <view class="wrapper">
+                    <view bindtap="setRecordType" class="audio item active" data-wpysetrecordtype-a="audio">
+                        <view class="iconfont icon-qulangdu"></view>
+                        <view>音频</view>
+                    </view>
+                    <view bindtap="setRecordType" class="video item" data-wpysetrecordtype-a="video">
+                        <view class="iconfont icon-shipin"></view>
+                        <view>视频</view>
+                    </view>
+                </view>
+            </view>
+            <view class="controls-box">
+                <view class="music">
+                    <view class="select-music" hidden="{{recordState_audio==='paused'||recordState_audio==='end'}}">
+                        <view bindtap="go" class="select-music-right hidden-t" data-wpygo-a="music">
+                            <text class="iconfont icon-1"></text>
+                            <view style="width: 100%; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{musicName?musicName:recordState_audio==='init'?'添加配乐':'无配乐'}}</view>
+                        </view>
+                    </view>
+                    <view class="remake" hidden="{{recordState_audio==='init'||recordState_audio==='working'}}">
+                        <text bindtap="restartRecord" class="iconfont icon-xunhuan"></text>
+                        <text bindtap="restartRecord" class="oper-btn">重录</text>
+                    </view>
+                </view>
+                <view class="start-stop">
+                    <view bindtap="startRecord" class="btn">
+                        <view class="iconfontBg">
+                            <view class="iconfont {{recordState_audio==='init'?'icon-qulangdu':recordState_audio==='working'?'icon-bofang-zanting':'icon-shitingzuopinbofang-'}}"></view>
+                        </view>
+                        <text class="start-recording">{{recordState_audio==='init'?'开始录音':recordState_audio==='working'?'正在录音':recordState_audio==='paused'?'录音已暂停':'录音已结束'}}</text>
+                        <text class="start-recording" hidden="{{!audioTimeWarnShow}}" style="top:190rpx;">录音剩余时间：{{600-recordDuration}}s</text>
+                    </view>
+                </view>
+                <view class="save">
+                    <view bindtap="save" hidden="{{recordState_audio==='init'||recordState_audio==='working'}}">
+                        <text class="iconfont icon-dui1"></text>
+                        <text class="oper-btn">完成</text>
+                    </view>
+                    <view bindtap="chooseVideo" class="uploadUserVideo" hidden="{{recordState_audio!=='init'}}">
+                        <image class="img" src="https://reading-oss.oss-cn-shenzhen.aliyuncs.com/ldtmp/icon/icon_uploadUserVideo.png"></image>
+                        <text class="oper-btn" style="padding:0">上传视频</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <camera devicePosition="{{cameraPosi}}" flash="off" id="camera" wx:if="{{recordType==='video'&&recordState_video!=='end'}}"></camera>
+    <video bindended="videoEnd" binderror="videoError" bindpause="videoPause" bindplay="videoPlay" bindtimeupdate="videoTimeUpdate" controls="{{false}}" enableProgressGesture="{{false}}" hidden="{{recordType==='audio'||!video||recordState_video!=='end'}}" id="video" showCenterPlayBtn="{{false}}" showFullscreenBtn="{{false}}" showPlayBtn="{{false}}" showProgress="{{false}}" src="{{video}}" vslideGestureInFullscreen="{{false}}"></video>
+    <cover-view class="videoContainer" wx:if="{{recordType==='video'}}">
+        <cover-image bindtap="back" class="back" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_return.png" style="top:{{backTop}}"></cover-image>
+        <cover-image bindtap="showRemind" class="help" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_question_2x.png" style="top:{{helpTop}}"></cover-image>
+        <cover-image bindtap="switchCamera" class="switch" hidden="{{recordState_video==='end'}}" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_Flip_camera_2x.png" style="top:{{switchTop}}"></cover-image>
+        <cover-view bindtap="toggleMaterial" class="toggleMaterial" hidden="{{textTitle||recordState_video!=='init'||materialShow}}" wx:if="{{!freeReading}}">
+            <cover-view class="content">
+                <cover-image class="icon" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_add.png"></cover-image>
+                <cover-view class="text">选择朗读素材</cover-view>
+            </cover-view>
+        </cover-view>
+        <cover-view class="freeReadingTipWrapper" hidden="{{textTitle||recordState_video!=='init'||materialShow}}">
+            <cover-view class="freeReadingTip">
+                <cover-view class="content">直接点击下方</cover-view>
+                <cover-view class="blue content">开始录制视频</cover-view>
+                <cover-view class="content" style="text-align:left;">按钮可进入"自由朗读"</cover-view>
+            </cover-view>
+        </cover-view>
+        <cover-view bindtap="toggleMaterial" class="materialMask" hidden="{{!materialShow}}">
+            <cover-view catchtap="catchtap" class="material">
+                <cover-view class="content">
+                    <cover-view catchtap="go" class="item" data-wpygo-a="library">
+                        <cover-image class="icon" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_yougu_file.png"></cover-image>
+                        <cover-view>优谷文库</cover-view>
+                    </cover-view>
+                    <cover-view catchtap="go" class="item" data-wpygo-a="upload">
+                        <cover-image class="icon" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_other_file.png"></cover-image>
+                        <cover-view>上传文章</cover-view>
+                    </cover-view>
+                </cover-view>
+            </cover-view>
+        </cover-view>
+        <cover-view class="readingContent {{!isFullScreen&&recordTypeShow?'shrink':''}}" hidden="{{!textTitle||!readingContentShow}}" style="top:{{readingContentTop}}">
+            <cover-image bindtap="close" class="close" hidden="{{recordState_video!=='init'}}" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_close.png"></cover-image>
+            <cover-view class="title">{{textTitle}}</cover-view>
+            <cover-view class="author">{{textAuthor}}</cover-view>
+            <cover-view bindtap="collect_tap" class="collect" hidden="{{!textTitle||isCustom}}">
+                <cover-image class="star" src="https://reading.oss.iyougu.com/ldtmp/icon/video/lujing.png" wx:if="{{!isCollect}}"></cover-image>
+                <cover-image class="star" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_keep.png" wx:else></cover-image>
+                <cover-view style="width:90rpx;">收藏素材</cover-view>
+            </cover-view>
+            <cover-view class="textContent {{textAlign?textAlign:''}}">
+                <cover-view style="height:{{contentHeight}};line-height:2;">{{textContent}}</cover-view>
+            </cover-view>
+            <cover-view bindtap="toggleReadingContent" class="hide">
+                <cover-view class="content">隐藏文本</cover-view>
+            </cover-view>
+        </cover-view>
+        <cover-view bindtap="playVideo" class="playVideo" hidden="{{!video||!playVideoShow||volumeDialogShow||giveUpDialogShow}}">
+            <cover-image class="img" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_video_preview.png"></cover-image>
+            <cover-view>00:{{videoDuration}}</cover-view>
+        </cover-view>
+        <cover-image bindtap="toggleReadingContent" class="showReadingContent" hidden="{{!textTitle||readingContentShow}}" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_side.png"></cover-image>
+        <cover-view class="recordType" wx:if="{{recordTypeShow}}">
+            <cover-image class="img" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_change.png"></cover-image>
+            <cover-view bindtap="setRecordType" class="audioArea" data-wpysetrecordtype-a="audio"></cover-view>
+        </cover-view>
+        <cover-view class="controls">
+            <cover-view class="left">
+                <cover-view bindtap="go" class="selectMusic" data-wpygo-a="music" hidden="{{recordState_video==='end'}}">
+                    <cover-image class="img" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_add_music.png"></cover-image>
+                    <cover-view class="musicName">{{musicName?musicName:recordState_video==='init'?'添加配乐':'无配乐'}}</cover-view>
+                </cover-view>
+                <cover-view bindtap="showGiveUpDialog" class="giveUp" hidden="{{recordState_video!=='end'}}">
+                    <cover-image class="img" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_again.png"></cover-image>
+                    <cover-view>重录</cover-view>
+                </cover-view>
+            </cover-view>
+            <cover-view class="main">
+                <cover-image bindtap="startRecord_video" class="button" hidden="{{recordState_video!=='init'}}" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_video_start.png"></cover-image>
+                <cover-image bindtap="stopVideoRecord" class="button" hidden="{{recordState_video!=='working'}}" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_video_starting.png"></cover-image>
+                <cover-image bindtap="showVideoFinish" class="button" hidden="{{recordState_video!=='end'}}" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_video_end.png"></cover-image>
+                <cover-view class="text">
+                    <cover-view class="mainText">{{recordState_video==='init'?'开始录制视频':recordState_video==='working'?'视频已开始':'视频结束'}}</cover-view>
+                    <cover-view class="notice" hidden="{{recordState_video!=='init'}}">最长可录制30s</cover-view>
+                    <cover-view class="notice" hidden="{{recordState_video!=='working'}}">录频剩余时间：{{videoRestTime}}s</cover-view>
+                </cover-view>
+            </cover-view>
+            <cover-view class="right">
+                <cover-view bindtap="save_video" class="save" hidden="{{recordState_video!=='end'}}">
+                    <cover-image class="img" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_finish.png"></cover-image>
+                    <cover-view>完成</cover-view>
+                </cover-view>
+                <cover-view bindtap="chooseVideo" class="save" hidden="{{recordState_video!=='init'}}">
+                    <cover-image class="img" src="https://reading-oss.oss-cn-shenzhen.aliyuncs.com/ldtmp/icon/icon_uploadUserVideo.png"></cover-image>
+                    <cover-view>上传视频</cover-view>
+                </cover-view>
+            </cover-view>
+        </cover-view>
+        <cover-view class="progress" hidden="{{recordState_video==='init'}}">
+            <cover-view class="value" style="transform:translateX(-{{videoPercent}}%)"></cover-view>
+        </cover-view>
+        <cover-view class="videoLeastTime" hidden="{{!videoTimeAlertShow}}">录制时间不能少于5秒</cover-view>
+        <cover-view class="videoLeastTime wide" hidden="{{!videoFinishShow}}">录频结束，请选择重录或完成</cover-view>
+        <cover-view class="dialogMask" hidden="{{!giveUpDialogShow}}"></cover-view>
+        <cover-view class="giveUpDialog" hidden="{{!giveUpDialogShow}}">
+            <cover-view class="title">温馨提示</cover-view>
+            <cover-view class="content">确定放弃录像吗？</cover-view>
+            <cover-view class="buttons">
+                <cover-view bindtap="hideGiveUpDialog" class="button cancel">取消</cover-view>
+                <cover-view bindtap="giveUpVideo" class="button confirm">确认</cover-view>
+            </cover-view>
+        </cover-view>
+    </cover-view>
+    <cover-view class="mask" wx:if="{{isShowMask||isAuto}}">
+        <cover-view class="toask-box">
+            <cover-view class="time-l">{{startDuration}}</cover-view>
+            <cover-view class="time-s">
+                <cover-view>{{startDuration}}秒后开始朗读</cover-view>
+            </cover-view>
+        </cover-view>
+    </cover-view>
+    <wxc-dialog bindcancel="onCancel" bindconfirm="onConfirm" cancelText="取消" class="wxc-dialog" confirmColor="#3b87dd" confirmText="确认" content="{{recordType==='audio'?'确定放弃录音吗？':'确定放弃录像吗？'}}" title="温馨提示"></wxc-dialog>
+    <cover-view class="mask" hidden="{{!volumeDialogShow}}">
+        <cover-view class="volumeDialog">
+            <cover-view class="bg">
+                <cover-image class="bgImg" src="https://reading.oss.iyougu.com/ldtmp/images/volumeTipsBg.png"></cover-image>
+                <cover-view class="title">请选择是否有戴耳机录制？</cover-view>
+                <cover-view bindtap="setEarphone" class="button left" data-wpysetearphone-a="{{true}}">是</cover-view>
+                <cover-view bindtap="setEarphone" class="button right" data-wpysetearphone-a="{{false}}">否</cover-view>
+            </cover-view>
+            <cover-view class="text">
+                <cover-view class="dot"></cover-view>
+                <cover-view class="content">为了音频合成的质量，请您按照现在的实际情况选择以上选项</cover-view>
+            </cover-view>
+            <cover-view class="text short">
+                <cover-view class="dot"></cover-view>
+                <cover-view class="content short">录制时，请在安静环境下朗读，使用音量键可以调整背景音乐的大小</cover-view>
+            </cover-view>
+            <cover-image class="img" src="https://reading.oss.iyougu.com/ldtmp/images/volumeTipsMan.png"></cover-image>
+        </cover-view>
+    </cover-view>
+    <view bindtap="hideLibrary" class="library-mask" data-wpyhidelibrary-a="" style="padding-top:{{paddingTop}}" wx:if="{{isShowLibrary}}">
+        <view class="main">
+            <view catchtap="go" class="library" data-wpygo-a="library">
+                <view class="library-icon">
+                    <text class="iconfont icon-wenkuzhongxin"></text>
+                </view>
+                <text>选择素材</text>
+            </view>
+            <view catchtap="tapFreeReading" class="library record" wx:if="{{soundCardData}}">
+                <view class="library-icon">
+                    <text class="iconfont icon-qulangdu"></text>
+                </view>
+                <text>自由录制</text>
+            </view>
+            <view catchtap="go" class="library" data-wpygo-a="upload">
+                <view class="library-icon">
+                    <text class="iconfont icon-upload-article"></text>
+                </view>
+                <text>上传文章</text>
+            </view>
+        </view>
+    </view>
+    <view id="contentSize">
+        <text>{{textContent}}</text>
+    </view>
+    <view bindtap="$materialMistake$toggle" class="error_masking" hidden="{{!$materialMistake$is_errorShow}}">
+        <view catchtap="$materialMistake$fn" class="error_box">
+            <view class="title">素材纠错</view>
+            <view class="selectBtn_box">
+                <view bindtap="$materialMistake$tap_selectBtn" class="selectBtn {{index==$materialMistake$selectBtn_index?'selectBtn_active':''}}" data-wpytap_selectbtn-a="{{index}}" wx:for="{{$materialMistake$selectBtn_List}}" wx:key="key">{{item}}</view>
+            </view>
+            <view class="textarea_box">
+                <textarea bindinput="$materialMistake$textarea_input" class="textarea" maxlength="300" placeholder="备注（哪里出错了呢╥﹏╥）" placeholderStyle="font-size:24rpx;color:rgba(153,153,153,1);" value="{{$materialMistake$textarea_value}}"></textarea>
+            </view>
+            <view class="remark_box">
+                <view bindtap="$materialMistake$add_screenshot" class="remark_left" wx:if="{{!$materialMistake$is_remarkImg}}">
+                    <view class="icon_jia">
+                        <view class="p1"></view>
+                        <view class="p2"></view>
+                    </view>
+                    <view class="add_screenshot">添加截图</view>
+                </view>
+                <image bindtap="$materialMistake$add_screenshot" class="remark_left2" mode="aspectFit" src="{{$materialMistake$error_tempFilePaths}}" wx:else>
+                    <view class="remark_left2_masking"></view>
+                    <view class="add_screenshot">更换截图</view>
+                </image>
+                <view class="remark_right">注明：可用手机自带软件进行截图,并标注出错误的地方,最多上传一张截图</view>
+            </view>
+            <view bindtap="$materialMistake$sub_error" class="sub_btn {{$materialMistake$is_remarkImg?'sub_btn_active':''}}">提交反馈</view>
+        </view>
+    </view>
+    <cover-view bindtap="$recordHelp$toggle" class="mask-box-agree" wx:if="{{$recordHelp$isShowRemind}}">
+        <cover-view catchtap="$recordHelp$fn" class="agree-box">
+            <cover-view class="remind-name">注意事项</cover-view>
+            <cover-image catchtap="$recordHelp$toggle" class="close" src="https://reading.oss.iyougu.com/ldtmp/icon/video/icon_close_black.png"></cover-image>
+            <cover-view class="scroll-view">
+                <cover-view class="title" style="margin-top:0;">一、录音终止</cover-view>
+                <cover-view>受小程序功能限制，当进行以下操作时，录音进程将会终止：</cover-view>
+                <cover-view class="blue">
+                    <cover-view>①手机进入熄屏锁定状态</cover-view>
+                    <cover-view>②将小程序置入后台状态</cover-view>
+                    <cover-view>③关闭小程序</cover-view>
+                </cover-view>
+                <cover-view>因此在录音过程中，请保持手机屏幕为点亮状态，且不要关闭小程序。</cover-view>
+                <cover-view class="title marginTop">二、录音方式</cover-view>
+                <cover-view>苹果手机建议戴上耳机录音效果更佳；</cover-view>
+                <cover-view>
+          部分安卓手机、如vivo等手机戴上耳机无法录制背景音乐，建议使用外放录音；
+        </cover-view>
+                <cover-view class="marginTop">不同的手机机型录制效果不同，录制过程中可通过调节  手机侧边音量+、-按钮  来控制录制背景音的大小，因此应以实际录制效果为准。</cover-view>
+                <cover-view class="marginTop">如遇到多次录制保存作品不成功等状况，可将“优谷朗读”从小程序浏览记录列表和小程序搜索列表中清除记录，然后重新进入操作。</cover-view>
+                <cover-view class="title">三、录音保存</cover-view>
+                <cover-view>录制完成后，在录音保存成功前，请不要退出小程序，否则可能导致录音保存失败。</cover-view>
+                <cover-view class="title">四、录制时间</cover-view>
+                <cover-view>优谷朗读支持的最长录制时间为10分钟，为了更好地使用录音功能，建议您升级微信客户端至最新版本。</cover-view>
+                <cover-view style="width:100%;height:100rpx;"></cover-view>
+            </cover-view>
+            <cover-image class="bottomMask" src="https://reading.oss.iyougu.com/ldtmp/icon/video/bottomMask.png"></cover-image>
+        </cover-view>
+    </cover-view>
+    <view class="_bc474cb">
+        <cover-view class="_mask _bc474cb" wx:if="{{$Dialog$componentShow}}">
+            <cover-view class="container _bc474cb">
+                <cover-view class="textContainer _bc474cb">
+                    <cover-view class="title {{!$Dialog$params.content?'mini':''}} _bc474cb">{{$Dialog$params.title||'温馨提示'}}</cover-view>
+                    <cover-view class="content _bc474cb" wx:if="{{$Dialog$params.content}}">{{$Dialog$params.content}}</cover-view>
+                </cover-view>
+                <cover-view class="hr _bc474cb"></cover-view>
+                <cover-view class="buttonContainer _bc474cb">
+                    <cover-view bindtap="$Dialog$cancel" class="button _bc474cb" wx:if="{{$Dialog$params.showCancel}}">{{$Dialog$params.cancelText}}</cover-view>
+                    <cover-view class="bar _bc474cb" wx:if="{{$Dialog$params.showCancel}}"></cover-view>
+                    <cover-view bindtap="$Dialog$confirm" class="button confirm _bc474cb">{{$Dialog$params.confirmText}}</cover-view>
+                </cover-view>
+            </cover-view>
+        </cover-view>
+        <block wx:if="{{$Dialog$orgins!='personpage'}}">
+            <view class="loginAuthorCode {{!$Dialog$OrgaAuth$is_wechatLog?'openAnima':''}} _a51e715 _bc474cb" wx:if="{{$Dialog$OrgaAuth$showCodeBox}}">
+                <view class="loginAuthorCode--box _a51e715">
+                    <view class="loginAuthorCode--box__tit _a51e715">机构授权访问</view>
+                    <block wx:if="{{!$Dialog$OrgaAuth$is_wechatLog}}">
+                        <text class="loginAuthorCode--box__tip _a51e715">进入该机构分区需进入授权验证，请先进行微信登录</text>
+                        <view class="loginAuthorCode--box__btn _a51e715">
+                            <view bindtap="$Dialog$OrgaAuth$onClickWechatLog" class="loginAuthorCode--box__btn_log _a51e715">微信登录</view>
+                            <view bindtap="$Dialog$OrgaAuth$toPlatform" class="loginAuthorCode--box__btn_back _a51e715" data-wpytoplatform-a="">返回“优谷朗读”</view>
+                        </view>
+                    </block>
+                    <block wx:else>
+                        <text class="loginAuthorCode--box__tip _a51e715">请输入机构授权码验证进入</text>
+                        <input bindinput="$Dialog$OrgaAuth$getCodeNum" class="loginAuthorCode--box__ipt _a51e715" type="text" value="{{$Dialog$OrgaAuth$logCode}}"></input>
+                        <view class="loginAuthorCode--box__btn _a51e715">
+                            <view bindtap="$Dialog$OrgaAuth$onClickConfirm" class="loginAuthorCode--box__btn_log {{!$Dialog$OrgaAuth$logCode?'noCode':''}} _a51e715">确认</view>
+                            <view bindtap="$Dialog$OrgaAuth$toPlatform" class="loginAuthorCode--box__btn_back _a51e715" data-wpytoplatform-a="">返回“优谷朗读”</view>
+                        </view>
+                        <view bindtap="$Dialog$OrgaAuth$toOrga" class="iconfont icon-guanbi1 btn-close _a51e715" data-wpytoorga-a="" wx:if="{{$Dialog$OrgaAuth$isOrgaList}}"></view>
+                    </block>
+                </view>
+            </view>
+        </block>
+    </view>
+</view>

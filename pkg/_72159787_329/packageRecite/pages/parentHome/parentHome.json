@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "作业",
+    "usingComponents": {
+        "wxc-dialog": "../../../packages/@minui/wxc-dialog/dist/index"
+    }
+}

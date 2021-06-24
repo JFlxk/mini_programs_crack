@@ -1,0 +1,26 @@
+<view class="page">
+    <view class="navbar _ddcb06a" style="height:{{$navBar$navigationBarHeight}};background-color:{{$navBar$backgroundColor}};color:{{$navBar$color}}">
+        <view class="backgroundimg {{$navBar$types?'types':''}} _ddcb06a" style="width:{{$navBar$imageWidth}}px;height:{{$navBar$types?$navBar$navigationBarHeight:$navBar$imageHeight}}" wx:if="{{$navBar$imgs}}">
+            <image bindload="$navBar$imgLoaded" class="_ddcb06a" src="{{$navBar$imgs}}" style="width:{{$navBar$imageWidth}}px;height:{{$navBar$types?$navBar$navigationBarHeight:$navBar$imageHeight}}"></image>
+            <view class="background _ddcb06a" wx:if="{{!$navBar$types}}"></view>
+        </view>
+        <view class="_ddcb06a" style="{{'height: '+$navBar$statusBarHeight}}" wx:if="{{!$navBar$isOrder}}"></view>
+        <view class="agencyZoneBar_box _ddcb06a" wx:if="{{$navBar$isOrder}}">
+            <view class="agency_imgBox _ddcb06a">
+                <view class="agency_img _ddcb06a" style="background:url('{{$navBar$agency_img}}')no-repeat;background-size: 100%;"></view>
+            </view>
+        </view>
+        <view class="capsule _ddcb06a" wx:if="{{$navBar$back==='true'||$navBar$home==='true'}}">
+            <view bindtap="$navBar$back" class="capsule-item _ddcb06a" wx:if="{{$navBar$back==='true'}}">
+                <text class="iconfont icon-daohanglan-fanhui _ddcb06a"></text>
+            </view>
+            <view bindtap="$navBar$backHome" class="capsule-item _ddcb06a" wx:if="{{$navBar$home==='true'}}">
+                <text class="iconfont icon-daohanglan-fanhuishouye _ddcb06a"></text>
+            </view>
+        </view>
+        <view class="title {{$navBar$titleStyle?$navBar$titleStyle:''}} _ddcb06a" style="color:{{$navBar$color}}">{{$navBar$text}}</view>
+    </view>
+    <image class="img" lazyLoad="lazy-load" mode="widthFix" src="https://reading.oss.iyougu.com/tc/mp/images/voxTrainingImg.jpg"></image>
+    <view bindtap="goto" class="btn_masking"></view>
+    <view bindtap="goto" class="btn">立即前往</view>
+</view>

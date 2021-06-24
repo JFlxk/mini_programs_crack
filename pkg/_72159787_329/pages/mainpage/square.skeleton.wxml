@@ -1,0 +1,203 @@
+<template name="square">
+    <view class="sk-container">
+        <view class="page" style="padding-top:0px">
+            <view class="square">
+                <scroll-view class="index-content" scrollIntoView="true" scrollY="true" style="height:calc(100% - 64px);">
+                    <view class="banner bgWhite" hidden="{{is_skeleton1}}">
+                        <swiper autoplay="false" circular="true" class="banner-box" current="0" easingFunction="easeInOutCubic" interval="4000">
+                            <swiper-item class="banner-item" data-wpygoactivedetail-a="0" data-wpygoactivedetail-b="1351" data-wpygoactivedetail-c="迎接中国共产党成立100周年全国中小学生诵读活动" data-wpygoactivedetail-d="4" data-wpygoactivedetail-e="1" data-wpygoactivedetail-f="null" data-wpygoactivedetail-g="[object Object]" style="position: absolute; width: 100%; height: 100%; transform: translate(0%, 0px) translateZ(0px);">
+                                <image class="banner-image active sk-image" mode="scaleToFill"></image>
+                            </swiper-item>
+                            <swiper-item class="banner-item" data-wpygoactivedetail-a="2" data-wpygoactivedetail-b="null" data-wpygoactivedetail-c="null" data-wpygoactivedetail-d="8" data-wpygoactivedetail-e="1" data-wpygoactivedetail-f="/packageIndex/pages/webview/webview?url=https://event.m.iyougu.com/" data-wpygoactivedetail-g="[object Object]" style="position: absolute; width: 100%; height: 100%; transform: translate(-100%, 0px) translateZ(0px);">
+                                <image class="banner-image sk-image" mode="scaleToFill"></image>
+                            </swiper-item>
+                        </swiper>
+                        <view class="banner-box-dot">
+                            <view class="dots current"></view>
+                            <view class="dots"></view>
+                            <view class="dots"></view>
+                        </view>
+                    </view>
+                    <view hidden="{{is_skeleton2}}">
+                        <view class="entrance">
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-854 sk-text">热门机构</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-979 sk-text">名家示范</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-723 sk-text">声音上墙</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-510 sk-text">绘本作品</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-274 sk-text">声音训练营</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-477 sk-text">背诵练习</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-815 sk-text">作业管理</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-912 sk-text">谷粒商城</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-428 sk-text">排行榜</text>
+                                </view>
+                            </view>
+                            <view class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="[object Object]" style="true">
+                                <image class="entrance-img sk-image" mode="aspectFit"></image>
+                                <view class="entrance-txt">
+                                    <text class="sk-transparent sk-text-0-0000-216 sk-text">热门活动</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="module_box">
+                        <view hidden="{{is_skeleton3}}">
+                            <view class="popularOpus borderTop24" style="border: none;">
+                                <view class="tabs sk-pseudo sk-pseudo-circle">
+                                    <view class="tabItem selected sk-pseudo sk-pseudo-circle" data-wpytabchange-a="0">
+                                        <text class="sk-transparent sk-text-31-1111-586 sk-text">朗读作品</text>
+                                    </view>
+                                    <view class="tabItem" data-wpytabchange-a="1">
+                                        <text class="sk-transparent sk-text-33-3333-861 sk-text">视频作品</text>
+                                    </view>
+                                    <view class="more">
+                                        <text class="moreText sk-transparent sk-text-20-0000-281 sk-text">更多</text>
+                                        <text class="iconfont icon-gengduojiantou sk-pseudo sk-pseudo-circle"></text>
+                                    </view>
+                                </view>
+                                <view class="tab-content position-rela">
+                                    <view class="rankList border-fix" data-wpyskipopusdetail-a="8939203" data-wpyskipopusdetail-b="hotVFOpus">
+                                        <view class="figure">
+                                            <image class="avatar sk-image" lazyLoad="true" style="border: none;"></image>
+                                            <text class="audio iconfont icon-bofang-jixubofang sk-pseudo-circle" data-wpyplay-a="http://reading.oss.iyougu.com/device_opus/oeD5v0_N-vOQ26ahvoIR86irFd5E/20201030101003_RMzRzN.mp3" data-wpyplay-b="0"></text>
+                                        </view>
+                                        <view class="opusInfo">
+                                            <view class="opusTitle">
+                                                <view class="content sk-transparent sk-text-0-0000-20 sk-text">
+                          主持人大赛稿子
+                        </view>
+                                            </view>
+                                            <view class="nickname">
+                                                <view class="nickname_text sk-transparent sk-text-10-0000-31 sk-text">朗读者：长亭觅雪</view>
+                                            </view>
+                                            <view class="tips">
+                                                <text class="iconfont icon-gerenzuopin-yibofangcishu sk-pseudo sk-pseudo-circle"></text>
+                                                <text class="number sk-transparent sk-text-0-0000-160 sk-text">1472</text>
+                                                <text class="iconfont icon-gerenzuopin-aixin sk-pseudo sk-pseudo-circle"></text>
+                                                <text class="number sk-transparent sk-text-0-0000-203 sk-text">223</text>
+                                            </view>
+                                        </view>
+                                        <view class="detail">
+                                            <text class="detailText sk-transparent sk-text-18-7500-53 sk-text">详情</text>
+                                            <text class="iconfont icon-zhankai sk-pseudo sk-pseudo-circle"></text>
+                                        </view>
+                                    </view>
+                                    <view class="rankList border-fix" data-wpyskipopusdetail-a="9166306" data-wpyskipopusdetail-b="hotVFOpus">
+                                        <view class="figure">
+                                            <image class="avatar sk-image" lazyLoad="true" style="border: none;"></image>
+                                            <text class="audio iconfont icon-bofang-jixubofang sk-pseudo-circle" data-wpyplay-a="http://reading.oss.iyougu.com/device_opus/o-BUfv46CRKZDQCw0zu5mxoCmcI0/20201119160847_wN10ff.mp3" data-wpyplay-b="1"></text>
+                                        </view>
+                                        <view class="opusInfo">
+                                            <view class="opusTitle">
+                                                <view class="content sk-transparent sk-text-0-0000-581 sk-text">
+                          再别康桥
+                        </view>
+                                            </view>
+                                            <view class="nickname">
+                                                <view class="nickname_text sk-transparent sk-text-10-0000-248 sk-text">朗读者：你很酷</view>
+                                            </view>
+                                            <view class="tips">
+                                                <text class="iconfont icon-gerenzuopin-yibofangcishu sk-pseudo sk-pseudo-circle"></text>
+                                                <text class="number sk-transparent sk-text-0-0000-612 sk-text">1013</text>
+                                                <text class="iconfont icon-gerenzuopin-aixin sk-pseudo sk-pseudo-circle"></text>
+                                                <text class="number sk-transparent sk-text-0-0000-772 sk-text">218</text>
+                                            </view>
+                                        </view>
+                                        <view class="detail">
+                                            <text class="detailText sk-transparent sk-text-18-7500-279 sk-text">详情</text>
+                                            <text class="iconfont icon-zhankai sk-pseudo sk-pseudo-circle"></text>
+                                        </view>
+                                    </view>
+                                    <view class="rankList border-fix" data-wpyskipopusdetail-a="8928924" data-wpyskipopusdetail-b="hotVFOpus">
+                                        <view class="figure">
+                                            <image class="avatar sk-image" lazyLoad="true" style="border: none;"></image>
+                                            <text class="audio iconfont icon-bofang-jixubofang sk-pseudo-circle" data-wpyplay-a="http://reading.oss.iyougu.com/uploads/mp/opus/f5e060cff22240dda3c15fb301aa64ac.mp3" data-wpyplay-b="2"></text>
+                                        </view>
+                                        <view class="opusInfo">
+                                            <view class="opusTitle">
+                                                <view class="content sk-transparent sk-text-0-0000-889 sk-text">
+                          狱中绝笔（节选）
+                        </view>
+                                            </view>
+                                            <view class="nickname">
+                                                <view class="nickname_text sk-transparent sk-text-10-0000-601 sk-text">朗读者：XLiZzie</view>
+                                            </view>
+                                            <view class="tips">
+                                                <text class="iconfont icon-gerenzuopin-yibofangcishu sk-pseudo sk-pseudo-circle"></text>
+                                                <text class="number sk-transparent sk-text-0-0000-33 sk-text">714</text>
+                                                <text class="iconfont icon-gerenzuopin-aixin sk-pseudo sk-pseudo-circle"></text>
+                                                <text class="number sk-transparent sk-text-0-0000-840 sk-text">163</text>
+                                            </view>
+                                        </view>
+                                        <view class="detail">
+                                            <text class="detailText sk-transparent sk-text-18-7500-169 sk-text">详情</text>
+                                            <text class="iconfont icon-zhankai sk-pseudo sk-pseudo-circle"></text>
+                                        </view>
+                                    </view>
+                                    <view class="rankList border-fix" data-wpyskipopusdetail-a="8948498" data-wpyskipopusdetail-b="hotVFOpus">
+                                        <view class="figure">
+                                            <image class="avatar sk-image" lazyLoad="true" style="border: none;"></image>
+                                            <text class="audio iconfont icon-bofang-jixubofang sk-pseudo-circle" data-wpyplay-a="http://reading.oss.iyougu.com/uploads/mp/opus/c6c850ed1b4f4823917bee9e68b2c16a.mp3" data-wpyplay-b="3"></text>
+                                        </view>
+                                        <view class="opusInfo">
+                                            <view class="opusTitle">
+                                                <view class="content sk-transparent sk-text-0-0000-178 sk-text">
+                          自由朗读
+                        </view>
+                                            </view>
+                                            <view class="nickname">
+                                                <view class="nickname_text sk-transparent sk-text-10-0000-740 sk-text">朗读者：海是融化的雨</view>
+                                            </view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+    </view>
+</template>

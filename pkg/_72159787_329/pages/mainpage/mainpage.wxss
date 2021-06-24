@@ -1,0 +1,188 @@
+.orgaStateMask._23ebffb {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 1001;
+}
+
+.orgaStateMask .container._23ebffb {
+    width: 600rpx;
+    background-color: #fff;
+    border-radius: 40rpx;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 60rpx;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.orgaStateMask .container .h1._23ebffb {
+    color: #333;
+    font-size: 36rpx;
+    line-height: 1;
+}
+
+.orgaStateMask .container .title._23ebffb {
+    color: #666;
+    font-size: 32rpx;
+    margin: 30rpx 0 10rpx;
+}
+
+.orgaStateMask .container .content._23ebffb {
+    color: #b2b2b2;
+    font-size: 28rpx;
+    word-break: break-all;
+}
+
+.orgaStateMask .container .btn._23ebffb {
+    margin-top: 50rpx;
+    color: #fff;
+    font-size: 32rpx;
+    background-color: #3a87dd;
+    border-radius: 8rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    padding: 0 35rpx;
+    white-space: nowrap;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+}
+
+.page .mainTabBar {
+    width: 100%;
+    height: 128rpx;
+    background: #fff;
+    border-top: 1rpx solid #eee;
+    position: fixed;
+    bottom: 0rpx;
+    left: 0rpx;
+    display: flex;
+    z-index: 1000;
+    overflow: visible;
+}
+
+.page .mainTabBar .alike {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    font-size: 20rpx;
+    font-family: PingFangSC-Medium,PingFang SC,NotoSansSC-Medium,Noto Sans SC;
+    font-weight: 400;
+    color: #666;
+}
+
+.page .mainTabBar .alike .iconfont {
+    font-size: 48rpx;
+}
+
+.page .mainTabBar .recording {
+    position: relative;
+    top: 0;
+}
+
+.page .mainTabBar .recording .recording-icon {
+    display: inline-block;
+    width: 102rpx;
+    height: 102rpx;
+    text-align: center;
+    background: linear-gradient(312deg,#5a82ff,#3badff);
+    border-radius: 50%;
+}
+
+.page .mainTabBar .recording .recording-icon .iconfont {
+    font-size: 45rpx;
+    color: #fff;
+    display: inline-block;
+    margin-top: 1rpx;
+}
+
+.page .mainTabBar .recording .recording-icon .recording-text {
+    font-size: 20rpx;
+    font-family: PingFangSC-Medium,PingFang SC,NotoSansSC-Medium,Noto Sans SC;
+    font-weight: 500;
+    color: #fff;
+    line-height: 20rpx;
+    margin-top: -6rpx;
+}
+
+.page .mainTabBar.Shipei {
+    height: 148rpx;
+}
+
+.page .mainTabBar.hidden {
+    display: none;
+}
+
+.page .mainTabBar .partyImg {
+    width: 95rpx;
+    height: 95rpx;
+    box-shadow: 0 4rpx 8rpx 5rpx #f2f2f2;
+    margin: 10rpx 30rpx 0;
+    border-radius: 50%;
+}
+
+.page .activEntrance {
+    position: fixed;
+    bottom: 148rpx;
+    right: 10rpx;
+    background: transparent;
+    z-index: 1;
+}
+
+.page .activEntrance,.page .activEntrance .activ-img {
+    width: 160rpx;
+    height: 130rpx;
+}
+
+.page .activEntrance.Shipei {
+    bottom: 168rpx;
+}
+
+.page .agencyZoneBar {
+    box-shadow: none;
+}
+
+.page .agencyZoneBar .iconfont,.page .agencyZoneBar .title {
+    color: #fff;
+}
+
+.page .videoMask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    z-index: 1000;
+}
+
+.page .videoMask #video {
+    width: 76vw;
+    height: 76vh;
+    position: absolute;
+    left: 50%;
+    top: 12vh;
+    transform: translateX(-50%);
+}
+
+.page .videoMask #video.wide {
+    width: 100%;
+    height: 75vw;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}

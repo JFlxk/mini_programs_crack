@@ -1,0 +1,39 @@
+<block wx:for="{{nodes}}" wx:for-item="n" wx:key="index">
+    <view bindtap="imgtap" class="_img {{n.attrs.class}}" data-attrs="{{n.attrs}}" id="{{n.attrs.id}}" style="{{n.attrs.style}}" wx:if="{{n.name=='img'}}">
+        <rich-text nodes="{{[ {attrs:{ src:lazyLoad&&!n.load?placeholder:n.attrs.src,alt:n.attrs.alt||'',width:n.attrs.width||'',style:'max-width:100%;display:block'+(n.attrs.height?';height:'+n.attrs.height:'') },name:'img'} ]}}"></rich-text>
+        <image binderror="error" bindload="loadImg" class="_image" data-i="{{index}}" data-source="img" lazyLoad="{{lazyLoad}}" showMenuByLongpress="{{!n.attrs.ignore}}" src="{{lazyLoad&&!n.load?placeholder:n.attrs.src}}"></image>
+    </view>
+    <text wx:elif="{{n.type=='text'}}">{{n.text}}</text>
+    <text wx:elif="{{n.name=='br'}}">
+</text>
+    <view bindtap="{{canIUse?handler.visited:'linkpress'}}" class="_a {{n.attrs.class}}" data-attrs="{{n.attrs}}" hoverClass="_hover" style="{{n.attrs.style}}" wx:elif="{{n.name=='a'}}">
+        <trees nodes="{{n.children}}"></trees>
+    </view>
+    <block wx:elif="{{n.name=='video'}}">
+        <view bindtap="loadVideo" class="_video {{n.attrs.class}}" data-i="{{index}}" id="{{n.attrs.id}}" style="{{n.attrs.style}}" wx:if="{{n.lazyLoad}}"></view>
+        <video autoplay="{{n.attrs.autoplay}}" binderror="error" bindplay="play" class="{{n.attrs.class}}" controls="{{n.attrs.controls}}" data-i="{{index}}" data-source="video" id="{{n.attrs.id}}" loop="{{n.attrs.loop}}" muted="{{n.attrs.muted}}" poster="{{n.attrs.poster}}" src="{{n.attrs.source[n.i||0]}}" style="{{n.attrs.style}}" unitId="{{n.attrs['unit-id']}}" wx:else></video>
+    </block>
+    <audio author="{{n.attrs.author}}" autoplay="{{n.attrs.autoplay}}" binderror="error" bindplay="play" class="{{n.attrs.class}}" controls="{{n.attrs.controls}}" data-i="{{index}}" data-source="audio" id="{{n.attrs.id}}" loop="{{n.attrs.loop}}" name="{{n.attrs.name}}" poster="{{n.attrs.poster}}" src="{{n.attrs.source[n.i||0]}}" style="{{n.attrs.style}}" wx:elif="{{n.name=='audio'}}"></audio>
+    <ad binderror="error" class="{{n.attrs.class}}" data-source="ad" style="{{n.attrs.style}}" unitId="{{n.attrs['unit-id']}}" wx:elif="{{n.name=='ad'}}"></ad>
+    <view class="{{n.attrs.class}}" style="{{n.attrs.style}};display:flex" wx:elif="{{n.name=='li'}}">
+        <view class="_ol-bef" wx:if="{{n.type=='ol'}}">{{n.num}}</view>
+        <view class="_ul-bef" wx:else>
+            <view class="_ul-p1" wx:if="{{n.floor%3==0}}">█</view>
+            <view class="_ul-p2" wx:elif="{{n.floor%3==2}}"></view>
+            <view class="_ul-p1" style="border-radius:50%" wx:else>█</view>
+        </view>
+        <trees class="_node _li" lazyLoad="{{lazyLoad}}" nodes="{{n.children}}"></trees>
+    </view>
+    <rich-text class="_p __{{n.name}} {{n.children[0].attrs.class}}" id="{{n.attrs.id}}" nodes="{{[n]}}" wx:elif="{{handler.useRichText(n,inlineTags)}}"></rich-text>
+    <trees class="_node _{{n.name}} {{n.attrs.class}}" id="{{n.attrs.id}}" lazyLoad="{{lazyLoad}}" nodes="{{n.children}}" style="{{n.attrs.style}}" wx:else></trees>
+</block>
+<wxs module="handler">
+module.exports = ({
+    visited: (function(s, e) {
+        s.instance.hasClass("_visited") || s.instance.addClass("_visited"), e.callMethod("linkpress", s)
+    }),
+    useRichText: (function(s, e) {
+        return (!s.c && !e[((nt_0 = (s.name), null == nt_0 ? undefined : 'number' === typeof nt_0 ? nt_0 : "" + nt_0))] && -1 == (s.attrs.style || "").indexOf("display:inline"))
+    }),
+});
+</wxs>

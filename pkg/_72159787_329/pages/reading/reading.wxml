@@ -1,0 +1,285 @@
+<import src="reading.skeleton.wxml"></import>
+<view class="reading {{is_order?'is_z-index':''}}">
+    <template is="reading" data="{{is_skeleton1:is_skeleton1,is_skeleton2:is_skeleton2}}" wx:if="{{loading}}"></template>
+    <view catchtap="goSearch" class="newSearch" data-wpygosearch-a="">
+        <text class="iconfont icon-sousuo"></text>
+        <text class="title-search">搜索素材名称</text>
+    </view>
+    <view class="newTab_main" style="top:{{newTab_h}}" wx:if="{{newTab_list&&newTab_list.length}}">
+        <view class="newTab_box">
+            <view class="newTab_list">
+                <view bindtap="tapNewTab" class="newTab_item {{newTab_index==index?'newTab_item_active':''}}" data-wpytapnewtab-a="{{index}}" wx:for="{{newTab_list}}" wx:key="index">
+                            {{item.typeName}}
+                            <view class="newTab_border" style="background:{{orgaColor}}" wx:if="{{newTab_index==index}}"></view>
+                </view>
+            </view>
+            <view class="newTab_right">
+                <view bindtap="tapGather" class="icon_gather" style="background:{{orgaColor}}">
+                    <view class="p1"></view>
+                    <view class="p2"></view>
+                </view>
+            </view>
+            <view class="gather_list" wx:if="{{is_gather}}">
+                <view bindtap="tapGtherGoto" class="gather_item" data-wpytapgthergoto-a="{{gatherIndex}}" wx:for="{{gather_list}}" wx:for-index="gatherIndex" wx:key="key">{{item}}</view>
+            </view>
+        </view>
+    </view>
+    <scroll-view scrollY bindrefresherrefresh="refreshHandler" bindrefresherrestore="restoreHandler" bindscroll="bindscroll" bindscrolltolower="scroll" class="index-content" enableBackToTop="enable-back-to-top" lowerThreshold="50" refresherDefaultStyle="black" refresherEnabled="refresher-enabled" refresherTriggered="{{isRefresh}}" scrollWithAnimation="scroll-with-animation" style="height:92%;" wx:if="{{labelSetupType==1}}">
+        <view data-skeleton-hide="is_skeleton1" hidden="{{!is_skeleton1}}">
+            <view class="banner-categ">
+                <view class="dots">
+                    <view class="dot {{index==swiperCurrent?' active':''}}" style="background:{{orgaColor}}" wx:for="{{pageCount}}" wx:key="unique"></view>
+                </view>
+                <swiper bindchange="swiperChange" circular="{{circularCateg}}" indicatorDots="{{false}}" style="height:100%;">
+                    <swiper-item wx:for="{{pageCount}}" wx:for-index="pageIndex" wx:key="index">
+                        <view class="slide-item">
+                            <view class="categ-item" wx:for="{{dataList[pageIndex]}}" wx:key="item">
+                                <navigator hoverClass="none" style="height:100%;" url="/packageReading/pages/childMaterial/childMaterial?dub_type={{labelSetupType}}&id={{item.id}}&cateType={{item.cateType}}&resouceTypeName={{item.resouceTypeName}}" wx:if="{{item.id>0}}">
+                                    <view class="c-icon">
+                                        <image class="categ-img" lazyLoad="{{lazyLoad}}" src="{{item.icon}}"></image>
+                                    </view>
+                                    <view class="categ-name hidden-t">{{item.resouceTypeName}}</view>
+                                </navigator>
+                                <view catchtap="tapGtherGoto" class="c-icon" data-wpytapgthergoto-a="0" wx:else>
+                                    <image class="categ-img" lazyLoad="{{lazyLoad}}" src="{{item.icon}}"></image>
+                                    <view class="categ-name hidden-t">{{item.resouceTypeName}}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </swiper>
+            </view>
+        </view>
+        <view data-skeleton-hide="is_skeleton2" hidden="{{!is_skeleton2}}">
+            <view class="search" wx:if="{{false}}">
+                <navigator hoverClass="none" url="/packageReading/pages/searchPage/searchPage?type=material">
+                    <view class="search-input">
+                        <text class="iconfont icon-search"></text>
+                        <text class="title-search">搜索素材名称、作者</text>
+                    </view>
+                </navigator>
+            </view>
+            <view class="classify">
+                <view class="tab-title">
+                    <view bindtap="tabChange" class=" tab-title-item {{activeIndex==index?'selected':''}}" data-wpytabchange-a="{{index}}" style="{{activeIndex==index?'color:'+orgaColor:''}}" wx:for="{{tabs}}" wx:key="item">
+                        <view class="active-border" style="background:{{orgaColor}}" wx:if="{{activeIndex==index}}"></view>{{item}}</view>
+                </view>
+                <view class="tab-content" wx:if="{{activeIndex==0}}">
+                    <view bindtap="goto" class="material-list" data-wpygoto-a="{{item.id}}" data-wpygoto-b="{{item.resName}}" data-wpygoto-c="{{item.author}}" data-wpygoto-d="{{item.content}}" data-wpygoto-e="false" wx:for="{{materialList}}" wx:key="item">
+                        <view class="material-title">{{item.resName}}</view>
+                        <view catchtap="audition" class="listen-btn" data-wpyaudition-a="{{item.mostLikeOpusType}}" data-wpyaudition-b="{{item.mostLikeOpusId}}" style="color:{{orgaColor}};border-color:{{orgaColor}}">
+                            <text class="iconfont icon-erji"></text>试听
+                                </view>
+                        <view class="reading-btn" style="background:{{orgaColor}}">
+                            <text class="iconfont icon-icon--"></text>朗读
+                                </view>
+                        <text class="material-content">{{item.intro||item.content}}</text>
+                        <view class="bottom-tips">
+                            <text class="counts">{{item.author}}</text>
+                            <text class="counts">{{item.wordsCount}}字</text>
+                            <text class="counts">{{item.readingCount||0}}人朗读</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="tab-content" wx:if="{{activeIndex==1}}">
+                    <view bindtap="goto" class="material-list" data-wpygoto-a="{{item.id}}" data-wpygoto-b="{{item.resName}}" data-wpygoto-c="{{item.author}}" data-wpygoto-d="{{item.content}}" data-wpygoto-e="true" wx:for="{{materialList}}" wx:key="item">
+                        <view class="material-title">{{item.resName}}</view>
+                        <view class="reading-btn" style="background:{{orgaColor}}">
+                            <text class="iconfont icon-icon--"></text>朗读
+                                </view>
+                        <text class="material-content">{{item.intro||item.content}}</text>
+                        <view class="bottom-tips">
+                            <text class="counts">{{item.author}}</text>
+                            <text class="counts">{{item.wordsCount}}字</text>
+                        </view>
+                    </view>
+                    <view class="material-empty" wx:if="{{!materialList.length}}">
+                        <image class="empty-image" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                        <view class="empty-text">还没有上传素材哦！</view>
+                        <navigator hoverClass="none" url="/packageIndex/pages/addMaterial/addMaterial">
+                            <button class="actionBtn" style="color:{{orgaColor}};border-color:{{orgaColor}}" type="primary">添加素材</button>
+                        </navigator>
+                    </view>
+                </view>
+                <view class="tab-content" wx:if="{{activeIndex==2}}">
+                    <view class="material-box">
+                        <view class="item-box" wx:for="{{material_list}}" wx:key="key">
+                            <view catchtap="goto" class="material-item" data-wpygoto-a="{{item.resourceId}}" data-wpygoto-b="{{item.resName}}" data-wpygoto-c="{{item.author}}" data-wpygoto-d="{{item.content}}" data-wpygoto-e="false">
+                                <view class="material-item-left">
+                                    <view class="p1">{{item.resName}}</view>
+                                    <view class="p2">{{item.content}}</view>
+                                    <view class="p3">
+                                        <text class="text1">
+                                            <text class="iconfont icon-zuozheming"></text>{{item.author}}</text>
+                                        <text>{{item.wordsCount}} 字</text>
+                                        <text>{{item.readingCount}} 人读</text>
+                                    </view>
+                                </view>
+                                <view class="material-item-right">
+                                    <view class="audition" style="color:{{orgaColor}};border-color:{{orgaColor}}">
+                                        <text class="iconfont icon-dajiaduzaidu-langdu"></text>朗读</view>
+                                    <view catchtap="cancelMaterial" class="cancel" data-wpycancelmaterial-a="{{index}}" data-wpycancelmaterial-b="{{item.resourceId}}">取消收藏</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="empty" wx:if="{{material_list.length==0}}">
+                            <image class="empty-image" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                            <view class="empty-text">还没有收藏的素材哦～</view>
+                            <button bindtap="gotoIndexOne" class="actionBtn" data-wpygotoindexone-a="" style="color:{{orgaColor}};border-color:{{orgaColor}}" type="primary">去选择</button>
+                        </view>
+                    </view>
+                </view>
+                <view class="load _cb0b30b">
+                    <view class="container _cb0b30b" style="display:{{$load$state!=='loading'?'none':'flex'}}">
+                        <view class="weui-loading _cb0b30b"></view>
+                        <view class="_cb0b30b">正在加载</view>
+                    </view>
+                    <view class="container _cb0b30b" style="display:{{$load$state!=='nomore'?'none':'flex'}}">
+                        <view class="iconfont icon-wancheng _cb0b30b"></view>
+                        <view class="_cb0b30b">加载完成</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <scroll-view scrollY bindrefresherrefresh="refreshHandler" bindrefresherrestore="restoreHandler" bindscroll="bindscroll" bindscrolltolower="scroll" class="index-content" enableBackToTop="enable-back-to-top" lowerThreshold="50" refresherDefaultStyle="black" refresherEnabled="refresher-enabled" refresherTriggered="{{isRefresh}}" scrollWithAnimation="true" style="height:92%;" wx:if="{{labelSetupType==3}}">
+        <view data-skeleton-hide="is_skeleton1" hidden="{{!is_skeleton1}}">
+            <view class="banner-categ">
+                <view class="dots">
+                    <view class="dot {{index==swiperCurrent?' active':''}}" style="background:{{orgaColor}}" wx:for="{{HbOrPyModule_list}}" wx:key="index"></view>
+                </view>
+                <swiper bindchange="swiperChange" circular="{{circularCateg}}" current="{{swiperCurrent}}" indicatorDots="{{false}}" style="height:100%;">
+                    <swiper-item wx:for="{{HbOrPyModule_list}}" wx:for-index="pageIndex" wx:key="index">
+                        <view class="slide-item">
+                            <view class="categ-item" wx:for="{{HbOrPyModule_list[pageIndex]}}" wx:key="item">
+                                <navigator hoverClass="none" style="height:100%;" url="/packageReading/pages/childMaterial/childMaterial?dub_type={{labelSetupType}}&isNext={{item.isNext}}&levelType={{item.levelType}}&resourceTypeId={{item.resourceTypeId}}&cateType={{item.cateType}}&resouceTypeName={{item.resTypeName}}">
+                                    <view class="c-icon">
+                                        <image class="categ-img" lazyLoad="{{lazyLoad}}" src="{{item.imageUrl}}"></image>
+                                    </view>
+                                    <view class="categ-name hidden-t">{{item.resTypeName}}</view>
+                                </navigator>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </swiper>
+            </view>
+        </view>
+        <view data-skeleton-hide="is_skeleton2" hidden="{{!is_skeleton2}}">
+            <view class="dub_box">
+                <view class="dub_tab">
+                    <view bindtap="tapDubTab" class="hotMaterial_tab {{dubTab_index==1?'dub_active':''}}" data-wpytapdubtab-a="1">热门素材<view class="dub_border" style="background:{{orgaColor}}" wx:if="{{dubTab_index==1}}"></view>
+                    </view>
+                    <view bindtap="tapDubTab" class="myCollect {{dubTab_index==2?'dub_active':''}}" data-wpytapdubtab-a="2">我的收藏<view class="dub_border" style="background:{{orgaColor}}" wx:if="{{dubTab_index==2}}"></view>
+                    </view>
+                </view>
+                <view bindtap="gotoMateterial" class="dub_item" data-wpygotomateterial-a="{{item.resourceId}}" wx:for="{{dub_list}}" wx:key="index">
+                    <view class="dub_imgBox {{labelSetupType==2?'dub_imgBox_2':''}}">
+                        <view class="dub_imgBg" style="background: url('{{item.imageUrl}}')no-repeat;background-size: 100% 100%;"></view>
+                        <image class="dub_img" lazyLoad="lazy-load" mode="aspectFit" src="{{item.imageUrl}}"></image>
+                        <view class="iconfont icon-bofang-jixubofang"></view>
+                    </view>
+                    <view class="dub_conter">
+                        <view class="dub_title">{{item.resName}}</view>
+                        <view class="dub_time_nub">
+                            <view class="dub_time">
+                                        时长：{{item.duration}}</view>
+                            <view class="dub_nub">
+                                        {{item.readingCount}}人配音</view>
+                        </view>
+                    </view>
+                    <view class="dub_btn {{dubTab_index==1?'dub_btn_2':''}}" style="color:{{orgaColor}};border-color:{{orgaColor}}">
+                        <view class="iconfont icon-maikefeng" style="color:{{orgaColor}};"></view>
+                                配音
+                                <view catchtap="cancelMaterial" class="cancel_btn" data-wpycancelmaterial-a="{{index}}" data-wpycancelmaterial-b="{{item.resourceId}}" wx:if="{{dubTab_index==2}}">取消收藏</view>
+                    </view>
+                </view>
+                <view class="load _cb0b30b">
+                    <view class="container _cb0b30b" style="display:{{$load$state!=='loading'?'none':'flex'}}">
+                        <view class="weui-loading _cb0b30b"></view>
+                        <view class="_cb0b30b">正在加载</view>
+                    </view>
+                    <view class="container _cb0b30b" style="display:{{$load$state!=='nomore'?'none':'flex'}}">
+                        <view class="iconfont icon-wancheng _cb0b30b"></view>
+                        <view class="_cb0b30b">加载完成</view>
+                    </view>
+                </view>
+                <view class="dub_empty" wx:if="{{is_dub_empty}}">
+                    <image class="empty-image" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                    <view class="empty-text">{{dubTab_index==1?'还没有数据哦～':'还没有收藏的素材哦～'}}</view>
+                    <button bindtap="gotoDubTab_index" class="actionBtn" data-wpygotodubtab_index-a="" style="color:{{orgaColor}};border-color:{{orgaColor}}" type="primary" wx:if="{{dubTab_index==2}}">去选择</button>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <scroll-view scrollY bindrefresherrefresh="refreshHandler" bindrefresherrestore="restoreHandler" bindscroll="bindscroll" bindscrolltolower="scroll" class="index-content" enableBackToTop="enable-back-to-top" lowerThreshold="50" refresherDefaultStyle="black" refresherEnabled="refresher-enabled" refresherTriggered="{{isRefresh}}" scrollWithAnimation="true" style="height:92%;" wx:if="{{labelSetupType==2}}">
+        <view data-skeleton-hide="is_skeleton1" hidden="{{!is_skeleton1}}">
+            <view class="banner-categ">
+                <view class="dots">
+                    <view class="dot {{index==swiperCurrent?' active':''}}" style="background:{{orgaColor}}" wx:for="{{HbOrPyModule_list}}" wx:key="index"></view>
+                </view>
+                <swiper bindchange="swiperChange" circular="{{circularCateg}}" current="{{swiperCurrent}}" indicatorDots="{{false}}" style="height:100%;">
+                    <swiper-item wx:for="{{HbOrPyModule_list}}" wx:for-index="pageIndex" wx:key="index">
+                        <view class="slide-item">
+                            <view class="categ-item" wx:for="{{HbOrPyModule_list[pageIndex]}}" wx:key="item">
+                                <navigator hoverClass="none" style="height:100%;" url="/packageReading/pages/childMaterial/childMaterial?dub_type={{labelSetupType}}&isNext={{item.isNext}}&levelType={{item.levelType}}&resourceTypeId={{item.resourceTypeId}}&cateType={{item.cateType}}&resouceTypeName={{item.resTypeName}}">
+                                    <view class="c-icon">
+                                        <image class="categ-img" lazyLoad="{{lazyLoad}}" src="{{item.imageUrl}}"></image>
+                                    </view>
+                                    <view class="categ-name hidden-t">{{item.resTypeName}}</view>
+                                </navigator>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </swiper>
+            </view>
+        </view>
+        <view data-skeleton-hide="is_skeleton2" hidden="{{!is_skeleton2}}">
+            <view class="dub_box">
+                <view class="dub_tab">
+                    <view bindtap="tapDubTab" class="hotMaterial_tab {{dubTab_index==1?'dub_active':''}}" data-wpytapdubtab-a="1">热门素材<view class="dub_border" style="background:{{orgaColor}}" wx:if="{{dubTab_index==1}}"></view>
+                    </view>
+                    <view bindtap="tapDubTab" class="myCollect {{dubTab_index==2?'dub_active':''}}" data-wpytapdubtab-a="2">我的收藏<view class="dub_border" style="background:{{orgaColor}}" wx:if="{{dubTab_index==2}}"></view>
+                    </view>
+                </view>
+                <view bindtap="gotoMateterial" class="dub_item" data-wpygotomateterial-a="{{item.resourceId}}" wx:for="{{dub_list}}" wx:key="index">
+                    <view class="dub_imgBox {{labelSetupType==2?'dub_imgBox_2':''}}">
+                        <view class="dub_imgBg" style="background: url('{{item.imageUrl}}')no-repeat;background-size: 100% 100%;"></view>
+                        <image class="dub_img" lazyLoad="lazy-load" mode="aspectFit" src="{{item.imageUrl}}"></image>
+                        <view class="iconfont icon-bofang-jixubofang"></view>
+                    </view>
+                    <view class="dub_conter">
+                        <view class="dub_title">{{item.resName}}</view>
+                        <view class="dub_time_nub">
+                            <view class="dub_time">
+                                        页数：{{item.total}}</view>
+                            <view class="dub_nub">
+                                        {{item.readingCount}}人配音</view>
+                        </view>
+                    </view>
+                    <view class="dub_btn {{dubTab_index==1?'dub_btn_2':''}}" style="color:{{orgaColor}};border-color:{{orgaColor}}">
+                        <view class="iconfont icon-maikefeng" style="color:{{orgaColor}};"></view>
+                                配音
+                                <view catchtap="cancelMaterial" class="cancel_btn" data-wpycancelmaterial-a="{{index}}" data-wpycancelmaterial-b="{{item.resourceId}}" wx:if="{{dubTab_index==2}}">取消收藏</view>
+                    </view>
+                </view>
+                <view class="load _cb0b30b">
+                    <view class="container _cb0b30b" style="display:{{$load$state!=='loading'?'none':'flex'}}">
+                        <view class="weui-loading _cb0b30b"></view>
+                        <view class="_cb0b30b">正在加载</view>
+                    </view>
+                    <view class="container _cb0b30b" style="display:{{$load$state!=='nomore'?'none':'flex'}}">
+                        <view class="iconfont icon-wancheng _cb0b30b"></view>
+                        <view class="_cb0b30b">加载完成</view>
+                    </view>
+                </view>
+                <view class="dub_empty" wx:if="{{is_dub_empty}}">
+                    <image class="empty-image" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                    <view class="empty-text">{{dubTab_index==1?'还没有数据哦～':'还没有收藏的素材哦～'}}</view>
+                    <button bindtap="gotoDubTab_index" class="actionBtn" data-wpygotodubtab_index-a="" style="color:{{orgaColor}};border-color:{{orgaColor}}" type="primary" wx:if="{{dubTab_index==2}}">去选择</button>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <view catchtap="tapGuideMasking" class="guide_masking" wx:if="{{is_guideMasking}}"></view>
+    <view catchtap="tapGuideMasking" class="guide_img" style="top:{{newTab_h}}" wx:if="{{is_guideMasking}}"></view>
+</view>

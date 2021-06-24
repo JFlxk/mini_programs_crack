@@ -1,0 +1,71 @@
+<template name="moreActivities">
+    <view class="sk-container">
+        <view class="page" style="padding-top:0px">
+            <view class="moreActivities">
+                <scroll-view enableBackToTop="true" lowerThreshold="50" refresherDefaultStyle="black" refresherEnabled="true" scrollWithAnimation="true" scrollY="true" style="height:calc(100% - 74px);">
+                    <swiper autoplay="false" class="swiper" current="0" duration="1000" indicatorActiveColor="#3B87DD" indicatorColor="rgba(64,138,222,0.2)" indicatorDots="true" interval="5000">
+                        <swiper-item style="position: absolute; width: 100%; height: 100%; transform: translate(0%, 0px) translateZ(0px);">
+                            <image class="recommend-image sk-image" data-wpygoactivity-a="0" data-wpygoactivity-b="1351" data-wpygoactivity-c="迎接中国共产党成立100周年全国中小学生诵读活动" data-wpygoactivity-d="4" data-wpygoactivity-e="1" data-wpygoactivity-f="true" data-wpygoactivity-g="true" data-wpygoactivity-h="null" data-wpygoactivity-i="[object Object]" lazyLoad="true"></image>
+                        </swiper-item>
+                    </swiper>
+                    <view class="tab-title">
+                        <text class="curStatus sk-transparent sk-text-31-6327-438 sk-text" data-wpypulldown-a="true">全部</text>
+                        <text class="iconfont icon-zhankai sk-pseudo sk-pseudo-circle" data-wpypulldown-a="true" style="transition: all .3s ease;transform: rotate()"></text>
+                        <view class="status" style="border: none;">
+                            <view class="status-item sk-transparent sk-text-34-0909-181 sk-text" data-wpystatuschange-a="全部" data-wpystatuschange-b="0" style="border: none;">全部</view>
+                            <view class="status-item sk-transparent sk-text-34-0909-400 sk-text" data-wpystatuschange-a="进行中" data-wpystatuschange-b="1" style="border: none;">进行中</view>
+                            <view class="status-item sk-transparent sk-text-34-0909-41 sk-text" data-wpystatuschange-a="即将开始" data-wpystatuschange-b="2" style="border: none;">即将开始</view>
+                            <view class="status-item sk-transparent sk-text-34-0909-340 sk-text" data-wpystatuschange-a="已结束" data-wpystatuschange-b="3">已结束</view>
+                        </view>
+                        <text class="tab-title-item selected sk-transparent sk-text-35-7143-771 sk-text" data-wpytabchange-a="0">热门</text>
+                        <text class="tab-title-item sk-transparent sk-text-35-7143-857 sk-text" data-wpytabchange-a="1">时间</text>
+                        <text class="tab-title-item sk-transparent sk-text-35-7143-395 sk-text" data-wpytabchange-a="2">同城</text>
+                        <text class="tab-title-item sk-transparent sk-text-35-7143-309 sk-text" data-wpytabchange-a="3">小舞台</text>
+                        <text class="iconfont icon-huodongliebiao-guize sk-pseudo sk-pseudo-circle"></text>
+                        <view class="read-pavilion" data-wpygoreadpavilion-a="true">
+                            <text class="iconfont icon-gerenzhongxin-tingziweizhi sk-pseudo sk-pseudo-circle"></text>
+                            <text class="sk-transparent sk-text-35-7143-50 sk-text">朗读亭</text>
+                        </view>
+                    </view>
+                    <view class="activity-list">
+                        <view class="activity-list-item" data-wpygoactivity-a="-10" data-wpygoactivity-b="1351" data-wpygoactivity-c="迎接中国共产党成立100周年全国中小学生诵读活动" data-wpygoactivity-d="4" data-wpygoactivity-e="1" data-wpygoactivity-f="null" style="border: none;">
+                            <view class="activity-list-top">
+                                <image class="activity-image sk-image" lazyLoad="true"></image>
+                            </view>
+                            <view class="activity-list-bottom">
+                                <text class="activity-title sk-transparent sk-text-0-0000-342 sk-text">迎接中国共产党成立100周年全国中小学生诵读活动</text>
+                                <view class="activity-time">
+                                    <text class="sk-transparent sk-text-0-0000-681 sk-text">2020.10.20 - 2021.01.15</text>
+                                </view>
+                                <view class="hot">
+                                    <text class="iconfont icon-redu sk-pseudo sk-pseudo-circle"></text>
+                                    <text class="hot-text sk-transparent sk-text-0-0000-723 sk-text">92927</text>
+                                </view>
+                                <view class="activityStatus underway sk-transparent sk-image">进行中</view>
+                            </view>
+                        </view>
+                        <view class="activity-list-item" data-wpygoactivity-a="-10" data-wpygoactivity-b="1386" data-wpygoactivity-c="寻找最美朗读者大赛" data-wpygoactivity-d="4" data-wpygoactivity-e="1" data-wpygoactivity-f="null" style="border: none;">
+                            <view class="activity-list-top">
+                                <image class="activity-image sk-image" lazyLoad="true"></image>
+                            </view>
+                            <view class="activity-list-bottom">
+                                <text class="activity-title sk-transparent sk-text-0-0000-140 sk-text">寻找最美朗读者大赛</text>
+                                <view class="activity-time">
+                                    <text class="sk-transparent sk-text-0-0000-474 sk-text">2020.11.04 - 2020.12.07</text>
+                                </view>
+                                <view class="hot">
+                                    <text class="iconfont icon-redu sk-pseudo sk-pseudo-circle"></text>
+                                    <text class="hot-text sk-transparent sk-text-0-0000-954 sk-text">26199</text>
+                                </view>
+                                <view class="activityStatus underway sk-transparent sk-image">进行中</view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="activEntrance Shipei">
+                <image class="activ-img sk-image"></image>
+            </view>
+        </view>
+    </view>
+</template>

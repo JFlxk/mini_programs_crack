@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "获奖详情",
+    "usingComponents": {
+        "parser": "/components/parser/parser"
+    }
+}

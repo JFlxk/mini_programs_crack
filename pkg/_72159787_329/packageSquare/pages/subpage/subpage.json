@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "未来精英活动",
+    "disableScroll": true,
+    "usingComponents": {
+        "wxc-dialog": "../../../packages/@minui/wxc-dialog/dist/index"
+    }
+}

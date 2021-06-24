@@ -1,0 +1,285 @@
+<view class="person">
+    <view class="nav_wrapper" style="height:{{navigationBarHeight}}px;" wx:if="{{showNav}}">
+        <view class="nav_bg" style="background-image:url({{myData.avatarUrl}})"></view>
+        <view class="nav_mask">
+            <view bindtap="goto" class="message" data-wpygoto-a="message">
+                <text class="iconfont icon-zhongxin_xiaoxi"></text>
+                <view class="amount" wx:if="{{myMsgData.feedBackCount}}">{{myMsgData.feedBackCount}}</view>
+            </view>
+            <view class="nickname" wx:if="{{isShowNickname}}">{{myData.nickName}}</view>
+        </view>
+    </view>
+    <scroll-view scrollY bindscroll="scrolling" scrollWithAnimation="true" style="height:{{isIPhoneX?'calc(100% - 148rpx)':'calc(100% - 128rpx)'}};">
+        <view class="userinfo" style="padding-top: {{navigationBarHeight+6}}px;">
+            <view class="bg" style="background-image:url({{myData.avatarUrl}})"></view>
+            <view class="mask"></view>
+            <view class="userinfo_wrapper">
+                <image bindload="imgLoaded" class="avatar" lazyLoad="lazy-load" src="{{myData.avatarUrl}}"></image>
+                <view class="info">
+                    <view bindtap="goto" class="nickname" data-wpygoto-a="editInfo">
+                        <text>{{myData.nickName}}</text>
+                        <text class="iconfont icon-zhongxin_bianji"></text>
+                    </view>
+                    <view class="orga">机构：{{myData.orgaName}}</view>
+                    <view bindtap="changeOrga" class="toggle">
+                        <text class="iconfont icon-zhongxin_qiehuan"></text>
+                        <text>切换机构</text>
+                    </view>
+                </view>
+            </view>
+            <view class="data">
+                <view bindtap="goto" class="item" data-wpygoto-a="dynamic" wx:if="{{partyOrgaType!=1}}">
+                    <view class="number">{{myData.dynamiCount}}</view>
+                    <view>
+                        <text>动态</text>
+                        <text class="iconfont icon-zhongxin_sanjiao"></text>
+                    </view>
+                    <image class="gradient_line" lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/uploads/mpFront/ldtmp/applet/gradient_line.png"></image>
+                </view>
+                <view bindtap="goto" class="item" data-wpygoto-a="attention">
+                    <view class="number">{{myData.followerCount}}</view>
+                    <view>
+                        <text>关注</text>
+                        <text class="iconfont icon-zhongxin_sanjiao"></text>
+                    </view>
+                    <image class="gradient_line" lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/uploads/mpFront/ldtmp/applet/gradient_line.png"></image>
+                </view>
+                <view bindtap="goto" class="item" data-wpygoto-a="fans">
+                    <view class="number">{{myData.fansCount}}</view>
+                    <view>
+                        <text>粉丝</text>
+                        <text class="iconfont icon-zhongxin_sanjiao"></text>
+                    </view>
+                    <image class="gradient_line" lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/uploads/mpFront/ldtmp/applet/gradient_line.png"></image>
+                </view>
+                <view bindtap="goto" class="item" data-wpygoto-a="grain">
+                    <view class="number">{{myData.points}}</view>
+                    <view>
+                        <text>谷粒</text>
+                        <text class="iconfont icon-zhongxin_sanjiao"></text>
+                    </view>
+                </view>
+            </view>
+            <block wx:if="{{partyOrgaType!=1}}">
+                <view bindtap="goto" class="card" data-wpygoto-a="bindingCard" style="background-image:url('https://reading.oss.iyougu.com/ldtmp/images/cardImg2.png')" wx:if="{{isShow_voxTraining}}">
+                    <text catchtap="goto" class="iconfont icon-zhankai" data-wpygoto-a="readCard"></text>
+                </view>
+                <view class="card {{partyOrgaType==2?'speicla':''}}" style="background-image:url({{bindCardImg}})" wx:else>
+                    <text>你现有{{myData.bindCards}}张朗读卡</text>
+                    <view bindtap="goto" class="binding" data-wpygoto-a="bindingCard">
+                        <text class="iconfont icon-lianjie"></text>
+                        <text>去绑定</text>
+                    </view>
+                    <text catchtap="goto" class="iconfont icon-zhankai" data-wpygoto-a="readCard"></text>
+                </view>
+            </block>
+        </view>
+        <view class="studyRead {{partyOrgaType==2?'special':''}}" wx:if="{{showPartyOrga}}">
+            <view class="mainbox">
+                <view class="study">
+                    <view class="title" style="color: {{orgaColor}};">学习最多的分类</view>
+                    <view class="imgWrapper">
+                        <block wx:if="{{partyMain.mostStudyType}}">
+                            <image class="img" src="{{partyMain.mostStudyType.imageUrl}}"></image>
+                            <view class="name">{{partyMain.mostStudyType.resourceTypeName||''}}</view>
+                        </block>
+                        <view class="empty" wx:else>
+                            <image class="emptyImg" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty-party.png"></image>
+                            <view class="text">你还没开始学习哦～</view>
+                            <button bindtap="goto" class="button" data-wpygoto-a="partyStudy" hoverClass="hover" style="color: {{orgaColor}};border-color: {{orgaColor}}">
+                                <view>去学习</view>
+                            </button>
+                        </view>
+                    </view>
+                </view>
+                <view class="read-party">
+                    <view class="title" style="color: {{orgaColor}};">诵读最多的分类</view>
+                    <view class="imgWrapper">
+                        <block wx:if="{{partyMain.mostReadType}}">
+                            <image class="img" src="{{partyMain.mostReadType.imageUrl}}"></image>
+                            <view class="name">{{partyMain.mostReadType.resourceTypeName||''}}</view>
+                        </block>
+                        <view class="empty" wx:else>
+                            <image class="emptyImg" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty-party.png"></image>
+                            <view class="text">你还没开始诵读哦～</view>
+                            <button bindtap="goto" class="button" data-wpygoto-a="read" hoverClass="hover" style="color: {{orgaColor}};border-color: {{orgaColor}}">
+                                <view>去诵读</view>
+                            </button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="statistics">
+                <view class="item" style="background:{{item.background}};" wx:for="{{partyMain.list}}" wx:key="index">
+                    <view class="text" style="color:{{item.fontColor}}">
+                        <view class="count">
+                            <text class="value">{{item.studyNum||0}}</text>次
+							</view>
+                        <view class="txt">{{item.title}}</view>
+                    </view>
+                    <image class="img" mode="widthFix" src="{{item.iconUrl}}"></image>
+                </view>
+            </view>
+        </view>
+        <view class="common">
+            <view class="title_wrapper">
+                <view class="left">
+                    <view class="line" style="background-color: {{orgaColor}}"></view>
+                    <text class="title">我的作品</text>
+                    <text>（{{myData.opusCount}}）</text>
+                </view>
+                <view bindtap="goto" class="right" data-wpygoto-a="opus">
+                    <text>全部</text>
+                    <text class="iconfont icon-zhankai"></text>
+                </view>
+            </view>
+            <view class="opus">
+                <view class="opus_box" wx:if="{{myData.myOpus.length}}">
+                    <view bindtap="gotoOpusDetail" class="item" data-wpygotoopusdetail-a="{{item}}" wx:for="{{myData.myOpus}}" wx:key="index">
+                        <text class="iconfont icon-zhongxin_bofan" style="color: {{orgaColor}};"></text>
+                        <view class="opus_info">
+                            <view class="opus_title">{{item.resName}}</view>
+                            <view class="tips">
+                                <text class="iconfont icon-gerenzuopin-aixin"></text>
+                                <text class="number">{{item.likeCount}}</text>
+                                <text class="iconfont icon-gerenzuopin-yibofangcishu"></text>
+                                <text class="number">{{item.listenCount}}</text>
+                            </view>
+                        </view>
+                        <text class="iconfont icon-zhankai"></text>
+                    </view>
+                </view>
+                <view class="opus_empty" wx:else>
+                    <image class="empty_img" lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                    <view class="empty_txt">你还没有作品哦～</view>
+                    <view bindtap="goto" class="empty_btn" data-wpygoto-a="read" style="color: {{orgaColor}};border-color: {{orgaColor}}">去创作</view>
+                </view>
+            </view>
+            <view class="title_wrapper">
+                <view class="left">
+                    <view class="line" style="background-color: {{orgaColor}}"></view>
+                    <text class="title">我的活动</text>
+                    <text>（{{myData.myActivityCount}}）</text>
+                </view>
+                <view bindtap="goto" class="right" data-wpygoto-a="myActivity">
+                    <text>全部</text>
+                    <text class="iconfont icon-zhankai"></text>
+                </view>
+            </view>
+            <view class="activity">
+                <view bindtap="activityClick" class="activity_box" wx:if="{{myActivityData.id}}">
+                    <image class="activity_img" lazyLoad="lazy-load" src="{{myActivityData.imageUrl}}"></image>
+                    <view class="activity_info">
+                        <view class="activity_title">{{myActivityData.activityName}}</view>
+                        <view class="activity_opus" wx:if="{{myActivityData.templateType!=100}}">
+                            <text class="best_opus">最佳作品：{{myActivityData.bestOpusName}}</text>
+                            <view class="votes">
+                                <text class="num" style="color: {{orgaColor}};">{{myActivityData.bestOpusVoteCount}}</text>
+                                <text>票</text>
+                            </view>
+                        </view>
+                        <view class="activity_opus" wx:else>
+                            <text class="best_opus">全国排行： {{myActivityData.ranking}} </text>
+                            <text class="votes">参与次数： {{myActivityData.myOpusNum}} </text>
+                        </view>
+                    </view>
+                </view>
+                <view class="activity_empty" wx:else>
+                    <view class="empty_txt">你还没有参加过活动哦～</view>
+                    <view bindtap="goto" class="empty_btn" data-wpygoto-a="activity" style="color: {{orgaColor}};border-color: {{orgaColor}}">立即参与</view>
+                </view>
+            </view>
+            <view class="title_wrapper">
+                <view class="left">
+                    <view class="line" style="background-color: {{orgaColor}}"></view>
+                    <text class="title">我的收藏</text>
+                    <text>（{{myData.myFavoriteCount}}）</text>
+                </view>
+            </view>
+            <view class="collect {{showPartyOrga?'party':''}}">
+                <view bindtap="gotoCollect" class="item" data-wpygotocollect-a="{{index}}" style="border-color: {{orgaColor}};color:{{orgaColor}}" wx:if="{{item.txt}}" wx:for="{{collectMenu}}" wx:key="index">
+                    <text>{{item.txt}}</text>
+                    <text class="iconfont icon-zhongxin_sanjiao"></text>
+                </view>
+            </view>
+        </view>
+        <view class="more" wx:if="{{showPartyOrga!=1}}">
+            <view class="title_wrapper">
+                <view class="line" style="background-color: {{orgaColor}}"></view>
+                <text class="title">其它功能</text>
+            </view>
+            <view class="function">
+                <view bindtap="goto" class="item" data-wpygoto-a="{{item.type}}" wx:if="{{!(isAgencyZone&&item.type=='AddRepresentative')}}" wx:for="{{functionMenu}}" wx:key="index">
+                    <view class="iconfont {{item.icon}}"></view>
+                    <view>{{item.txt}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="occupy"></view>
+    </scroll-view>
+    <view class="orga_mask" wx:if="{{isShowOrga}}">
+        <view class="orga_wrapper">
+            <view class="current_orga">
+                <view>当前</view>
+                <view class="name" style="color:{{orgaColor}}">{{myData.orgaName}}</view>
+            </view>
+            <view class="recently">
+                <view class="title">您最近登录过以下机构</view>
+                <scroll-view scrollY class="orga_list" scrollWithAnimation="true">
+                    <view catchtap="radioClick" class="item {{item.checked?'checked':''}}" data-wpyradioclick-a="{{index}}" data-wpyradioclick-b="{{item}}" style="color:{{item.checked?orgaColor:''}}" wx:for="{{orgaData}}" wx:key="index">
+                        <radio checked="{{item.checked}}" color="{{orgaColor}}" value="{{item.id}}"></radio>{{item.orgaName}}
+                        </view>
+                </scroll-view>
+            </view>
+            <view class="btn">
+                <view bindtap="close" class="alike cancel">我再想想</view>
+                <view bindtap="sure" class="alike sure" style="background:{{orgaColor}}">确定切换</view>
+            </view>
+        </view>
+    </view>
+    <view class="rotate_mask" wx:if="{{isShowRotate}}">
+        <view class="content">
+            <image lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/uploads/mpFront/ldtmp/applet/rotate.png"></image>
+            <text class="txt">切换中...</text>
+        </view>
+    </view>
+    <view class="_bc474cb">
+        <cover-view class="_mask _bc474cb" wx:if="{{$dialog$componentShow}}">
+            <cover-view class="container _bc474cb">
+                <cover-view class="textContainer _bc474cb">
+                    <cover-view class="title {{!$dialog$params.content?'mini':''}} _bc474cb">{{$dialog$params.title||'温馨提示'}}</cover-view>
+                    <cover-view class="content _bc474cb" wx:if="{{$dialog$params.content}}">{{$dialog$params.content}}</cover-view>
+                </cover-view>
+                <cover-view class="hr _bc474cb"></cover-view>
+                <cover-view class="buttonContainer _bc474cb">
+                    <cover-view bindtap="$dialog$cancel" class="button _bc474cb" wx:if="{{$dialog$params.showCancel}}">{{$dialog$params.cancelText}}</cover-view>
+                    <cover-view class="bar _bc474cb" wx:if="{{$dialog$params.showCancel}}"></cover-view>
+                    <cover-view bindtap="$dialog$confirm" class="button confirm _bc474cb">{{$dialog$params.confirmText}}</cover-view>
+                </cover-view>
+            </cover-view>
+        </cover-view>
+        <block wx:if="{{$dialog$orgins!='personpage'}}">
+            <view class="loginAuthorCode {{!$dialog$OrgaAuth$is_wechatLog?'openAnima':''}} _a51e715 _bc474cb" wx:if="{{$dialog$OrgaAuth$showCodeBox}}">
+                <view class="loginAuthorCode--box _a51e715">
+                    <view class="loginAuthorCode--box__tit _a51e715">机构授权访问</view>
+                    <block wx:if="{{!$dialog$OrgaAuth$is_wechatLog}}">
+                        <text class="loginAuthorCode--box__tip _a51e715">进入该机构分区需进入授权验证，请先进行微信登录</text>
+                        <view class="loginAuthorCode--box__btn _a51e715">
+                            <view bindtap="$dialog$OrgaAuth$onClickWechatLog" class="loginAuthorCode--box__btn_log _a51e715">微信登录</view>
+                            <view bindtap="$dialog$OrgaAuth$toPlatform" class="loginAuthorCode--box__btn_back _a51e715" data-wpytoplatform-a="">返回“优谷朗读”</view>
+                        </view>
+                    </block>
+                    <block wx:else>
+                        <text class="loginAuthorCode--box__tip _a51e715">请输入机构授权码验证进入</text>
+                        <input bindinput="$dialog$OrgaAuth$getCodeNum" class="loginAuthorCode--box__ipt _a51e715" type="text" value="{{$dialog$OrgaAuth$logCode}}"></input>
+                        <view class="loginAuthorCode--box__btn _a51e715">
+                            <view bindtap="$dialog$OrgaAuth$onClickConfirm" class="loginAuthorCode--box__btn_log {{!$dialog$OrgaAuth$logCode?'noCode':''}} _a51e715">确认</view>
+                            <view bindtap="$dialog$OrgaAuth$toPlatform" class="loginAuthorCode--box__btn_back _a51e715" data-wpytoplatform-a="">返回“优谷朗读”</view>
+                        </view>
+                        <view bindtap="$dialog$OrgaAuth$toOrga" class="iconfont icon-guanbi1 btn-close _a51e715" data-wpytoorga-a="" wx:if="{{$dialog$OrgaAuth$isOrgaList}}"></view>
+                    </block>
+                </view>
+            </view>
+        </block>
+    </view>
+</view>

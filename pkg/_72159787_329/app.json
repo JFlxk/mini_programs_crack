@@ -1,0 +1,208 @@
+{
+    "pages": [
+        "pages/mainpage/mainpage",
+        "pages/recording/recording",
+        "pages/login/login",
+        "pages/bindphone/bindphone",
+        "pages/voxTraining/voxTraining"
+    ],
+    "window": {
+        "navigationStyle": "custom",
+        "backgroundColorTop": "red",
+        "navigationBarBackgroundColor": "#3B87DD",
+        "navigationBarTitleText": "优谷朗读",
+        "navigationBarTextStyle": "black",
+        "onReachBottomDistance": 50,
+        "enablePullDownRefresh": false
+    },
+    "networkTimeout": {
+        "uploadFile": 120000
+    },
+    "subPackages": [
+        {
+            "root": "packageActivity/",
+            "pages": [
+                "pages/activity/activity",
+                "pages/apply/apply",
+                "pages/flagWebpage/flagWebpage",
+                "pages/antiepidemicHome/antiepidemicHome",
+                "pages/antiepidemicAnswer/antiepidemicAnswer",
+                "pages/antiepidemicResult/antiepidemicResult",
+                "pages/antiepidemicList/antiepidemicList",
+                "pages/antiepidemicCavas/antiepidemicCavas",
+                "pages/TaiyuanActivityHome/TaiyuanActivityHome",
+                "pages/TaiyuanQuestionnaire/TaiyuanQuestionnaire",
+                "pages/ChangJiActivityHome/ChangJiActivityHome",
+                "pages/studydayHome/studydayHome",
+                "pages/celebrityDraw/celebrityDraw",
+                "pages/modifyGoods/modifyGoods",
+                "pages/luckyGoods/luckyGoods",
+                "pages/activityDraw/activityDraw",
+                "pages/childrenDayAddress/childrenDayAddress",
+                "pages/graduaSeason/graduaSeason",
+                "pages/graduaSeasonHome/graduaSeasonHome",
+                "pages/themeActivities/themeActivities",
+                "pages/multiCourseActivities/multiCourseActivities",
+                "pages/information/information",
+                "pages/festivalActivity/makePictures",
+                "pages/festivalActivity/makeSuccess",
+                "pages/festivalActivity/postcardIndex",
+                "pages/festivalActivity/test"
+            ]
+        },
+        {
+            "root": "packageIndex/",
+            "pages": [
+                "pages/readPavilion/readPavilion",
+                "pages/editInfo/editInfo",
+                "pages/personHomepage/personHomepage",
+                "pages/opus/opus",
+                "pages/organizationList/organizationList",
+                "pages/myMaterial/myMaterial",
+                "pages/addMaterial/addMaterial",
+                "pages/enjoy/enjoy",
+                "pages/attention/attention",
+                "pages/myActivity/myActivity",
+                "pages/feedBack/feedBack",
+                "pages/news/news",
+                "pages/aboutUs/aboutUs",
+                "pages/welcomeToOrga/welcomeToOrga",
+                "pages/webview/webview",
+                "pages/AddRepresentative/AddRepresentative",
+                "pages/agreement/agreement",
+                "pages/privacyAgree/privacyAgree",
+                "pages/readCard/readCard",
+                "pages/bindingCard/bindingCard",
+                "pages/prizeDetails/prizeDetails"
+            ]
+        },
+        {
+            "root": "packageReading/",
+            "pages": [
+                "pages/searchPage/searchPage",
+                "pages/childMaterial/childMaterial",
+                "pages/dubMaterial/dubMaterial",
+                "pages/library/library",
+                "pages/music/music",
+                "pages/preview/preview",
+                "pages/previewUserVideo/previewUserVideo",
+                "pages/videoClip/videoClip"
+            ]
+        },
+        {
+            "root": "packageSquare/",
+            "pages": [
+                "pages/activityDetail/activityDetail",
+                "pages/signUp/signUp",
+                "pages/subpage/subpage",
+                "pages/soundCard/soundCard",
+                "pages/makeSoundCard/makeSoundCard",
+                "pages/finishSoundCard/finishSoundCard",
+                "pages/newOpusDetail/newOpusDetail",
+                "pages/applyLeadOpus/applyLeadOpus",
+                "pages/applyLeadVideoDub/applyLeadVideoDub",
+                "pages/applyLeadPicture/applyLeadPicture",
+                "pages/testimonials/testimonials",
+                "pages/smallStage/smallStage",
+                "pages/preheat423/preheat423"
+            ]
+        },
+        {
+            "root": "packagePopular/",
+            "pages": [
+                "pages/topCategory/topCategory",
+                "pages/followers/followers",
+                "pages/professioner/professioner",
+                "pages/agenceDetail/agenceDetail",
+                "pages/popularList/popularList",
+                "pages/dailySoundCard/dailySoundCard",
+                "pages/soundCardDetail/soundCardDetail",
+                "pages/professionerDetail/professionerDetail",
+                "pages/famousPeople/famousPeople"
+            ]
+        },
+        {
+            "root": "packageRecite/",
+            "pages": [
+                "pages/parentHome/parentHome",
+                "pages/recite/recite",
+                "pages/reciteEnds/reciteEnds",
+                "pages/teacher/teacher",
+                "pages/addGrade/addGrade",
+                "pages/gradeDetail/gradeDetail",
+                "pages/gradeWorkDetail/gradeWorkDetail",
+                "pages/joinClassGuide/joinClassGuide",
+                "pages/homeworkResources/homeworkResources",
+                "pages/setHomework/setHomework",
+                "pages/reciteDetail/reciteDetail",
+                "pages/joinClass/joinClass",
+                "pages/recitePractice/recitePractice",
+                "pages/recitePracticeHistory/recitePracticeHistory",
+                "pages/recitePracticeRank/recitePracticeRank",
+                "pages/recitePracticeReport/recitePracticeReport",
+                "pages/identity/identity",
+                "pages/writeData/writeData",
+                "pages/search/search",
+                "pages/creationReadWork/creationReadWork",
+                "pages/readHomework/readHomework",
+                "pages/remark/remark",
+                "pages/reciteMyMaterial/reciteMyMaterial",
+                "pages/readHomeworkPreview/readHomeworkPreview"
+            ]
+        },
+        {
+            "root": "packagePlaza/",
+            "pages": [
+                "pages/dynamicSquare/dynamicSquare",
+                "pages/publishList/publishList",
+                "pages/publishContent/publishContent",
+                "pages/myContent/myContent"
+            ]
+        },
+        {
+            "root": "packageDub/",
+            "pages": [
+                "pages/dub/dub"
+            ]
+        },
+        {
+            "root": "packageClockIn/",
+            "pages": [
+                "pages/clockIn/clockIn",
+                "pages/clockInRanking/clockInRanking",
+                "pages/clockInRecord/clockInRecord"
+            ]
+        },
+        {
+            "root": "packageParty/",
+            "pages": [
+                "myAchievement",
+                "rank",
+                "sign",
+                "media",
+                "mediaDetail",
+                "probation",
+                "feeling",
+                "myFeeling",
+                "partyMaterial",
+                "partyMaterialDetails",
+                "historyAnswer"
+            ]
+        },
+        {
+            "root": "packagePartyStudy/",
+            "pages": [
+                "pages/study/study",
+                "pages/learningResults/learningResults",
+                "pages/resourceDetail",
+                "pages/videoDetail",
+                "pages/voiceSpace/voiceSpace",
+                "pages/organzationDetails/organzationDetails"
+            ]
+        }
+    ],
+    "navigateToMiniProgramAppIdList": [
+        "wx38c58e37e43267c2",
+        "wxaf72b72df76b1a23"
+    ]
+}

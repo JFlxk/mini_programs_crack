@@ -1,0 +1,7 @@
+{
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "朗读",
+    "usingComponents": {
+        "wxc-dialog": "../../packages/@minui/wxc-dialog/dist/index"
+    }
+}

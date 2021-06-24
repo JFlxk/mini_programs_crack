@@ -1,0 +1,50 @@
+<view class="page" style="{{'padding-top:'+paddingTop}}">
+    <view class="navbar _ddcb06a" style="height:{{$navBar$navigationBarHeight}};background-color:{{$navBar$backgroundColor}};color:{{$navBar$color}}">
+        <view class="backgroundimg {{$navBar$types?'types':''}} _ddcb06a" style="width:{{$navBar$imageWidth}}px;height:{{$navBar$types?$navBar$navigationBarHeight:$navBar$imageHeight}}" wx:if="{{$navBar$imgs}}">
+            <image bindload="$navBar$imgLoaded" class="_ddcb06a" src="{{$navBar$imgs}}" style="width:{{$navBar$imageWidth}}px;height:{{$navBar$types?$navBar$navigationBarHeight:$navBar$imageHeight}}"></image>
+            <view class="background _ddcb06a" wx:if="{{!$navBar$types}}"></view>
+        </view>
+        <view class="_ddcb06a" style="{{'height: '+$navBar$statusBarHeight}}" wx:if="{{!$navBar$isOrder}}"></view>
+        <view class="agencyZoneBar_box _ddcb06a" wx:if="{{$navBar$isOrder}}">
+            <view class="agency_imgBox _ddcb06a">
+                <view class="agency_img _ddcb06a" style="background:url('{{$navBar$agency_img}}')no-repeat;background-size: 100%;"></view>
+            </view>
+        </view>
+        <view class="capsule _ddcb06a" wx:if="{{$navBar$back==='true'||$navBar$home==='true'}}">
+            <view bindtap="$navBar$back" class="capsule-item _ddcb06a" wx:if="{{$navBar$back==='true'}}">
+                <text class="iconfont icon-daohanglan-fanhui _ddcb06a"></text>
+            </view>
+            <view bindtap="$navBar$backHome" class="capsule-item _ddcb06a" wx:if="{{$navBar$home==='true'}}">
+                <text class="iconfont icon-daohanglan-fanhuishouye _ddcb06a"></text>
+            </view>
+        </view>
+        <view class="title {{$navBar$titleStyle?$navBar$titleStyle:''}} _ddcb06a" style="color:{{$navBar$color}}">{{$navBar$text}}</view>
+    </view>
+    <view class="login">
+        <image class="login-img" src="http://reading-oss.oss-cn-shenzhen.aliyuncs.com//ldtmp/icon/juxing0001.png"></image>
+        <view class="title">你还未登录</view>
+        <view class="explain">请先<text class="tips">登录</text>才能进行操作</view>
+        <view class="note">
+            <text class="dot"></text>需要获取头像、昵称、手机号等</view>
+        <view class="agree">
+            <view bindtap="toggleAgree" class="checkbox_box">
+                <view class="checkbox {{agreed?'checked':''}} iconfont icon-dagou1"></view>
+            </view>
+            <view>我已阅读并同意《<text bindtap="toAgreement" class="blue" data-wpytoagreement-a="agree">用户协议</text>》《<text bindtap="toPrivacy" class="blue">用户隐私政策</text>》</view>
+        </view>
+        <view bindtap="cancleLogin" class="cancleBtn">拒绝</view>
+        <button bindtap="tryLogin" class="loginBtn" wx:if="{{!agreed}}">登录</button>
+        <button bindgetuserinfo="getUserInfo" bindtap="loginTap" class="loginBtn" openType="getUserInfo" wx:if="{{agreed&&!canIUseGetUserProfile}}">登录</button>
+        <button bindtap="getUserProfile" class="loginBtn" wx:if="{{agreed&&canIUseGetUserProfile}}">登录</button>
+    </view>
+    <view class="phone-mask" wx:if="{{isShowPhoneMask}}">
+        <view class="auth">
+            <view class="prompt">温馨提示</view>
+            <view class="annotation">优谷朗读需要获取您的手机号，才能进行朗读</view>
+            <view class="phoneBtn">
+                <button bindtap="cancel" class="btn">取消</button>
+                <button bindgetphonenumber="getPhoneNumber" class="btn" openType="getPhoneNumber">好的</button>
+            </view>
+        </view>
+    </view>
+</view>

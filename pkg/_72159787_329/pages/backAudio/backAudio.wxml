@@ -1,0 +1,18 @@
+<view bindtap="goTo" class="backAudio _139ddf9" data-wpygoto-a="">
+    <view class="bgAduio-play _139ddf9" wx:if="{{playStat=='playing'}}">
+        <view class="bgAduio-icon line1 _139ddf9"></view>
+        <view class="bgAduio-icon line2 _139ddf9"></view>
+        <view class="bgAduio-icon line1 _139ddf9"></view>
+        <view class="bgAduio-icon line2 _139ddf9"></view>
+    </view>
+    <view class="bgAduio-pause _139ddf9" wx:if="{{playStat=='pause'}}">
+        <view class="bgAduio-icon _139ddf9"></view>
+        <view class="bgAduio-icon _139ddf9"></view>
+    </view>
+    <view class="bgAduio-disable _139ddf9" wx:if="{{playStat=='disabled'}}">
+        <view class="bgAduio-icon _139ddf9"></view>
+        <view class="bgAduio-icon _139ddf9"></view>
+        <view class="bgAduio-icon _139ddf9"></view>
+        <view class="bgAduio-icon _139ddf9"></view>
+    </view>
+</view>

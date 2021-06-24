@@ -1,0 +1,2 @@
+<slot wx:if="{{!html[0].name&&!html[0].type}}"></slot>
+<trees class="top" lazyLoad="{{lazyLoad}}" nodes="{{html[0].name||html[0].type?html:[]}}" style="{{selectable?'user-select:text;-webkit-user-select:text;':''}}{{showAm}}"></trees>

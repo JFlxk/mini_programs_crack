@@ -1,0 +1,127 @@
+.sk-transparent {
+    color: transparent!important;
+}
+
+.sk-text-28-5714-3 {
+    background-image: linear-gradient(transparent 28.5714%,#eee 0,#eee 71.4286%,transparent 0)!important;
+    background-size: 100% 56rpx;
+    position: relative!important;
+}
+
+.sk-text {
+    background-origin: content-box!important;
+    background-clip: content-box!important;
+    background-color: transparent!important;
+    color: transparent!important;
+    background-repeat: repeat-y!important;
+}
+
+.sk-text-18-7500-261,.sk-text-18-7500-528 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    background-size: 100% 48rpx;
+    position: relative!important;
+}
+
+.sk-text-0-0000-16,.sk-text-0-0000-58,.sk-text-0-0000-197,.sk-text-0-0000-228,.sk-text-0-0000-292,.sk-text-0-0000-306,.sk-text-0-0000-320,.sk-text-0-0000-336,.sk-text-0-0000-443,.sk-text-0-0000-584,.sk-text-0-0000-606,.sk-text-0-0000-693,.sk-text-0-0000-709,.sk-text-0-0000-980,.sk-text-0-0000-988 {
+    background-image: linear-gradient(transparent 0,#eee 0,#eee 100%,transparent 0)!important;
+    background-size: 100% 28rpx;
+    position: relative!important;
+}
+
+.sk-text-18-7500-609,.sk-text-18-7500-1000 {
+    background-size: 100% 44.8rpx;
+}
+
+.sk-text-18-7500-544,.sk-text-18-7500-609,.sk-text-18-7500-1000 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    position: relative!important;
+}
+
+.sk-text-18-7500-544 {
+    background-size: 100% 57.6rpx;
+}
+
+.sk-text-18-7500-324 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    background-size: 100% 44.8rpx;
+    position: relative!important;
+}
+
+.sk-text-18-7500-38,.sk-text-18-7500-177,.sk-text-18-7500-760 {
+    background-size: 100% 38.4rpx;
+}
+
+.sk-text-18-7500-38,.sk-text-18-7500-43,.sk-text-18-7500-177,.sk-text-18-7500-760 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    position: relative!important;
+}
+
+.sk-text-18-7500-43 {
+    background-size: 100% 57.6rpx;
+}
+
+.sk-text-18-7500-108 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    background-size: 100% 44.8rpx;
+    position: relative!important;
+}
+
+.sk-text-18-7500-245,.sk-text-18-7500-322,.sk-text-18-7500-949 {
+    background-size: 100% 38.4rpx;
+}
+
+.sk-text-18-7500-245,.sk-text-18-7500-322,.sk-text-18-7500-338,.sk-text-18-7500-949 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    position: relative!important;
+}
+
+.sk-text-18-7500-338 {
+    background-size: 100% 57.6rpx;
+}
+
+.sk-text-18-7500-914 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    background-size: 100% 44.8rpx;
+    position: relative!important;
+}
+
+.sk-text-13-3333-383,.sk-text-13-3333-536,.sk-text-13-3333-708 {
+    background-image: linear-gradient(transparent 13.3333%,#eee 0,#eee 86.6667%,transparent 0)!important;
+    background-size: 100% 30rpx;
+    position: relative!important;
+}
+
+.sk-text-18-7500-652,.sk-text-18-7500-669,.sk-text-18-7500-680,.sk-text-18-7500-739,.sk-text-18-7500-879 {
+    background-image: linear-gradient(transparent 18.75%,#eee 0,#eee 81.25%,transparent 0)!important;
+    background-size: 100% 32rpx;
+    position: relative!important;
+}
+
+.sk-image {
+    background: #efefef!important;
+}
+
+.sk-pseudo::after,.sk-pseudo::before {
+    background: #efefef!important;
+    background-image: none!important;
+    color: transparent!important;
+    border-color: transparent!important;
+}
+
+.sk-pseudo-rect::after,.sk-pseudo-rect::before {
+    border-radius: 0!important;
+}
+
+.sk-pseudo-circle::after,.sk-pseudo-circle::before {
+    border-radius: 50%!important;
+}
+
+.sk-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent;
+}

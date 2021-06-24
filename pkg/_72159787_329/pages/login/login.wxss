@@ -1,0 +1,203 @@
+.page,.page .login {
+    width: 100%;
+    height: 100%;
+}
+
+.page .login {
+    position: relative;
+}
+
+.page .login .login-img {
+    width: 750rpx;
+    height: 468rpx;
+}
+
+.page .login .title {
+    font-size: 48rpx;
+    font-family: PingFangSC-Semibold,PingFang SC,NotoSansSC-Bold,Noto Sans SC;
+    font-weight: 600;
+    color: #333;
+    line-height: 48rpx;
+    padding-left: 40rpx;
+}
+
+.page .login .explain {
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular,PingFang SC,NotoSansSC-Regular,Noto Sans SC;
+    font-weight: 400;
+    color: #999;
+    line-height: 32rpx;
+    margin: 24rpx 0rpx 100rpx;
+    padding-left: 40rpx;
+}
+
+.page .login .explain .tips {
+    color: #3b87dd;
+}
+
+.page .login .note {
+    font-size: 30rpx;
+    font-family: PingFangSC-Regular,PingFang SC,NotoSansSC-Regular,Noto Sans SC;
+    font-weight: 400;
+    color: #999;
+    line-height: 30rpx;
+    padding-left: 52rpx;
+}
+
+.page .login .note .dot {
+    display: inline-block;
+    width: 8rpx;
+    height: 8rpx;
+    background: #d8d8d8;
+    border-radius: 50%;
+    margin-right: 32rpx;
+    margin-bottom: 8rpx;
+}
+
+.page .login .agree {
+    display: flex;
+    align-items: center;
+    padding-left: 40rpx;
+    margin-top: 18rpx;
+    font-size: 30rpx;
+    color: #999;
+}
+
+.page .login .agree .checkbox_box {
+    padding: 20rpx;
+    margin-left: -25rpx;
+}
+
+.page .login .agree .checkbox_box .checkbox {
+    width: 30rpx;
+    height: 30rpx;
+    box-sizing: border-box;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4rpx;
+    font-size: 13rpx;
+    text-align: center;
+    line-height: 30rpx;
+}
+
+.page .login .agree .checkbox_box .checkbox.checked {
+    background-color: #2c8fff;
+    border: none;
+}
+
+.page .login .agree .checkbox_box .blue {
+    color: #2c8fff;
+}
+
+.page .login .loginBtn {
+    width: 320rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    text-align: center;
+    background: #2c8fff;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+    font-family: PingFangSC-Regular,PingFang SC,NotoSansSC-Regular,Noto Sans SC;
+    font-weight: 400;
+    color: #fff;
+    position: absolute;
+    bottom: 54rpx;
+    right: 40rpx;
+}
+
+.page .login .loginBtn::after {
+    display: none;
+}
+
+.page .login .cancleBtn {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 54rpx;
+    left: 40rpx;
+    display: inline-block;
+    width: 320rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    font-size: 28rpx;
+    color: #2c8fff;
+    border: 1rpx solid #2c8fff;
+    border-radius: 8rpx;
+    font-family: PingFangSC-Regular,PingFang SC,NotoSansSC-Regular,Noto Sans SC;
+    text-align: center;
+    background-color: #fff;
+}
+
+.page .login .cancleBtn::after {
+    display: none;
+}
+
+.page .phone-mask {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.68);
+    position: fixed;
+    top: 0rpx;
+    left: 0rpx;
+    z-index: 1000;
+}
+
+.page .phone-mask .auth {
+    width: 670rpx;
+    height: 330rpx;
+    background-color: #fff;
+    border-radius: 20rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.page .phone-mask .auth .prompt {
+    font-size: 36rpx;
+    color: #000;
+    line-height: 36rpx;
+    margin-top: 60rpx;
+    margin-bottom: 40rpx;
+}
+
+.page .phone-mask .auth .annotation,.page .phone-mask .auth .prompt {
+    font-family: PingFangSC-Regular,PingFang SC,NotoSansSC-Regular,Noto Sans SC;
+    font-weight: 400;
+    text-align: center;
+}
+
+.page .phone-mask .auth .annotation {
+    font-size: 30rpx;
+    color: #888;
+    line-height: 30rpx;
+}
+
+.page .phone-mask .auth .phoneBtn {
+    width: 100%;
+    height: 100rpx;
+    border-top: 1rpx solid #ddd;
+    position: absolute;
+    bottom: 0rpx;
+}
+
+.page .phone-mask .auth .phoneBtn .btn {
+    display: inline-block;
+    width: 334rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+    font-size: 36rpx;
+    font-family: PingFangSC-Regular,PingFang SC,NotoSansSC-Regular,Noto Sans SC;
+    font-weight: 400;
+    color: #000;
+    background-color: transparent;
+}
+
+.page .phone-mask .auth .phoneBtn .btn:after {
+    border: none;
+}
+
+.page .phone-mask .auth .phoneBtn .btn:nth-last-child(1) {
+    color: #108ee9;
+    border-left: 1rpx solid #dcdee3;
+}

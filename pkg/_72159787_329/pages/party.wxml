@@ -1,0 +1,811 @@
+<view style="{{'--navbarheight:'+navbarHeight}};height:100%">
+    <view class="customNavbar">
+        <view class="text">献礼中国共产党成立100周年活动</view>
+    </view>
+    <scroll-view scrollY bindscroll="pageScroll" bindscrolltolower="scrolltolower" class="party">
+        <view class="mainTabs {{whiteTabs?'white':''}}">
+            <view bindtap="setTabIndex" class="item {{index==tabIndex?'active':''}}" data-wpysettabindex-a="{{index}}" wx:for="{{tabs}}" wx:key="index">
+                <view>{{item}}</view>
+            </view>
+        </view>
+        <view hidden="{{tabIndex!==0}}">
+            <view class="mainImgWrapper">
+                <image class="img" src="{{orgaId?mainImg_orga:mainImg}}"></image>
+                <rich-text class="intro" nodes="{{activity.unitIntroduction}}" space="emsp" wx:if="{{orgaId&&activity.unitIntroduction}}"></rich-text>
+            </view>
+            <view class="mainContainer">
+                <view class="videoContainer">
+                    <view class="videoWrapper">
+                        <video bindended="videoEnd" bindplay="videoPlay" class="video" data-wpyvideoend-a="-1" data-wpyvideoplay-a="-1" id="video_1" poster="https://reading.oss.iyougu.com/ldtmp/images/party100/mainVideoPoster.png" showCenterPlayBtn="{{false}}" src="{{activity.videoUrl}}" wx:if="{{tabIndex===0}}"></video>
+                        <view bindtap="playVideo" class="playIcon iconfont icon-jiantou1-copy" data-wpyplayvideo-a="-1" hidden="{{!playIconShow}}"></view>
+                    </view>
+                    <view class="count">
+                        <view class="item">报名总量：{{activity.signNum}}</view>
+                        <view class="item" wx:if="{{!orgaId}}">参与单位：{{activity.orgaNum}}</view>
+                        <view class="item">浏览总量：{{activity.viewNum}}</view>
+                    </view>
+                </view>
+                <view class="swiperContainer" wx:if="{{!orgaId&&orgaSwiperList.length}}">
+                    <swiper autoplay circular="circular" class="swiper" displayMultipleItems="{{orgaSwiperList.length>3?3:orgaSwiperList.length}}" interval="3000" vertical="vertical">
+                        <swiper-item wx:for="{{orgaSwiperList}}" wx:key="index">
+                            <view class="item">
+                                <view class="name">{{item}}</view>
+                                <view>加入了建党百年系列活动</view>
+                            </view>
+                        </swiper-item>
+                    </swiper>
+                </view>
+                <view class="moduleTitle">
+                    <view class="text">活动排行榜</view>
+                    <view bindtap="toggleRule" class="rule">
+                        <view>规则</view>
+                        <view class="iconfont icon-jubaowenhao"></view>
+                    </view>
+                    <view bindtap="toRank" class="all">
+                        <view>全部榜单</view>
+                        <view class="iconfont icon-zhankai"></view>
+                    </view>
+                </view>
+                <view class="container _8dd710e">
+                    <image class="tabImg _8dd710e" src="{{$RankTab$tabImg}}"></image>
+                    <view bindtap="$RankTab$setTabIndex" class="item {{$RankTab$tabIndex===index?'active':''}} {{$RankTab$tabs.length===3&&$RankTab$tabIndex===0&&index===0?$RankTab$shrinkPadding?'paddingLeft25':'paddingLeft50':''}} {{$RankTab$tabs.length===3&&$RankTab$tabIndex===0&&index===1?'paddingLeft25':''}} _8dd710e" data-wpysettabindex-a="{{index}}" wx:for="{{$RankTab$tabs}}" wx:key="index">{{item}}</view>
+                </view>
+                <view class="rankContainer">
+                    <block wx:if="{{!orgaId}}">
+                        <view class="rank" hidden="{{rankTabIndex!==0}}">
+                            <view class="list">
+                                <view class="item" wx:for="{{rankList0}}" wx:key="index">
+                                    <view class="index {{index<3?'top3':''}}">{{index+1}}</view>
+                                    <view class="text">
+                                        <view class="name">{{item.orgaName}}</view>
+                                        <view class="count">总参与人数：{{item.participantCount}}</view>
+                                    </view>
+                                </view>
+                                <view class="empty absCenter" wx:if="{{!rankList0}}">
+                                    <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png"></image>
+                                    <view>暂无数据~</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="userRank" hidden="{{rankTabIndex!==1}}">
+                            <view class="list">
+                                <view class="item me" wx:if="{{myRank.nickName!=='...'}}">
+                                    <view class="index">{{myRank.allRank||'-'}}</view>
+                                    <image class="head" src="{{myRank.avatarUrl}}"></image>
+                                    <view class="text">
+                                        <view class="nameFrom">
+                                            <view class="name">{{myRank.nickName}}（我）</view>
+                                            <view class="from">{{myRank.orgaName||'-'}}</view>
+                                        </view>
+                                        <view class="count">总参与次数：{{myRank.oathNum||'-'}}</view>
+                                    </view>
+                                    <view bindtap="toMyPage" class="detail">
+                                        <view>详情</view>
+                                        <view class="iconfont icon-zhankai"></view>
+                                    </view>
+                                </view>
+                                <view class="item" wx:for="{{rankList1}}" wx:key="index">
+                                    <view class="index {{index<3?'top3':''}}">{{index+1}}</view>
+                                    <image class="head" src="{{item.avatarUrl}}"></image>
+                                    <view class="text">
+                                        <view class="nameFrom">
+                                            <view class="name">{{item.nickName}}</view>
+                                            <view class="from">{{item.orgaName||'-'}}</view>
+                                        </view>
+                                        <view class="count">总参与次数：{{item.oathNum}}</view>
+                                    </view>
+                                </view>
+                                <view class="empty absCenter" wx:if="{{!rankList1}}">
+                                    <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png"></image>
+                                    <view>暂无数据~</view>
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                    <block wx:else>
+                        <view class="rank" hidden="{{rankTabIndex!==0}}" wx:if="{{rankTabs.length>2}}">
+                            <view class="list">
+                                <view class="item" wx:for="{{rankList_orga}}" wx:key="index">
+                                    <view class="index {{index<3?'top3':''}}">{{index+1}}</view>
+                                    <view class="text">
+                                        <view class="name">{{item.orgaName}}</view>
+                                        <view class="count">总参与人数：{{item.participantCount}}</view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="userRank" hidden="{{rankTabs.length>2?rankTabIndex!==1:rankTabIndex!==0}}">
+                            <view class="list">
+                                <view class="item me" wx:if="{{myRank.nickName!=='...'&&myRank.orgaId===orgaId}}">
+                                    <view class="index">{{myRank.orgaRank||'-'}}</view>
+                                    <image class="head" src="{{myRank.avatarUrl}}"></image>
+                                    <view class="text">
+                                        <view class="nameFrom">
+                                            <view class="name">{{myRank.nickName}}（我）</view>
+                                        </view>
+                                        <view class="count">总参与次数：{{myRank.oathNum||'-'}}</view>
+                                    </view>
+                                    <view bindtap="toMyPage" class="detail">
+                                        <view>详情</view>
+                                        <view class="iconfont icon-zhankai"></view>
+                                    </view>
+                                </view>
+                                <view class="item" wx:for="{{rankList0}}" wx:key="index">
+                                    <view class="index {{index<3?'top3':''}}">{{index+1}}</view>
+                                    <image class="head" src="{{item.avatarUrl}}"></image>
+                                    <view class="text">
+                                        <view class="nameFrom">
+                                            <view class="name">{{item.nickName}}</view>
+                                        </view>
+                                        <view class="count">总参与次数：{{item.oathNum}}</view>
+                                    </view>
+                                </view>
+                                <view class="empty absCenter" wx:if="{{!rankList0}}">
+                                    <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png"></image>
+                                    <view>暂无数据~</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="userRank" hidden="{{rankTabs.length>2?rankTabIndex!==2:rankTabIndex!==1}}">
+                            <view class="list">
+                                <view class="item me" wx:if="{{myRank.nickName!=='...'}}">
+                                    <view class="index">{{myRank.allRank||'-'}}</view>
+                                    <image class="head" src="{{myRank.avatarUrl}}"></image>
+                                    <view class="text">
+                                        <view class="nameFrom">
+                                            <view class="name">{{myRank.nickName}}（我）</view>
+                                            <view class="from">{{myRank.orgaName||'-'}}</view>
+                                        </view>
+                                        <view class="count">总参与次数：{{myRank.oathNum||'-'}}</view>
+                                    </view>
+                                    <view bindtap="toMyPage" class="detail">
+                                        <view>详情</view>
+                                        <view class="iconfont icon-zhankai"></view>
+                                    </view>
+                                </view>
+                                <view class="item" wx:for="{{rankList1}}" wx:key="index">
+                                    <view class="index {{index<3?'top3':''}}">{{index+1}}</view>
+                                    <image class="head" src="{{item.avatarUrl}}"></image>
+                                    <view class="text">
+                                        <view class="nameFrom">
+                                            <view class="name">{{item.nickName}}</view>
+                                            <view class="from">{{item.orgaName||'-'}}</view>
+                                        </view>
+                                        <view class="count">总参与次数：{{item.oathNum}}</view>
+                                    </view>
+                                </view>
+                                <view class="empty absCenter" wx:if="{{!rankList1}}">
+                                    <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png"></image>
+                                    <view>暂无数据~</view>
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                    <view style="height:170rpx"></view>
+                    <view wx:if="{{isOathActivityEnd!=1}}">
+                        <view class="buttons" wx:if="{{!orgaId}}">
+                            <view bindtap="toQuestionnair" class="item company {{rankTabIndex===0?'dark':''}}">
+                                <view>单位申请参与</view>
+                            </view>
+                            <view bindtap="toSign" class="item personal {{activity.isSign?'fade':''}} {{rankTabIndex===1?'dark':''}}">
+                                <view>{{activity.isSign?'个人已报名':'个人报名参与'}}</view>
+                            </view>
+                        </view>
+                        <view bindtap="toSign" class="button {{activity.isSign?'fade':''}}" wx:else>{{activity.isSign?'已报名':'报名参与活动'}}</view>
+                    </view>
+                </view>
+                <block wx:if="{{!orgaId}}">
+                    <view class="moduleTitle">
+                        <view class="text">媒体宣传</view>
+                        <view bindtap="toMedia" class="all">
+                            <view>全部媒体</view>
+                            <view class="iconfont icon-zhankai"></view>
+                        </view>
+                    </view>
+                    <view class="media">
+                        <view class="list">
+                            <view bindtap="toMediaDetail" class="item" data-wpytomediadetail-a="{{item.id}}" wx:for="{{mediaList}}" wx:key="index">
+                                <image class="img" src="{{item.imageUrl}}"></image>
+                                <view class="text">
+                                    <view class="name">{{item.title}}</view>
+                                    <view class="source">来源于：{{item.media}}</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+                <block wx:if="{{orgaId}}">
+                    <view class="moduleTitle">
+                        <view class="text">单位成果</view>
+                    </view>
+                    <view class="opus">
+                        <view class="title">
+                            <view class="desc left"></view>
+                            <view class="text">不忘初心 重温誓词</view>
+                            <view class="desc right"></view>
+                        </view>
+                        <view class="container">
+                            <view class="cardWrapper">
+                                <view class="card">
+                                    <view class="from">{{orgaOpus.orgaName}}</view>
+                                    <block wx:if="{{orgaOpus.nickName}}">
+                                        <image class="head" src="{{orgaOpus.avatarUrl}}"></image>
+                                        <view class="text">
+                                            <view class="name">{{orgaOpus.nickName}}</view>
+                                            <view class="opusName">宣读了 加入{{orgaOpus.oathType===1?'少先队':orgaOpus.oathType===2?'团员':'党员'}}誓词</view>
+                                        </view>
+                                        <view bindtap="nextOrgaOpus" class="next">
+                                            <view>下一首</view>
+                                            <view class="iconfont icon-bofang-xiayiye"></view>
+                                        </view>
+                                        <view bindtap="playOrgaOpus" class="play">
+                                            <view hidden="{{!orgaOpusPlaying}}">
+                                                <view class="wave"></view>
+                                                <view class="wave delay1"></view>
+                                                <view class="wave delay2"></view>
+                                            </view>
+                                            <view class="container">
+                                                <view class="iconfont {{orgaOpusPlaying?'icon-bofang-zanting':'icon-bofang-jixubofang'}}"></view>
+                                            </view>
+                                        </view>
+                                    </block>
+                                    <view class="count">宣誓人数：{{orgaOpus.orgaOathNum||0}}人</view>
+                                    <view class="emptyState" wx:if="{{!orgaOpus.nickName}}">
+                                        <view>暂时还没有人宣誓！</view>
+                                        <view bindtap="toTab1" class="button">参与活动</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <image class="disk" src="https://reading.oss.iyougu.com/ldtmp/images/party100/disk.png?v=1"></image>
+                        </view>
+                    </view>
+                </block>
+                <view class="allhistorPerception">
+                    <view class="moduleTitle">
+                        <view class="text">读四史 讲感悟</view>
+                        <view bindtap="toPerceptionRank" class="all">
+                            <view>全部感悟</view>
+                            <view class="iconfont icon-zhankai"></view>
+                        </view>
+                    </view>
+                    <view class="perception_explain">
+                        <view>感悟次数：<text>{{statistics.perceptiontotal}}次</text>
+                        </view>
+                        <view>*只展示单位内有参与讲感悟的文章</view>
+                    </view>
+                    <view class="list" wx:if="{{perceptionList.length>0}}">
+                        <view class="item" wx:for="{{perceptionList}}" wx:key="index">
+                            <view class="title">
+                                <view class="text">{{item.resName}}</view>
+                                <view bindtap="showFeeling" class="button" data-wpyshowfeeling-a="{{item.resourceId}}">听感悟</view>
+                            </view>
+                            <view class="category">{{item.resTypeName}}</view>
+                            <view class="content">{{item.content}}</view>
+                        </view>
+                    </view>
+                    <view class="empty" style="box-shadow: 0px 8px 30px 0px rgba(225, 225, 225, 0.5);padding:30rpx 0;" wx:else>
+                        <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png"></image>
+                        <view>暂无数据~</view>
+                    </view>
+                </view>
+                <view class="">
+                    <view class="moduleTitle">
+                        <view class="text">四史知识 每日一考</view>
+                        <view bindtap="gotoHistoryRank" class="all">
+                            <view>全部榜单</view>
+                            <view class="iconfont icon-zhankai"></view>
+                        </view>
+                    </view>
+                    <view class="answer_statistics">
+                        <text>答题人数：{{activity.answerUserTotal}}</text>
+                        <text>答题次数：{{activity.answerEntriesNum}}</text>
+                    </view>
+                    <viwe class="rankingList">
+                        <view class="rankContainer">
+                            <view class="userRank">
+                                <view class="list" wx:if="{{newhistorrankList.length>0}}">
+                                    <view wx:if="{{newhistorrankList.length>1}}">
+                                        <view class="rankingListTabs" wx:if="{{!orgaId}}">全国榜单</view>
+                                        <view class="rankingListTabs" wx:if="{{orgaId}}">内部榜单</view>
+                                    </view>
+                                    <view class="item" wx:for="{{newhistorrankList}}" wx:key="index">
+                                        <view class="index {{index<3?'top3':''}}">{{index+1}}</view>
+                                        <image class="head" src="{{item.imgurl}}"></image>
+                                        <view class="text">
+                                            <view class="nameFrom">
+                                                <view class="name">{{item.userName}}</view>
+                                            </view>
+                                        </view>
+                                        <view class="nubBox" style="position: absolute;right: 35rpx;display: flex;justify-content: flex-start;align-items: center">
+                                            <view class="nub">{{item.totalSorce}}</view>
+                                            <view class="text">分</view>
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="empty" wx:else>
+                                    <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png" style="margin-top:80rpx;"></image>
+                                    <view>暂无数据~</view>
+                                    <view bindtap="gotoHistoryAnswer" class="experience_participation">立即参与</view>
+                                </view>
+                            </view>
+                        </view>
+                    </viwe>
+                </view>
+                <view class="moduleTitle">
+                    <view class="text">朗读比赛成果</view>
+                </view>
+                <view class="achievementShow">
+                    <view bindtap="gotoActivity" class="item" data-wpygotoactivity-a="{{item.id}}" data-wpygotoactivity-b="{{item.isCusUserSign}}" wx:for="{{readActivityList}}" wx:key="index">
+                        <view class="typeLabel1" wx:if="{{!item.isCusUserSign}}">机构活动</view>
+                        <view class="typeLabel2" wx:else>平台活动</view>
+                        <image class="img" src="{{item.imageUrl}}"></image>
+                        <view class="title">
+                            <view class="text">{{item.activityName}}</view>
+                            <view class="iconfont icon-zhankai"></view>
+                        </view>
+                        <view class="labelBox">
+                            <view class="labelItem">报名数：{{item.participateCount}}</view>
+                            <view class="labelItem">作品数：{{item.opusNum}}</view>
+                            <view class="labelItem">投票数：{{item.voteCount}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="moduleTitle">
+                    <view class="text">更多活动展示形式</view>
+                </view>
+                <view class="product">
+                    <view class="videoWrapper">
+                        <video bindended="videoEnd" bindplay="videoPlay" class="video" data-wpyvideoend-a="-2" data-wpyvideoplay-a="-2" id="video_2" showCenterPlayBtn="{{false}}" src="{{activity.downVideoUrl}}" wx:if="{{tabIndex===0}}"></video>
+                        <view bindtap="playVideo" class="playIcon iconfont icon-jiantou1-copy" data-wpyplayvideo-a="-2" hidden="{{!playIconShow_down}}"></view>
+                    </view>
+                    <view class="tabs">
+                        <view bindtap="setProductTabIndex" class="item {{productTabIndex===index?'active':''}}" data-wpysetproducttabindex-a="{{index}}" wx:for="{{productTabs}}" wx:key="index">{{item}}</view>
+                    </view>
+                    <view class="text" hidden="{{productTabIndex!==index}}" wx:for="{{productList}}" wx:key="index">{{item}}</view>
+                    <view bindtap="toContact" class="button">联系咨询</view>
+                </view>
+            </view>
+        </view>
+        <view hidden="{{tabIndex!==1}}">
+            <view class="mainImgWrapper">
+                <image class="img" src="{{mainImg_tab1}}"></image>
+            </view>
+            <view bindtap="toggleRule2" class="mainRule">
+                <view>规则</view>
+                <view class="iconfont icon-zhankai"></view>
+            </view>
+            <view class="mainContainer" style="margin-top:-160rpx">
+                <view class="container _8dd710e">
+                    <image class="tabImg _8dd710e" src="{{$SwearTab$tabImg}}"></image>
+                    <view bindtap="$SwearTab$setTabIndex" class="item {{$SwearTab$tabIndex===index?'active':''}} {{$SwearTab$tabs.length===3&&$SwearTab$tabIndex===0&&index===0?$SwearTab$shrinkPadding?'paddingLeft25':'paddingLeft50':''}} {{$SwearTab$tabs.length===3&&$SwearTab$tabIndex===0&&index===1?'paddingLeft25':''}} _8dd710e" data-wpysettabindex-a="{{index}}" wx:for="{{$SwearTab$tabs}}" wx:key="index">{{item}}</view>
+                </view>
+                <view class="swear">
+                    <view class="container" hidden="{{swearTabIndex!==index}}" wx:for="{{swearData}}" wx:key="index">
+                        <view class="videoWrapper">
+                            <video bindended="videoEnd" bindplay="videoPlay" class="video" data-wpyvideoend-a="{{index}}" data-wpyvideoplay-a="{{index}}" id="video{{index}}" showCenterPlayBtn="{{false}}" src="{{item.videoUrl}}" wx:if="{{swearTabIndex===index&&tabIndex===1}}"></video>
+                            <view bindtap="playVideo" class="playIcon iconfont icon-jiantou1-copy" data-wpyplayvideo-a="{{index}}" hidden="{{!item.playIconShow}}"></view>
+                        </view>
+                        <text class="text" space="emsp">{{item.swearText}}</text>
+                        <view bindtap="swear" class="button" data-wpyswear-a="{{item}}" style="background:#FFF4F3;color:#D80718;" wx:if="{{isOathActivityEnd==1}}">{{!item.isOath?'活动已结束':'已宣誓-查看重温誓词卡'}}</view>
+                        <view bindtap="swear" class="button" data-wpyswear-a="{{item}}" style="{{!item.isOath?'':'background:#FFF4F3;color:#D80718;'}}" wx:else>{{!item.isOath?'我要宣誓':'已宣誓-查看重温誓词卡'}}</view>
+                    </view>
+                </view>
+                <view class="swearList">
+                    <view class="title">
+                            正在宣誓的人
+                            <text class="count">（{{swearListTotal}}次）</text>
+                    </view>
+                    <view class="listWrapper" wx:if="{{swearList.length}}">
+                        <swiper autoplay="{{!swearPlaying}}" bindchange="swearListChange" circular="circular" class="list" displayMultipleItems="{{swearList.length<4?swearList.legnth:4}}" interval="3000" vertical="vertical">
+                            <swiper-item bindtap="playSwear" data-wpyplayswear-a="{{item}}" data-wpyplayswear-b="{{index}}" wx:for="{{swearList}}" wx:key="index">
+                                <view class="item">
+                                    <view class="iconfont {{swearId===item.oathId&&swearPlaying?'icon-Hzanting':'icon-jiantou1-copy'}}"></view>
+                                    <view class="name">{{item.nickName}}</view>
+                                    <view>第{{item.sequence}}位</view>
+                                    <view class="link">宣读了</view>
+                                    <view class="content">中国{{item.oathType===1?'少年先锋队入队':item.oathType===2?'共青团入团':'共产党入党'}}誓词</view>
+                                </view>
+                            </swiper-item>
+                        </swiper>
+                    </view>
+                    <view class="empty" wx:elif="{{noneSwear}}">
+                        <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png"></image>
+                        <view>暂无数据~</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view hidden="{{tabIndex!==2}}">
+            <view class="mainContainer chant chant2">
+                <view class="partyHistory">
+                    <view class="moduleTitle">
+                        <view class="text">学四史 讲感悟</view>
+                    </view>
+                    <view class="materialBox">
+                        <viwe bindtap="gotoPartyMaterialDetails" class="subTitle" data-wpygotopartymaterialdetails-a="{{materiaExtData.resourceId}}">
+                            <viwe class="titleImg"></viwe>
+                            <view class="bor"></view>
+                            <viwe class="activityTitle">{{materiaExtData.resName}}</viwe>
+                            <viwe class="iconfont icon-zhankai"></viwe>
+                        </viwe>
+                        <viwe class="list">
+                            <viwe bindtap="gotoPartyMaterial" class="item" data-wpygotopartymaterial-a="{{index}}" style="background: url('{{item.icon}}')no-repeat;background-size: cover;" wx:for="{{materiaList}}" wx:key="index">
+                                <viwe class="text">{{item.resouceTypeName}}</viwe>
+                                <viwe class="bor1"></viwe>
+                                <viwe class="bor2"></viwe>
+                            </viwe>
+                        </viwe>
+                        <viwe bindtap="gotoPartyMaterial" class="materialBtn" data-wpygotopartymaterial-a="{{0}}">进入学习，发表感悟</viwe>
+                        <viwe class="nubInspiration">已发布{{materiaExtData.count}}篇感悟</viwe>
+                    </view>
+                    <view class="moduleTitle">
+                        <view class="text">四史知识 每日一考</view>
+                    </view>
+                    <view class="rankingBox">
+                        <view class="banmer">
+                            <view bindtap="tapPartyHistoryRule" class="rule">
+                                <view class="text">规则</view>
+                                <viwe class="iconfont icon-zhankai"></viwe>
+                            </view>
+                            <view class="imgText"></view>
+                            <view class="btnBox">
+                                <view bindtap="gotoHistoryAnswer" class="btn">
+                                    <view class="text">进入答题</view>
+                                    <viwe class="iconfont icon-zhankai"></viwe>
+                                    <viwe class="iconfont icon-zhankai"></viwe>
+                                </view>
+                            </view>
+                            <viwe class="nubInspiration">已有{{activity.answerUserTotal}}人参加</viwe>
+                        </view>
+                        <viwe class="ranskingTitle">
+                            <viwe class="text">知识问答排行榜
+                                    <view class="bor1"></view>
+                                <view class="bor2"></view>
+                                <view class="bor3"></view>
+                                <view class="bor4"></view>
+                            </viwe>
+                        </viwe>
+                        <viwe class="rankingList">
+                            <view class="rankContainer">
+                                <view class="tab" wx:if="{{orgaId}}">
+                                    <view bindtap="tapHistoryTab" class="tabItem {{HistoryTabIndex==1?'active':''}}" data-wpytaphistorytab-a="1">内部榜单
+                                            <view class="bor" wx:if="{{HistoryTabIndex==1}}"></view>
+                                    </view>
+                                    <view bindtap="tapHistoryTab" class="tabItem  {{HistoryTabIndex==2?'active':''}}" data-wpytaphistorytab-a="2">全国榜单
+                                            <view class="bor" wx:if="{{HistoryTabIndex==2}}"></view>
+                                    </view>
+                                </view>
+                                <view class="userRank">
+                                    <view class="list">
+                                        <view bindtap="gotoMyAchievement" class="item me me2" wx:if="{{historrankList.length&&myRankOwer.userName}}">
+                                            <view class="index">{{myRankOwer.xh||'-'}}</view>
+                                            <image class="head" src="{{myRankOwer.imgurl}}"></image>
+                                            <view class="text">
+                                                <view class="nameFrom">
+                                                    <view class="name">{{myRankOwer.userName||'-'}}（我）</view>
+                                                </view>
+                                                <view class="count from" wx:if="{{myRankOwer.orgaName&&HistoryTabIndex==2}}">{{myRankOwer.orgaName||'-'}}</view>
+                                            </view>
+                                            <view class="nubBox">
+                                                <view class="nub">{{myRankOwer.totalScore||'-'}}</view>
+                                                <view class="text">分<view class="iconfont icon-zhankai"></view>
+                                                </view>
+                                            </view>
+                                        </view>
+                                        <view class="item" wx:for="{{historrankList}}" wx:key="index">
+                                            <view class="index {{index<3?'top3':''}}">{{index+1}}</view>
+                                            <image class="head" src="{{item.imgurl}}"></image>
+                                            <view class="text">
+                                                <view class="nameFrom">
+                                                    <view class="name">{{item.userName}}</view>
+                                                </view>
+                                                <view class="count from" wx:if="{{item.orgaName&&HistoryTabIndex==2}}">{{item.orgaName||'-'}}</view>
+                                            </view>
+                                            <view class="nubBox">
+                                                <view class="nub">{{item.totalSorce}}</view>
+                                                <view class="text">分</view>
+                                            </view>
+                                        </view>
+                                        <view class="allHistorrankBox" wx:if="{{historrankList.length}}">
+                                            <view bindtap="gotoHistoryRank" class="allHistorrankBtn">
+                                                <view class="text">全部榜单</view>
+                                                <view class="iconfont icon-zhankai"></view>
+                                            </view>
+                                        </view>
+                                        <view class="empty absCenter" wx:if="{{!historrankList.length}}">
+                                            <image class="emptyImg" src="https://reading.oss.iyougu.com/ldtmp/images/party100/empty.png"></image>
+                                            <view>暂无数据~</view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                        </viwe>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view hidden="{{tabIndex!==3}}">
+            <view class="mainContainer chant">
+                <view class="chantBox">
+                    <view class="moduleTitle">
+                        <view class="text">朗读活动</view>
+                    </view>
+                    <view class="bannerBox">
+                        <image bindtap="gotoActivity" class="banner" data-wpygotoactivity-a="{{chantData.activityId}}" data-wpygotoactivity-b="{{chantData.isCusUserSign}}" src="{{chantData.imageUrl}}"></image>
+                    </view>
+                    <view class="moduleTitle">
+                        <view class="text">更多活动</view>
+                    </view>
+                    <view class="venue-box">
+                        <view class="venue-title">更多精彩活动</view>
+                        <view bindtap="gotoActivity" class="venue-list" data-wpygotoactivity-a="{{item.activityId}}" data-wpygotoactivity-b="{{item.isCusUserSign}}" wx:for="{{chantList}}" wx:key="index">
+                            <view class="list-top">
+                                <view class="top-left">
+                                    <view class="top-title">{{item.activityName}}</view>
+                                    <view class="top-intro">
+                                        <view class="host">主办单位</view>
+                                        <text class="content">{{item.orgaName}}</text>
+                                    </view>
+                                </view>
+                                <image class="top-img" lazyLoad="lazy-load" mode="aspectFill" src="{{item.imageUrl}}"></image>
+                            </view>
+                            <view class="list-bottom">
+                                <view class="list-total">
+                                    <view class="count">
+                                        <view class="iconfont icon-renshu1"></view>
+                                        <view class="num">{{item.participateCount}}</view>
+                                    </view>
+                                    <view class="count" wx:if="{{item.isCard&&item.isRank||item.isCard}}">
+                                        <view class="iconfont icon-yulanbofang"></view>
+                                        <view class="num">{{item.listenCount}}</view>
+                                    </view>
+                                    <view class="count" wx:if="{{!item.isCard&&item.voteType!==2}}">
+                                        <view class="iconfont icon-tag10"></view>
+                                        <view class="num">{{item.voteCount}}</view>
+                                    </view>
+                                    <view class="count">
+                                        <view class="iconfont iconfont icon-liulanshu"></view>
+                                        <view class="num">{{item.browseCount}}</view>
+                                    </view>
+                                </view>
+                                <view class="list-time">{{item.beginTime}} - {{item.endTime}}</view>
+                            </view>
+                        </view>
+                        <view class="load _cb0b30b">
+                            <view class="container _cb0b30b" style="display:{{$load$state!=='loading'?'none':'flex'}}">
+                                <view class="weui-loading _cb0b30b"></view>
+                                <view class="_cb0b30b">正在加载</view>
+                            </view>
+                            <view class="container _cb0b30b" style="display:{{$load$state!=='nomore'?'none':'flex'}}">
+                                <view class="iconfont icon-wancheng _cb0b30b"></view>
+                                <view class="_cb0b30b">加载完成</view>
+                            </view>
+                        </view>
+                        <view class="noData" wx:if="{{!chantList.length}}">
+                            <image class="empty-img" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                            <view>还没有记录哦～</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view bindtap="showPoster" class="posterEntry">
+            <view class="iconfont icon-ic_poster1"></view>
+            <view>海报</view>
+        </view>
+    </scroll-view>
+    <view class="chantMasking" wx:if="{{isChantMasking}}">
+        <view class="chantBoxs">
+            <view class="contentBlur"></view>
+            <view class="chantContent">
+                <view bindtap="tapChant" class="iconfont icon-quxiao closeChant"></view>
+                <text class="title">活动延期说明</text>
+                <text class="text1">“奋斗百年路 启航新征程”活动自上线以来，得到了广大政企单位、图书馆和学校的支持。活动期间，16万+朗读者积极参与，用声音庆祝中国共产党成立100周年。活动临近尾声，我们收到了许多希望活动延期的反馈，因此，我们作出如下活动延期的说明：</text>
+                <view class="text2">本次活动将延期到 <text style="color:#D80718;">2021年7月10日结束</text>
+                </view>
+                <text class="text2">报名及提交作品：3月24日-7月10日</text>
+                <text class="text2">作品评选时间：7月11日-7月22日</text>
+                <text class="text2">活动结果公布：7月23日</text>
+                <text class="text2">奖项颁发：7月底8月初</text>
+                <text class="text3">参与者请关注【优谷朗读亭】微信公众号。 组织单位请关注【优谷朗读小助手】微信公众号获取活动数据报告。</text>
+            </view>
+        </view>
+    </view>
+    <view class="mask_party _9016587" hidden="{{!$Rule$ruleShow}}">
+        <view class="ruleContainer _9016587" wx:if="{{!$Rule$orgaId}}">
+            <view bindtap="$Rule$toggle" class="close iconfont icon-quxiao _9016587"></view>
+            <view class="title _9016587">榜单规则</view>
+            <view class="itemTitle _9016587">单位榜单：</view>
+            <view class="item _9016587">【规则】：展示各个单位在“重温誓词”“学习四史”“诵读比赛”3个活动总参与人数，按照从高到低排行。</view>
+            <view class="item _9016587">【奖励】：榜单前50名的学校、单位或图书馆等单位，将获得本次活动组委会颁发的500元奖金和“优秀组织奖”奖杯和奖牌。</view>
+            <view class="itemTitle _9016587">个人榜单：</view>
+            <view class="item _9016587">【规则】：展示用户参与“重温誓词”“学习四史”“诵读比赛”3个活动的总次数，并按照次数从高到低排行。</view>
+            <view class="item _9016587">【奖励】：个人榜单前100名用户，将获得本次活动组委会颁发的500元奖金和荣誉证书。</view>
+            <view class="ps_platform _9016587">注：次数只统计审核通过数，可能存在延迟</view>
+        </view>
+        <view class="ruleContainer _9016587" wx:else>
+            <view bindtap="$Rule$toggle" class="close iconfont icon-quxiao _9016587"></view>
+            <view class="title _9016587">榜单规则</view>
+            <view class="itemTitle _9016587" wx:if="{{$Rule$orgaRule}}">内部榜单：</view>
+            <rich-text class="item _9016587" nodes="{{$Rule$orgaRule}}" space="emsp" wx:if="{{$Rule$orgaRule}}"></rich-text>
+            <view class="itemTitle _9016587">全国榜单：</view>
+            <view class="item _9016587">全国每位用户参与“重温誓词”“学习四史”“诵读比赛”3个活动的次数，并按照次数从高到低排行</view>
+            <view class="item _9016587">【奖励】前100名用户，将获得本次活动组委会颁发的500元奖金和荣誉证书。</view>
+            <view class="ps_orga _9016587">
+                <view class="_9016587">注：</view>
+                <view class="psItem _9016587">1、奖项领取通知将在活动结束后通过“优谷朗读亭”微信公众号发布，请提前关注公众号。</view>
+                <view class="psItem _9016587">2、次数只统计审核通过数，可能存在延迟</view>
+            </view>
+        </view>
+    </view>
+    <view catchtouchmove="true" class="mask_party" hidden="{{!rule2Show}}">
+        <view catchtouchmove="true" class="rule2Container">
+            <view bindtap="toggleRule2" class="close iconfont icon-quxiao"></view>
+            <view class="title">活动规则</view>
+            <view class="item">1.选择想要重温的誓词，点击“重温誓词”按钮，参与者在背景音乐响起时即可录制宣誓内容。</view>
+            <view class="item">2.录制过程中，可暂停录制，如录制不满意可点击“重新录制”。</view>
+            <view class="item">3.录制完成后，点击“分享我的誓词”生成个人政治生日卡，分享给好友或朋友圈。</view>
+            <view class="item">4.宣誓活动页面将轮播展示最新的宣誓人。</view>
+        </view>
+    </view>
+    <view class="partyHistoryRule" wx:if="{{isPartyHistoryRule}}">
+        <view class="mian">
+            <view bindtap="tapPartyHistoryRule" class="iconfont icon-quxiao"></view>
+            <view class="ruleBox">
+                <view class="title">活动规则</view>
+                <view class="subTitle">活动规则：</view>
+                <view class="content">
+                    <view class="text">1.题目均为单选题，每次答题，题库将随机出20道题，每道题答题时间20秒。</view>
+                    <view class="text">2.每道题目分数5分，每次答题满分为100分。</view>
+                    <view class="text">3.答题完成后，系统将出示本次答题分数，点击【生成成绩卡】可将分数卡保存在手机发朋友圈；</view>
+                    <view class="text">4.【榜单】仅展示分数前1000名参与者，当总分相同时，总答题时间少的参与者排在前面。</view>
+                </view>
+                <view class="subTitle" wx:if="{{answerSheetRule}}">答题规则：</view>
+                <view class="content" wx:if="{{answerSheetRule}}">
+                    <text class="text" decode="true" space="nbsp">{{answerSheetRule}}</text>
+                </view>
+                <view class="subTitle">全国榜单奖励：</view>
+                <view class="content">
+                    <view class="text">1.活动结束后，【全国榜单】前100名参与者，将获得200元学习奖金和《论中国共产党历史》纸质版书籍一本。</view>
+                    <view class="text">2.奖项领取通知将在活动结束后通过“优谷朗读亭”微信公众号发布，请提前关注公众号。</view>
+                    <view class="text">本活动最终解释权归广州优谷信息技术有限公司所有。</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view catchtouchmove="$transcribeing$return" class="transcribe _fe07ea6">
+        <view class="masking _fe07ea6" wx:if="{{$transcribeing$is_masking}}"></view>
+        <view class="transcribeBox _fe07ea6" wx:if="{{$transcribeing$is_transcribe}}">
+            <view bindtap="$transcribeing$TapCloseCard" class="iconfont icon-guanbi _fe07ea6"></view>
+            <view class="title _fe07ea6" wx:if="{{$transcribeing$type}}">“{{$transcribeing$oathRole[$transcribeing$type-1]}}” {{$transcribeing$oathRoleStr[$transcribeing$type-1]}}誓词</view>
+            <view class="title title2 _fe07ea6" wx:if="{{$transcribeing$resourceId}}">感悟指导：</view>
+            <view class="content _fe07ea6" wx:if="{{$transcribeing$type}}"> {{$transcribeing$oathArr[$transcribeing$type-1]}}</view>
+            <view class="content _fe07ea6" wx:if="{{$transcribeing$resourceId}}">
+                <view class="_fe07ea6">基于刚刚阅读的文章内容，结合您在学习、工作、生活中的所见所闻所想，发表学习感悟。</view>
+            </view>
+            <view class="name _fe07ea6" wx:if="{{$transcribeing$type}}">宣誓人：_______</view>
+            <view class="barBox _fe07ea6" wx:if="{{$transcribeing$is_recording=='underway'}}">
+                <view class="subBox _fe07ea6">
+                    <view class="bar _fe07ea6" style="animation-delay: {{$transcribeing$randomArr[index]}}s;" wx:for="{{30}}" wx:key="key"></view>
+                </view>
+                <view class="time _fe07ea6">{{$transcribeing$durationEnd}}</view>
+            </view>
+            <view class="barBox barBox2 _fe07ea6" wx:if="{{$transcribeing$is_recording=='end'}}">
+                <view bindtap="$transcribeing$play" class="iconfont icon-shitingzuopinbofang- _fe07ea6" wx:if="{{!$transcribeing$is_play}}"></view>
+                <view bindtap="$transcribeing$play" class="iconfont icon-bofang-zanting _fe07ea6" wx:else></view>
+                <view class="subBox _fe07ea6" wx:if="{{$transcribeing$is_play}}">
+                    <view class="bar _fe07ea6" style="animation-delay: {{$transcribeing$randomArr[index]}}s;" wx:for="{{30}}" wx:key="key"></view>
+                </view>
+                <view class="subBox _fe07ea6" wx:else>
+                    <view class="iconfont icon-yuyinboduan1 _fe07ea6"></view>
+                </view>
+                <view class="time _fe07ea6">{{$transcribeing$auditionTimeEnd}}</view>
+            </view>
+            <view class="settingBox _fe07ea6" wx:if="{{!$transcribeing$is_recording}}">
+                <image bindtap="$transcribeing$TapStartRecord" class="iconImg _fe07ea6" src="https://reading.oss.iyougu.com/uploads/cardBgImg/8f821907b79647c691cb6b069f9cc43a.png"></image>
+                <view class="text1 _fe07ea6" wx:if="{{$transcribeing$type}}">开始宣读</view>
+                <view class="text1 _fe07ea6" wx:if="{{$transcribeing$resourceId}}">开始录制</view>
+                <view class="text2 _fe07ea6" wx:if="{{$transcribeing$type}}">录制宣誓音频，提交参与活动</view>
+                <view class="text2 _fe07ea6" wx:if="{{$transcribeing$resourceId}}">（所思想所感悟）</view>
+            </view>
+            <view class="settingBox _fe07ea6" wx:if="{{$transcribeing$is_recording=='underway'}}">
+                <view bindtap="$transcribeing$TapAnewRecord" class="refresh _fe07ea6">
+                    <view class="iconfont icon-shuaxin _fe07ea6"></view>
+                    <view class="refreshText _fe07ea6">重录</view>
+                </view>
+                <image bindtap="$transcribeing$TapEndRecord" class="iconImg _fe07ea6" src="https://reading.oss.iyougu.com/uploads/cardBgImg/deb4461a555547d9aaebafdc8b56fa98.png"></image>
+                <view class="text1 _fe07ea6">录制中</view>
+                <view class="text2 _fe07ea6" wx:if="{{$transcribeing$type}}">录制宣誓音频，提交参与活动</view>
+                <view class="text2 _fe07ea6" wx:if="{{$transcribeing$resourceId}}">（所思想所感悟）</view>
+            </view>
+            <view class="settingBox settingBox2 _fe07ea6" wx:if="{{$transcribeing$is_recording=='end'}}">
+                <view bindtap="$transcribeing$TapAnewRecord" class="refresh _fe07ea6">
+                    <view class="iconfont icon-shuaxin _fe07ea6"></view>
+                    <view class="refreshText _fe07ea6">重录</view>
+                </view>
+                <view bindtap="$transcribeing$submit" class="subBtn _fe07ea6" wx:if="{{$transcribeing$type}}">
+                    提交宣言
+                </view>
+                <view bindtap="$transcribeing$submit" class="subBtn _fe07ea6" wx:if="{{$transcribeing$resourceId}}">
+                    提交感悟
+                </view>
+                <view class="text _fe07ea6" wx:if="{{$transcribeing$type}}">录制宣誓音频，提交参与活动</view>
+                <view class="text3 _fe07ea6" wx:if="{{$transcribeing$resourceId}}">注：每篇文章只能提交1次感悟，审核通过后将计入后续成果排行榜中，并展示至文章感悟中...</view>
+            </view>
+        </view>
+        <view class="canvansBox _fe07ea6" wx:if="{{$transcribeing$is_canvas}}">
+            <view class="main _fe07ea6">
+                <view bindtap="$transcribeing$TapCloseCard" class="iconfont icon-quxiao _fe07ea6"></view>
+                <canvas canvasId="firstCanvas" class="canvas _fe07ea6"></canvas>
+                <cover-image bindtap="$transcribeing$play" class="icon_play _fe07ea6" src="{{$transcribeing$iconArr[$transcribeing$type-1][0]}}" wx:if="{{!$transcribeing$is_play}}"></cover-image>
+                <cover-image bindtap="$transcribeing$play" class="icon_pause _fe07ea6" src="{{$transcribeing$iconArr[$transcribeing$type-1][1]}}" wx:if="{{$transcribeing$is_play}}"></cover-image>
+                <view bindtap="$transcribeing$subCard" class="subImg _fe07ea6">
+                    <view class="iconfont icon-xiazai2 _fe07ea6"></view>保存图片
+                </view>
+            </view>
+        </view>
+    </view>
+    <view catchtouchmove="$poster$return" class="transcribe _5d1ec79">
+        <view class="masking _5d1ec79" wx:if="{{$poster$is_masking}}"></view>
+        <view class="canvansBox _5d1ec79" wx:if="{{$poster$is_canvas}}">
+            <view class="main _5d1ec79">
+                <view bindtap="$poster$TapCloseCard" class="iconfont icon-quxiao _5d1ec79"></view>
+                <canvas canvasId="firstCanvas" class="canvas _5d1ec79"></canvas>
+                <view bindtap="$poster$subCard" class="subImg _5d1ec79">
+                    <view class="iconfont icon-xiazai2 _5d1ec79"></view>保存图片
+                </view>
+            </view>
+        </view>
+    </view>
+    <view bindtap="$Feeling$toggle" class="mask_party _49482f5" hidden="{{!$Feeling$show}}">
+        <view catchtap="$Feeling$fn" class="feelingContainer _49482f5">
+            <view bindtap="$Feeling$toggle" class="close iconfont icon-guanbi _49482f5"></view>
+            <view class="titleNotice _49482f5">
+                <view class="mainTitle _49482f5">感悟列表<text class="count _49482f5">（{{$Feeling$total}}）</text>
+                </view>
+                <view class="notice _49482f5">审核通过才会在此列表展示</view>
+            </view>
+            <scroll-view scrollY bindscrolltolower="$Feeling$getData" class="list _49482f5">
+                <view class="item _49482f5" wx:for="{{$Feeling$list}}" wx:key="index">
+                    <view bindtap="$Feeling$play" class="head _49482f5" data-wpyplay-a="{{index}}" data-wpyplay-b="{{item.yunUrl}}" data-wpyplay-c="{{item.opusId}}">
+                        <image class="img _49482f5" src="{{item.avatarUrl}}"></image>
+                        <view class="iconfont {{$Feeling$playIndex===index?'icon-bofang-zanting':'icon-jiantou1-copy'}} _49482f5"></view>
+                    </view>
+                    <view class="main _49482f5">
+                        <view class="nameFrom _49482f5">
+                            <view class="name _49482f5">{{item.nickName}}</view>
+                            <view class="from _49482f5" wx:if="{{item.orgaName}}">{{item.orgaName}}</view>
+                        </view>
+                        <view class="data _49482f5">
+                            <view class="play _49482f5">
+                                <view class="iconfont icon-gerenzuopin-yibofangcishu _49482f5"></view>
+                                <view class="_49482f5">{{item.listenCount}}</view>
+                            </view>
+                            <view class="favor _49482f5">
+                                <view class="iconfont icon-gerenzuopin-aixin _49482f5"></view>
+                                <view class="_49482f5">{{item.likeCount}}</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view bindtap="$Feeling$addFavor" class="addFavor _49482f5" data-wpyaddfavor-a="{{item.likeStatus}}" data-wpyaddfavor-b="{{index}}" data-wpyaddfavor-c="{{item.opusId}}">
+                        <view class="iconfont {{item.likeStatus?'icon-dianzanweixuanzhong1':'icon-dianzanweixuanzhong2'}} _49482f5"></view>
+                    </view>
+                </view>
+                <view class="load _cb0b30b _49482f5">
+                    <view class="container _cb0b30b" style="display:{{$Feeling$load$state!=='loading'?'none':'flex'}}">
+                        <view class="weui-loading _cb0b30b"></view>
+                        <view class="_cb0b30b">正在加载</view>
+                    </view>
+                    <view class="container _cb0b30b" style="display:{{$Feeling$load$state!=='nomore'?'none':'flex'}}">
+                        <view class="iconfont icon-wancheng _cb0b30b"></view>
+                        <view class="_cb0b30b">加载完成</view>
+                    </view>
+                </view>
+                <view class="empty _49482f5" wx:if="{{$Feeling$is_empty}}">
+                    <image class="empty-image {{$Feeling$empty$size}}" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                    <view class="empty-text">{{$Feeling$empty$text}}</view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>

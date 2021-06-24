@@ -1,0 +1,111 @@
+.backAudio._139ddf9 {
+    box-sizing: border-box;
+    position: fixed;
+    right: 30rpx;
+    bottom: 160rpx;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 80rpx;
+    border: 4rpx solid #fff;
+    background-color: #3e3d3d;
+    text-align: center;
+    box-shadow: 0 2rpx 4rpx 0 rgba(0,0,0,.2);
+    z-index: 1000;
+}
+
+@keyframes danceline {
+    from {
+        height: 9rpx;
+    }
+
+    to {
+        height: 25rpx;
+    }
+}
+
+@keyframes danceline_toward {
+    0% {
+        height: 25rpx;
+    }
+
+    100% {
+        height: 9rpx;
+    }
+}
+
+.backAudio .line1._139ddf9 {
+    animation: danceline .4s ease-in-out infinite alternate;
+}
+
+.backAudio .line2._139ddf9 {
+    animation: danceline_toward .4s ease-in-out .1s infinite alternate;
+}
+
+.backAudio .bgAduio-icon._139ddf9 {
+    display: inline-block;
+    margin-right: 4rpx;
+    width: 4rpx;
+    border-radius: 100rpx 100rpx 0 0;
+}
+
+.backAudio .bgAduio-icon._139ddf9:last-child {
+    margin-right: 0;
+}
+
+.backAudio .bgAduio-stat._139ddf9 {
+    position: absolute;
+    bottom: 27rpx;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+.backAudio .bgAduio-play._139ddf9 {
+    margin-top: 14rpx;
+}
+
+.backAudio .bgAduio-play .bgAduio-icon._139ddf9 {
+    background-color: #3b87dd;
+}
+
+.backAudio .bgAduio-play .bgAduio-icon._139ddf9:nth-child(1) {
+    height: 9rpx;
+}
+
+.backAudio .bgAduio-play .bgAduio-icon._139ddf9:nth-child(2) {
+    height: 25rpx;
+}
+
+.backAudio .bgAduio-play .bgAduio-icon._139ddf9:nth-child(3) {
+    height: 16rpx;
+}
+
+.backAudio .bgAduio-play .bgAduio-icon._139ddf9:nth-child(4) {
+    height: 23rpx;
+}
+
+.backAudio .bgAduio-pause._139ddf9 {
+    margin-top: 26rpx;
+}
+
+.backAudio .bgAduio-pause .bgAduio-icon._139ddf9 {
+    height: 25rpx;
+    background-color: #3b87dd;
+    vertical-align: top;
+}
+
+.backAudio .bgAduio-disable._139ddf9 {
+    margin-top: 42rpx;
+}
+
+.backAudio .bgAduio-disable .bgAduio-icon._139ddf9 {
+    height: 8rpx;
+    background-color: #666;
+    vertical-align: top;
+}
+
+@media screen and (max-width:375px) {
+    .backAudio .bgAduio-icon._139ddf9 {
+        width: 5rpx;
+        margin-right: 5rpx;
+    }
+}

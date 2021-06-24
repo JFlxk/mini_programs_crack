@@ -1,0 +1,557 @@
+<import src="square.skeleton.wxml"></import>
+<view bindtap="onCloseOrga" class="square {{OrgaData.is_order?'is_z-index':''}}">
+    <template is="square" data="{{is_skeleton1:is_skeleton1,is_skeleton2:is_skeleton2,is_skeleton3:is_skeleton3,is_skeleton4:is_skeleton4,is_skeleton5:is_skeleton5,is_skeleton6:is_skeleton6,is_skeleton7:is_skeleton7,is_skeleton8:is_skeleton8}}" wx:if="{{loading}}"></template>
+    <view catchtap="goSearch" class="search" data-wpygosearch-a="" wx:if="{{!isAgencyZone}}">
+        <text class="iconfont icon-sousuo"></text>
+        <text class="title-search">搜索作品名称、朗读者昵称</text>
+    </view>
+    <scroll-view scrollY bindrefresherrefresh="refreshHandler" bindrefresherrestore="restoreHandler" bindscroll="scrollPosition" class="index-content" enableBackToTop="enable-back-to-top" lowerThreshold="50" refresherDefaultStyle="black" refresherEnabled="refresher-enabled" refresherTriggered="{{isRefresh}}" scrollIntoView="{{positionID}}" scrollWithAnimation="scroll-with-animation" style="height:{{isIPhoneX?'calc(100% - 148rpx)':'calc(100% - 128rpx)'}};">
+        <block wx:if="{{isAgencyZone}}">
+            <image class="banner-orga" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpFront/orgaLogIn/orgaHomeBg.png" wx:if="{{!OrgaData.is_order}}"></image>
+            <view class="agency-zone" wx:if="{{false}}">
+                <view class="agency-zone-name">关注“{{OrgaData.orgaName}}”</view>
+                <view catchtap="orgaAction" class="agency-zone-opt {{!orgaActionType?'no':'add'}}" data-wpyorgaaction-a="">
+                    <text class="agency-zone-icon" wx:if="{{!orgaActionType}}">+</text>
+                    <text class="iconfont icon-quxiao" wx:if="{{orgaActionType}}"></text>
+                    <text class="agency-zone-txt"> {{orgaActionType?'取消关注':'关注'}}</text>
+                </view>
+            </view>
+        </block>
+        <view class="banner {{isAgencyZone?'':'bgWhite'}} {{OrgaData.is_order?'No_padding special':''}}" data-skeleton-hide="is_skeleton1" hidden="{{!is_skeleton1}}">
+            <image catchtap="goActivityEmpty" class="banner-empty" src="https://reading.oss.iyougu.com/uploads/activityimage/792dfc6f8c234ce983808b741f60fc44.png" wx:if="{{!isShowBanner&&isBannerEmpty}}"></image>
+            <swiper autoplay bindchange="bannerChange" circular="circular" class="banner-box {{bannerList&&bannerList.length==1?'special':''}}" current="{{currentIndex}}" easingFunction="easeInOutCubic" indicatorDots="{{false}}" interval="4000" wx:if="{{isShowBanner&&!isBannerEmpty}}">
+                <swiper-item catchtap="goActiveDetail" class="banner-item" data-wpygoactivedetail-a="{{index}}" data-wpygoactivedetail-b="{{item.id}}" data-wpygoactivedetail-c="{{item.activityName}}" data-wpygoactivedetail-d="{{item.templateType}}" data-wpygoactivedetail-e="{{item.valid}}" data-wpygoactivedetail-f="{{item.pathUrl}}" data-wpygoactivedetail-g="{{item}}" wx:for="{{bannerList}}" wx:key="index">
+                    <image class="banner-image {{bannerIndex==index?'active':''}}" lazyLoad="{{true}}" mode="scaleToFill" src="{{item.imageUrl}}"></image>
+                </swiper-item>
+            </swiper>
+            <view class="banner-box-dot" wx:if="{{isShowBanner&&!isBannerEmpty&&bannerList.length>1}}">
+                <view class="dots {{bannerIndex==index?'current':''}}" wx:for="{{bannerList}}" wx:key="index"></view>
+            </view>
+        </view>
+        <view data-skeleton-hide="is_skeleton2" hidden="{{!is_skeleton2}}">
+            <view class="entrance" wx:if="{{!isAgencyZone}}">
+                <view bindtap="gotoPage" class="entrance-btn" data-wpygotopage-a="1" data-wpygotopage-b="{{item}}" style="{{item.id===8?'color:#1459D4;font-weight:bold;':''}}" wx:for="{{entranceData}}" wx:key="index">
+                    <image class="entrance-img" mode="aspectFit" src="{{item.iconUrl}}"></image>
+                    <view class="entrance-txt">
+                        <text>{{item.title}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="entrance" wx:if="{{isAgencyZone}}">
+                <view bindtap="gotoPage" class="entrance-btn entrance-btn{{index+1}}" data-wpygotopage-a="2" data-wpygotopage-b="{{item}}" wx:for="{{entranceData}}" wx:key="index">
+                    <image class="entrance-img" lazyLoad="lazy-load" mode="aspectFit" src="{{item.iconUrl}}"></image>
+                    <view class="entrance-txt">
+                        <text>{{item.title}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <block wx:if="{{isAgencyZone&&isSoundSpace==1}}">
+            <view class="pr"></view>
+            <view class="voiceBox">
+                <view class="voiceBox--title" style="{{orgaColor?'color:'+orgaColor:''}};">
+                    <view class="iconfont icon-yuyinboduan1 first"></view>
+                    <text class="voiceBox--title__txt">{{soundSpaceName?soundSpaceName:'有声空间'}}</text>
+                    <view class="iconfont icon-yuyinboduan1"></view>
+                </view>
+                <view class="voiceBox--list" wx:if="{{!noDevice}}">
+                    <view bindtap="clickToPage" class="voiceBox--list__item {{soundSpaceList.length==3?'item_posi':''}}" data-wpyclicktopage-a="{{item}}" style="background:{{item.background}}" wx:for="{{soundSpaceList}}" wx:key="index">
+                        <view class="voiceBox--list__item_cont">
+                            <view class="cont">
+                                <view class="title" style="color:{{item.fontColor}}">{{item.deviceName}}</view>
+                                <view class="line1" style="background:{{item.fontColor}}"></view>
+                                <view class="line2" style="background:{{item.fontColor}}"></view>
+                                <view class="lab" style="color:{{item.fontColor}}">{{item.isOpening==0?'未开通':'已开通'}}</view>
+                            </view>
+                        </view>
+                        <image class="bg_img1 {{item.deviceType==1?'bg_img0':item.deviceType==3?'bg_img2':''}}" src="{{item.iconUrl}}"></image>
+                    </view>
+                </view>
+                <view class="noDevice" wx:else>暂无设备～</view>
+            </view>
+        </block>
+        <view class="module_box" wx:if="{{!showPartyOrga}}">
+            <view bindtap="tapVoxTraining" class="voxTraining_box " data-wpytapvoxtraining-a="" wx:if="{{isShow_voxTraining}}">
+                <image class="voxTraining_img" mode="aspectFit" src="https://reading.oss.iyougu.com/ldtmp/images/cardImg5.png"></image>
+            </view>
+            <view data-skeleton-hide="is_skeleton3" hidden="{{!is_skeleton3}}">
+                <view class="popularOpus {{!isShow_voxTraining?'borderTop24':''}}" wx:if="{{isShowModule>0}}">
+                    <view class="tabs">
+                        <view bindtap="$popularOpus$tabChange" class="tabItem {{$popularOpus$activeIndex==index?'selected':''}}" data-wpytabchange-a="{{index}}" wx:for="{{$popularOpus$tabs}}" wx:key="item">
+                            <text>{{item}}</text>
+                            <text class="borderd" style="background:{{$popularOpus$orgaColor}};" wx:if="{{$popularOpus$activeIndex==index}}"></text>
+                        </view>
+                        <view bindtap="$popularOpus$skipMore" class="more">
+                            <text class="moreText">更多</text>
+                            <text class="iconfont icon-gengduojiantou"></text>
+                        </view>
+                    </view>
+                    <view class="tab-content position-rela" wx:if="{{$popularOpus$activeIndex==0}}">
+                        <view bindtap="$popularOpus$skipOpusDetail" class="rankList border-fix" data-wpyskipopusdetail-a="{{item.opusId}}" data-wpyskipopusdetail-b="hotVFOpus" wx:for="{{$popularOpus$opusData}}" wx:key="index">
+                            <view class="border-btm" wx:if="{{index<$popularOpus$opusData.length-1}}"></view>
+                            <view class="figure">
+                                <image class="avatar" lazyLoad="lazy-load" src="{{item.avatarUrl||'https://reading.oss.iyougu.com/uploads/cardBgImg/08ca4cb0269847d0a38ca3bf3e02a566.jpg'}}"></image>
+                                <text catchtap="$popularOpus$play" class="audio iconfont {{index==$popularOpus$playIndex?'icon-bofang-zanting':'icon-bofang-jixubofang'}}" data-wpyplay-a="{{item.yunUrl}}" data-wpyplay-b="{{index}}"></text>
+                            </view>
+                            <view class="opusInfo">
+                                <view class="opusTitle">
+                                    <view class="content">
+                                        <text class="iconfont icon-shipin" wx:if="{{item.isVideo}}"></text>
+                                {{item.resName}}
+                            </view>
+                                    <view class="orgaBox" wx:if="{{item.orgaName}}">{{item.orgaName}}</view>
+                                </view>
+                                <view class="nickname">
+                                    <image class="nickname_V" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{item.voiceAuth==1}}"></image>
+                                    <view class="nickname_text">朗读者：{{item.nickName}}</view>
+                                </view>
+                                <view class="tips">
+                                    <text class="iconfont icon-gerenzuopin-yibofangcishu"></text>
+                                    <text class="number">{{item.listenCount}}</text>
+                                    <text class="iconfont icon-gerenzuopin-aixin"></text>
+                                    <text class="number">{{item.likeCount}}</text>
+                                </view>
+                            </view>
+                            <view class="detail" style="color:{{$popularOpus$orgaColor}};">
+                                <text class="detailText">详情</text>
+                                <text class="iconfont icon-zhankai"></text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="tab-content position-rela" wx:if="{{$popularOpus$activeIndex==1}}">
+                        <view bindtap="$popularOpus$skipOpusDetail" class="rankList border-fix" data-wpyskipopusdetail-a="{{item.opusId}}" data-wpyskipopusdetail-b="hotVideoOpus" wx:for="{{$popularOpus$opusData}}" wx:key="index">
+                            <view class="border-btm" wx:if="{{index<$popularOpus$opusData.length-1}}"></view>
+                            <view class="figure video">
+                                <view class="cover blur" style="background: url('{{item.snapshotUrl}}')no-repeat;background-size: 100% 100%;" wx:if="{{item.videoHeight>item.videoWidth}}"></view>
+                                <image class="cover" mode="{{item.videoHeight>item.videoWidth?'aspectFit':'aspectFill'}}" src="{{item.snapshotUrl}}"></image>
+                                <view class="video iconfont icon-bofang-jixubofang"></view>
+                            </view>
+                            <view class="opusInfo">
+                                <view class="opusTitle unlike">
+                                    <view class="content">{{item.resName}}</view>
+                                    <view class="orgaBox" wx:if="{{item.orgaName}}">{{item.orgaName}}</view>
+                                </view>
+                                <view class="nickname">
+                                    <image class="nickname_V" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{item.voiceAuth==1}}"></image>
+                                    <view class="nickname_text">朗读者：{{item.nickName}}</view>
+                                </view>
+                                <view class="tips">
+                                    <text class="iconfont icon-gerenzuopin-yibofangcishu"></text>
+                                    <text class="number">{{item.listenCount}}</text>
+                                    <text class="iconfont icon-gerenzuopin-aixin"></text>
+                                    <text class="number">{{item.likeCount}}</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="noData" wx:if="{{$popularOpus$noData}}">
+                        <image class="noData_image" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                        <view class="noData_text">暂无作品哦，快去录制吧</view>
+                    </view>
+                </view>
+            </view>
+            <view data-skeleton-hide="is_skeleton4" hidden="{{!is_skeleton4}}">
+                <view class="borderTop24" id="hotReadingID" wx:if="{{isShowModule>0}}">
+                    <view class="hotReading _907d52a">
+                        <block wx:if="{{$hotReading$resourceList&&$hotReading$resourceList.length}}">
+                            <view class="hot-material _907d52a">
+                                <view class="moduleTitle _907d52a">
+                                    <text class="iconfont icon-remensucai _907d52a"></text>
+                                    <tezt class="title _907d52a">热门素材</tezt>
+                                    <view catchtap="$hotReading$changeMaterial" class="hot-material-title-opt _907d52a" data-wpychangematerial-a="">
+                                        <text class="hot-material-opt-txt _907d52a" space="nbsp">换一批</text>
+                                        <text class="iconfont icon-sousuo-huanyipi _907d52a"></text>
+                                    </view>
+                                </view>
+                                <view class="hot-material-content _907d52a">
+                                    <view class="border _907d52a"></view>
+                                    <view bindtap="$hotReading$gotoRecord" class="hot-material-list border-fix _907d52a" data-wpygotorecord-a="{{item.resourceId}}" data-wpygotorecord-b="{{item.resName}}" data-wpygotorecord-c="{{item.author}}" data-wpygotorecord-d="{{item.content}}" data-wpygotorecord-e="0" wx:for="{{$hotReading$hotResourceList}}" wx:key="index">
+                                        <view class="list-caption _907d52a">{{item.resName||'自由朗读'}}</view>
+                                        <view class="list-article _907d52a">
+                                            <text class="_907d52a">{{item.intro||item.content||''}}</text>
+                                        </view>
+                                        <view class="list-tip _907d52a">
+                                            <text class="iconfont icon-zuozheming _907d52a"></text>
+                                            <text class="list-caption-author _907d52a" space="nbsp">{{item.author||'佚名'}}</text>
+                                            <text class="tipItem _907d52a" space="nbsp">{{item.wordsCount}} 字</text>
+                                            <text class="_907d52a" decode="{{$hotReading$true}}" space="nbsp">{{item.count}} 人读</text>
+                                        </view>
+                                        <view catchtap="$hotReading$audition" class="list-listen-btn _907d52a" data-wpyaudition-a="{{item.mostLikeOpusType}}" data-wpyaudition-b="{{item.mostLikeOpusId}}">
+                                            <text class="iconfont icon-shiting _907d52a"></text>
+                                            <text class="_907d52a" space="nbsp">试听</text>
+                                        </view>
+                                        <view catchtap="$hotReading$gotoRecord" class="list-read-btn _907d52a" data-wpygotorecord-a="{{item.resourceId}}" data-wpygotorecord-b="{{item.resName}}" data-wpygotorecord-c="{{item.author}}" data-wpygotorecord-d="{{item.content}}" data-wpygotorecord-e="0" style="color:{{$hotReading$orgaColor}};border-color:{{$hotReading$orgaColor}}">
+                                            <text class="iconfont icon-dajiaduzaidu-langdu _907d52a"></text>
+                                            <text class="_907d52a" space="nbsp">朗读</text>
+                                        </view>
+                                        <view class="border-btm _907d52a" wx:if="{{index<$hotReading$hotResourceList.length-1}}"></view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="hot-holder _907d52a"></view>
+                        </block>
+                        <view class="hot-classify _907d52a">
+                            <view class="moduleTitle _907d52a">
+                                <text class="iconfont icon-remenfenlei _907d52a"></text>
+                                <tezt class="title _907d52a">热门分类</tezt>
+                                <view catchtap="$hotReading$gotoTopCategory" class="hot-material-title-opt _907d52a">
+                                    <text class="hot-material-opt-txt _907d52a" space="nbsp">更多</text>
+                                    <text class="iconfont icon-gengduojiantou _907d52a"></text>
+                                </view>
+                            </view>
+                            <view class="hot-classify-content _907d52a">
+                                <view class="border _907d52a"></view>
+                                <view bindtap="$hotReading$gotochildMaterial" class="hot-classify-list border-fix _907d52a" data-wpygotochildmaterial-a="{{item}}" wx:for="{{$hotReading$hotTypeList}}" wx:key="index">
+                                    <image class="list-img _907d52a" lazyLoad="lazy-load" src="{{item.imageUrl}}"></image>
+                                    <view class="list-infor _907d52a">
+                                        <view class="list-caption _907d52a">
+                                            <text class="_907d52a" space="nbsp">{{item.remark}}</text>
+                                        </view>
+                                        <view class="list-num _907d52a">
+                                            <text class="_907d52a" space="nbsp">朗读数：{{item.count}}</text>
+                                        </view>
+                                        <view class="list-article _907d52a">
+                                            <text class="_907d52a" space="nbsp">最热素材：{{item.resName||''}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="border-btm _907d52a" wx:if="{{index<$hotReading$hotTypeList.length-1}}"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view data-skeleton-hide="is_skeleton5" hidden="{{!is_skeleton5}}">
+                <view class="reader" wx:if="{{isShowModule>1}}">
+                    <view class="moduleTitle">
+                        <text class="iconfont icon-renqilangduzhe"></text>
+                        <tezt class="title">人气朗读者</tezt>
+                        <view bindtap="$reader$skipMore" class="more">
+                            <text class="moreText">更多</text>
+                            <text class="iconfont icon-gengduojiantou"></text>
+                        </view>
+                    </view>
+                    <view class="winner" wx:if="{{!$reader$noData}}">
+                        <view class="second" wx:if="{{$reader$secondData&&$reader$secondData.uid}}">
+                            <view bindtap="$reader$skipPersonHomepage" class="figure" data-wpyskippersonhomepage-a="{{$reader$secondData.uid}}" data-wpyskippersonhomepage-b="{{$reader$secondData.own}}">
+                                <image class="avatar" lazyLoad="lazy-load" src="{{$reader$secondData.avatarUrl||'http://reading.oss.iyougu.com/uploads/cardBgImg/08ca4cb0269847d0a38ca3bf3e02a566.jpg'}}"></image>
+                                <image class="rankImg" lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/ldtmp/icon/icon_second.png"></image>
+                                <view catchtap="$reader$attention" class="attention" data-wpyattention-a="{{$reader$secondData.followerWxUser}}" data-wpyattention-b="{{$reader$secondData.uid}}" data-wpyattention-c="1" style="background:{{$reader$orgaColor}};" wx:if="{{!$reader$secondData.own}}">
+                                    <text class="iconfont {{$reader$secondData.followerWxUser?'icon-dui2':'icon-addTodo-nav'}}"></text>
+                                </view>
+                            </view>
+                            <view class="nickname" style="{{!$reader$secondData.voiceAuth?'padding-left:0':''}}">
+                                <image class="nickname_V" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{$reader$secondData.voiceAuth==1}}"></image>{{$reader$secondData.nickName||'佚名'}}</view>
+                            <view class="tips"></view>
+                        </view>
+                        <view class="first" wx:if="{{$reader$firstData&&$reader$firstData.uid}}">
+                            <view bindtap="$reader$skipPersonHomepage" class="figure" data-wpyskippersonhomepage-a="{{$reader$firstData.uid}}" data-wpyskippersonhomepage-b="{{$reader$firstData.own}}">
+                                <image class="avatar" lazyLoad="lazy-load" src="{{$reader$firstData.avatarUrl||'http://reading.oss.iyougu.com/uploads/cardBgImg/08ca4cb0269847d0a38ca3bf3e02a566.jpg'}}"></image>
+                                <image class="rankImg" lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/ldtmp/icon/icon_one.png"></image>
+                                <view catchtap="$reader$attention" class="attention" data-wpyattention-a="{{$reader$firstData.followerWxUser}}" data-wpyattention-b="{{$reader$firstData.uid}}" data-wpyattention-c="0" style="background:{{$reader$orgaColor}};" wx:if="{{!$reader$firstData.own}}">
+                        {{$reader$firstData.followerWxUser?'已关注':'+ 关注'}}</view>
+                            </view>
+                            <view class="nickname" style="{{!$reader$firstData.voiceAuth?'padding-left:0':''}}">
+                                <image class="nickname_V" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{$reader$firstData.voiceAuth==1}}"></image>{{$reader$firstData.nickName||'佚名'}}</view>
+                        </view>
+                        <view class="third" wx:if="{{$reader$thirdData&&$reader$thirdData.uid}}">
+                            <view bindtap="$reader$skipPersonHomepage" class="figure" data-wpyskippersonhomepage-a="{{$reader$thirdData.uid}}" data-wpyskippersonhomepage-b="{{$reader$thirdData.own}}">
+                                <image class="avatar" lazyLoad="lazy-load" src="{{$reader$thirdData.avatarUrl||'http://reading.oss.iyougu.com/uploads/cardBgImg/08ca4cb0269847d0a38ca3bf3e02a566.jpg'}}"></image>
+                                <image class="rankImg" lazyLoad="lazy-load" src="https://reading.oss.iyougu.com/ldtmp/icon/icon_Third.png"></image>
+                                <view catchtap="$reader$attention" class="attention" data-wpyattention-a="{{$reader$thirdData.followerWxUser}}" data-wpyattention-b="{{$reader$thirdData.uid}}" data-wpyattention-c="2" style="background:{{$reader$orgaColor}};" wx:if="{{!$reader$thirdData.own}}">
+                                    <text class="iconfont {{$reader$thirdData.followerWxUser?'icon-dui2':'icon-addTodo-nav'}}"></text>
+                                </view>
+                            </view>
+                            <view class="nickname" style="{{!$reader$thirdData.voiceAuth?'padding-left:0':''}}">
+                                <image class="nickname_V" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{$reader$thirdData.voiceAuth==1}}"></image>{{$reader$thirdData.nickName||'佚名'}}</view>
+                            <view class="tips"></view>
+                        </view>
+                    </view>
+                    <view class="readerList" wx:if="{{!$reader$noData}}">
+                        <scroll-view scrollX bindscrolltolower="$reader$scroll" lowerThreshold="50" scrollWithAnimation="true">
+                            <block wx:if="{{item}}" wx:for="{{$reader$readerData}}" wx:key="index">
+                                <view class="readerItem" wx:if="{{index>=3}}">
+                                    <view bindtap="$reader$skipPersonHomepage" class="figure" data-wpyskippersonhomepage-a="{{item.uid}}" data-wpyskippersonhomepage-b="{{item.own}}">
+                                        <image class="avatar" lazyLoad="lazy-load" src="{{item.avatarUrl||'http://reading.oss.iyougu.com/uploads/cardBgImg/08ca4cb0269847d0a38ca3bf3e02a566.jpg'}}"></image>
+                                        <view catchtap="$reader$attention" class="attention" data-wpyattention-a="{{item.followerWxUser}}" data-wpyattention-b="{{item.uid}}" data-wpyattention-c="{{index}}" style="background:{{$reader$orgaColor}};" wx:if="{{!item.own}}">
+                                            <text class="iconfont {{item.followerWxUser?'icon-dui2':'icon-addTodo-nav'}}"></text>
+                                        </view>
+                                    </view>
+                                    <view class="nickname" style="{{!item.voiceAuth?'padding-left:0':''}}">{{index+1}}.<image class="nickname_V" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{item.voiceAuth==1}}"></image>{{item.nickName||'佚名'}}</view>
+                                </view>
+                            </block>
+                        </scroll-view>
+                    </view>
+                    <view class="noData" wx:if="{{$reader$noData}}">
+                        <image class="empty-img" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                        <view>即将诞生的第一位人气朗读者，会是你吗？</view>
+                    </view>
+                </view>
+            </view>
+            <view data-skeleton-hide="is_skeleton6" hidden="{{!is_skeleton6}}">
+                <view class="borderTop24" id="hotExpertsID" wx:if="{{isShowModule>1}}">
+                    <view class="hotExperts _edc954b">
+                        <view class="hot-title _edc954b">
+                            <text class="iconfont icon-mingjiashifan _edc954b"></text>
+                            <text class="hot-title-txt _edc954b">名家示范</text>
+                            <view bindtap="$hotExperts$gotoList" class="title_right _edc954b">
+                                <view class="title_right_text _edc954b">更多</view>
+                                <view class="iconfont icon-gengduojiantou _edc954b"></view>
+                            </view>
+                        </view>
+                        <scroll-view scrollX bindscrolltolower="$hotExperts$scroll" class="hot-demons-content _edc954b" lowerThreshold="50" scrollWithAnimation="true">
+                            <view catchtap="$hotExperts$goto" class="hot-demons-list _edc954b" data-wpygoto-a="{{item}}" wx:for="{{$hotExperts$expertsList}}" wx:key="index">
+                                <view class="list-img-box _edc954b">
+                                    <image class="list-img _edc954b" lazyLoad="lazy-load" mode="widthFix" src="{{item.imageUrl}}"></image>
+                                </view>
+                                <view class="list-caption _edc954b">
+                                    <text class="_edc954b" space="nbsp">{{item.name}}</text>
+                                </view>
+                                <view class="list-article _edc954b">
+                                    <text class="_edc954b" space="nbsp">{{item.introduction}}</text>
+                                </view>
+                            </view>
+                        </scroll-view>
+                    </view>
+                </view>
+            </view>
+            <view data-skeleton-hide="is_skeleton7" hidden="{{!is_skeleton7}}">
+                <view class="borderTop24" id="hotPavilionID" wx:if="{{isShowModule>2&&!isAgencyZone}}">
+                    <view class="hotPavilion _f3597ad">
+                        <view class="hot-title _f3597ad">
+                            <text class="iconfont icon-jigou _f3597ad"></text>
+                            <text class="hot-title-txt _f3597ad">热门机构</text>
+                            <view catchtap="$hotPavilion$goto" class="hot-title-more _f3597ad" data-wpygoto-a="">
+                                <text class="txt _f3597ad">更多</text>
+                                <text class="iconfont icon-gengduojiantou _f3597ad"></text>
+                            </view>
+                        </view>
+                        <view class="hot-pavilion-content _f3597ad">
+                            <view class="border _f3597ad"></view>
+                            <view catchtap="$hotPavilion$gotoDetail" class="hot-pavilion-list border-fix _f3597ad" data-wpygotodetail-a="{{item.orgaId}}" data-wpygotodetail-b="{{item.orgaName}}" wx:for="{{$hotPavilion$expertsList}}" wx:key="index">
+                                <image class="list-img _f3597ad" lazyLoad="lazy-load" mode="aspectFit" src="https://reading.oss.iyougu.com/ldtmp/icon/{{index==0?'icon_rank_one.png':index==1?'icon_rank_two.png':'icon_rank_three.png'}}"></image>
+                                <view class="list-caption _f3597ad">
+                                    <text class="_f3597ad" space="nbsp">{{item.orgaName}}</text>
+                                </view>
+                                <view class="list-article _f3597ad">
+                    共 <text class="color1 _f3597ad">{{item.count}}</text> 首作品
+                </view>
+                                <view class="border-btm _f3597ad" wx:if="{{index<$hotPavilion$expertsList.length-1}}"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view data-skeleton-hide="is_skeleton8" hidden="{{!is_skeleton8}}">
+                <view class="borderTop24" id="hotListenID" wx:if="{{isShowModule>2}}">
+                    <view class="listen">
+                        <view class="moduleTitle">
+                            <text class="iconfont icon-meiribiting-biaotitubiao"></text>
+                            <text class="title">每日必听</text>
+                            <view bindtap="$listen$skipMore" class="more" hidden="{{!$listen$showMore}}">
+                                <text class="moreText">更多</text>
+                                <text class="iconfont icon-gengduojiantou"></text>
+                            </view>
+                        </view>
+                        <scroll-view scrollX bindscrolltolower="$listen$scroll" class="listenList" lowerThreshold="50" scrollWithAnimation="true">
+                            <view bindtap="$listen$skipSoundCardDetail" class="listenItem" data-wpyskipsoundcarddetail-a="{{item}}" data-wpyskipsoundcarddetail-b="{{index}}" wx:for="{{$listen$readCardData}}" wx:key="index">
+                                <image class="card" lazyLoad="lazy-load" src="{{item.indexImgUrl}}"></image>
+                                <view class="cardInfo">
+                                    <view class="opusTitle">{{item.resName}}</view>
+                                    <view class="nickname">一 {{item.nickName}}</view>
+                                </view>
+                                <text class="iconfont icon-bofang-jixubofang" style="color:{{$listen$orgaColor}};"></text>
+                            </view>
+                        </scroll-view>
+                    </view>
+                </view>
+                <view class="bottom-tips">
+                    <text>- 已经到底了 -</text>
+                </view>
+            </view>
+        </view>
+        <view class="module_box" data-skeleton-hide="is_skeleton3" hidden="{{!is_skeleton3}}" wx:if="{{showPartyOrga}}">
+            <view class="hotParty _079b5ab {{!isShow_voxTraining?'borderTop24':''}}">
+                <view class="studyShowBox _079b5ab">
+                    <view bindtap="$HotPartyRead$gotoPage" class="title _079b5ab" data-wpygotopage-a="1">
+                        <view class="title_l _079b5ab">
+                            <view class="bor _079b5ab" style="background:{{$HotPartyRead$orgaColor}}"></view>
+                            <view class="text _079b5ab" style="color:{{$HotPartyRead$orgaColor}}">{{$HotPartyRead$studyExtData.title}}</view>
+                        </view>
+                        <view class="title_r _079b5ab">更多<view class="iconfont icon-fanhui _079b5ab"></view>
+                        </view>
+                    </view>
+                    <view class="studyTab _079b5ab">
+                        <view bindtap="$HotPartyRead$tapStudyShowTab" class="tab_item {{$HotPartyRead$studyTabIndex==0?'active':''}} _079b5ab" data-wpytapstudyshowtab-a="0" style="{{$HotPartyRead$studyTabIndex==0?'background:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor:'color:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor}}">音频</view>
+                        <view bindtap="$HotPartyRead$tapStudyShowTab" class="tab_item {{$HotPartyRead$studyTabIndex==1?'active':''}} _079b5ab" data-wpytapstudyshowtab-a="1" style="{{$HotPartyRead$studyTabIndex==1?'background:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor:'color:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor}}">视频</view>
+                    </view>
+                    <view class="study_imgBox {{!$HotPartyRead$studyList.length?'special':''}} _079b5ab">
+                        <view bindtap="$HotPartyRead$gotoPage" class="img_item _079b5ab" data-wpygotopage-a="1" data-wpygotopage-b="{{item.id}}" data-wpygotopage-c="{{index}}" wx:if="{{$HotPartyRead$studyList.length}}" wx:for="{{$HotPartyRead$studyList}}" wx:key="index">
+                            <image class="img {{$HotPartyRead$studyTabIndex==1?'active':''}} _079b5ab" lazyLoad="true" src="{{item.imgUrl}}"></image>
+                            <view class="iconMasking _079b5ab">
+                                <view class="iconBox {{$HotPartyRead$studyTabIndex==0?'corner':''}} _079b5ab">
+                                    <view class="iconfont {{$HotPartyRead$studyTabIndex==1?'icon-jiantou1-copy':'icon-shiting'}} _079b5ab"></view>
+                                </view>
+                            </view>
+                            <view class="text _079b5ab">{{item.typeName}}</view>
+                        </view>
+                        <view class="more-box _079b5ab" wx:if="{{!$HotPartyRead$studyList.length}}">
+                            <view class="empty _079b5ab">
+                                <image class="empty-image {{$HotPartyRead$Empty$size}}" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                                <view class="empty-text">{{$HotPartyRead$Empty$text}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="pr _079b5ab"></view>
+                <view class="reciteShowBox _079b5ab">
+                    <view class="title _079b5ab">
+                        <view class="title_l _079b5ab">
+                            <view class="bor _079b5ab" style="background:{{$HotPartyRead$orgaColor}}"></view>
+                            <view class="text _079b5ab" style="color:{{$HotPartyRead$orgaColor}}">{{$HotPartyRead$resourceExt||'热门诵读'}}</view>
+                        </view>
+                        <view class="title_r special _079b5ab">更多<view class="iconfont icon-fanhui _079b5ab"></view>
+                        </view>
+                    </view>
+                    <view class="recite_imgBox _079b5ab" wx:if="{{$HotPartyRead$readList.length}}">
+                        <view bindtap="$HotPartyRead$gotoPage" class="img_item _079b5ab" data-wpygotopage-a="2" data-wpygotopage-b="{{item}}" wx:for="{{$HotPartyRead$readList}}" wx:key="index">
+                            <image class="img _079b5ab" lazyLoad="true" src="{{item.icon}}"></image>
+                            <view class="text1 _079b5ab">{{item.resouceTypeName}}</view>
+                        </view>
+                    </view>
+                    <view class="more-box _079b5ab" wx:if="{{!$HotPartyRead$readList.length}}">
+                        <view class="empty _079b5ab">
+                            <image class="empty-image {{$HotPartyRead$Empty$size}}" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                            <view class="empty-text">{{$HotPartyRead$Empty$text}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="pr _079b5ab"></view>
+                <view class="achievementShowBox _079b5ab">
+                    <view bindtap="$HotPartyRead$gotoPage" class="title _079b5ab" data-wpygotopage-a="3">
+                        <view class="title_l _079b5ab">
+                            <view class="bor _079b5ab" style="background:{{$HotPartyRead$orgaColor}}"></view>
+                            <view class="text _079b5ab" style="color:{{$HotPartyRead$orgaColor}}">{{$HotPartyRead$opusExtData||'学习成果'}}</view>
+                        </view>
+                        <view class="title_r _079b5ab">更多<view class="iconfont icon-fanhui _079b5ab"></view>
+                        </view>
+                    </view>
+                    <view class="studyTab _079b5ab">
+                        <view bindtap="$HotPartyRead$tabChange" class="tab_item {{$HotPartyRead$tabIndex2==0?'active':''}} _079b5ab" data-wpytabchange-a="0" style="{{$HotPartyRead$tabIndex2==0?'background:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor:'color:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor}}">音频作品</view>
+                        <view bindtap="$HotPartyRead$tabChange" class="tab_item {{$HotPartyRead$tabIndex2==1?'active':''}} _079b5ab" data-wpytabchange-a="1" style="{{$HotPartyRead$tabIndex2==1?'background:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor:'color:'+$HotPartyRead$orgaColor+';border-color:'+$HotPartyRead$orgaColor}}">视频作品</view>
+                    </view>
+                    <view class="opusList _079b5ab" wx:if="{{$HotPartyRead$opusList.length}}">
+                        <view class="tab-content position-rela _079b5ab" wx:if="{{$HotPartyRead$tabIndex2==0}}">
+                            <view bindtap="$HotPartyRead$skipOpusDetail" class="rankList border-fix _079b5ab" data-wpyskipopusdetail-a="{{item.opusId}}" data-wpyskipopusdetail-b="learningResults" wx:for="{{$HotPartyRead$opusList}}" wx:key="index">
+                                <view class="border-btm _079b5ab" wx:if="{{index<$HotPartyRead$opusList.length-1}}"></view>
+                                <view class="figure _079b5ab">
+                                    <image class="avatar _079b5ab" lazyLoad="lazy-load" src="{{item.avatarUrl||'https://reading.oss.iyougu.com/uploads/cardBgImg/08ca4cb0269847d0a38ca3bf3e02a566.jpg'}}"></image>
+                                    <text catchtap="$HotPartyRead$playHandler" class="audio iconfont {{index==$HotPartyRead$playIndex?'icon-bofang-zanting':'icon-bofang-jixubofang'}} _079b5ab" data-wpyplayhandler-a="{{index}}" data-wpyplayhandler-b="{{item.yunUrl}}" data-wpyplayhandler-c="{{item.opusId}}"></text>
+                                </view>
+                                <view class="opusInfo _079b5ab">
+                                    <view class="opusTitle _079b5ab">
+                                        <view class="content _079b5ab">
+                                            <text class="iconfont icon-shipin _079b5ab" wx:if="{{item.isVideo}}"></text>
+                                        {{item.resName}}
+                                    </view>
+                                        <view class="orgaBox _079b5ab" wx:if="{{item.orgaName}}">{{item.orgaName}}</view>
+                                    </view>
+                                    <view class="nickname _079b5ab">
+                                        <image class="nickname_V _079b5ab" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{item.voiceAuth==1}}"></image>
+                                        <view class="nickname_text _079b5ab">朗读者：{{item.nickName||''}}</view>
+                                    </view>
+                                    <view class="tips _079b5ab">
+                                        <text class="iconfont icon-gerenzuopin-yibofangcishu _079b5ab"></text>
+                                        <text class="number _079b5ab">{{item.listenCount}}</text>
+                                        <text class="iconfont icon-gerenzuopin-aixin _079b5ab"></text>
+                                        <text class="number _079b5ab">{{item.likeCount}}</text>
+                                    </view>
+                                </view>
+                                <view class="detail _079b5ab">
+                                    <text class="detailText _079b5ab">详情</text>
+                                    <text class="iconfont icon-zhankai _079b5ab"></text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="tab-content position-rela _079b5ab" wx:if="{{$HotPartyRead$tabIndex2==1}}">
+                            <view bindtap="$HotPartyRead$skipOpusDetail" class="rankList border-fix _079b5ab" data-wpyskipopusdetail-a="{{item.opusId}}" data-wpyskipopusdetail-b="learningResults2" wx:for="{{$HotPartyRead$opusList}}" wx:key="index">
+                                <view class="border-btm _079b5ab" wx:if="{{index<$HotPartyRead$opusList.length-1}}"></view>
+                                <view class="figure video _079b5ab">
+                                    <view class="cover blur _079b5ab" style="background: url('{{item.snapshotUrl}}')no-repeat;background-size: 100% 100%;" wx:if="{{item.videoHeight>item.videoWidth}}"></view>
+                                    <image class="cover _079b5ab" mode="{{item.videoHeight>item.videoWidth?'aspectFit':'aspectFill'}}" src="{{item.snapshotUrl}}"></image>
+                                    <view class="video iconfont icon-bofang-jixubofang _079b5ab"></view>
+                                </view>
+                                <view class="opusInfo _079b5ab">
+                                    <view class="opusTitle unlike _079b5ab">
+                                        <view class="content _079b5ab">{{item.resName}}</view>
+                                        <view class="orgaBox _079b5ab" wx:if="{{item.orgaName}}">{{item.orgaName}}</view>
+                                    </view>
+                                    <view class="nickname _079b5ab">
+                                        <image class="nickname_V _079b5ab" src="https://reading.oss.iyougu.com/uploads/cardBgImg/6200692ecd57435ea8f961ce45e2c6a4.png" wx:if="{{item.voiceAuth==1}}"></image>
+                                        <view class="nickname_text _079b5ab">朗读者：{{item.nickName||''}}</view>
+                                    </view>
+                                    <view class="tips _079b5ab">
+                                        <text class="iconfont icon-gerenzuopin-yibofangcishu _079b5ab"></text>
+                                        <text class="number _079b5ab">{{item.listenCount}}</text>
+                                        <text class="iconfont icon-gerenzuopin-aixin _079b5ab"></text>
+                                        <text class="number _079b5ab">{{item.likeCount}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="more-box special _079b5ab" wx:if="{{!$HotPartyRead$opusList.length}}">
+                        <view class="empty _079b5ab">
+                            <image class="empty-image {{$HotPartyRead$Empty$size}}" mode="widthFix" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                            <view class="empty-text">{{$HotPartyRead$Empty$text}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <block wx:if="{{isAgencyZone&&isOrgaNavigation==1&&orgaNavigation.length}}">
+            <view class="pr"></view>
+            <view class="organization">
+                <view class="organization--title" style="{{orgaColor?'color:'+orgaColor:''}};">
+                    <text class="bord" style="{{orgaColor?'background:'+orgaColor:''}};"></text>
+                            {{orgaNavigation.length>1?'机构导航':'机构详情'}}
+                        </view>
+                <view class="organization--list">
+                    <view bindtap="onOrganzationDetails" class="organization--list__parent" data-wpyonorganzationdetails-a="{{orgaNavigation[0]}}">
+                        <view class="organization--list__parent_wrap">
+                            <view class="iconfont icon-jigouxinxi" style="{{orgaColor?'color:'+orgaColor:''}};"></view>
+                            <text class="name">{{orgaNavigation[0].orgaName}}</text>
+                        </view>
+                        <view class="iconfont icon-fanhui"></view>
+                    </view>
+                    <scroll-view scrollY bindscrolltolower="loadMoreNaviga" class="organization--scroll" enableFlex="true" scrollWithAnimation="scroll-with-animation" wx:if="{{childOrgaNavigation.length}}">
+                        <view class="organization--list__child">
+                            <view bindtap="onOrganzationDetails" class="organization--list__child_item" data-wpyonorganzationdetails-a="{{item}}" wx:for="{{childOrgaNavigation}}" wx:key="index">
+                                <view class="left">
+                                          {{item.orgaName}}
+                                      </view>
+                                <view class="iconfont icon-fanhui"></view>
+                            </view>
+                        </view>
+                    </scroll-view>
+                </view>
+            </view>
+        </block>
+    </scroll-view>
+    <movable-area class="orgaMovable" style="height:{{winHeight-250}}rpx;position:fixed;top:50%;transform:translateY(-50%);right:0;z-index:1000;">
+        <movable-view direction="all" inertia="true" y="370">
+            <view class="changeOrganization--box" wx:if="{{isAgencyZone&&isOrgaLists==1}}">
+                <view catchtap="onSwitchOrgan" class="changeOrganization" wx:if="{{!openOrganList}}">
+                    <view class="iconfont icon-fanhui"></view>
+                    <view class="changeOrganization--txt">切换机构</view>
+                </view>
+                <view class="organzationDetails--all {{openOrganList?'openList':'closeList'}}" style="height:{{organList.length==1?117:organList.length==2?214:organList.length>3?411:''}}rpx;">
+                    <scroll-view bindscrolltolower="loadMoreOrgas" class="organzationDetails--all__list {{organList.length<4?'scroll':''}}" enableFlex="true" scrollY="true">
+                        <text bindtap="onChooseOrgan" class="organzationDetails--all__list_item {{is_choose?'is_choose':''}}" data-wpyonchooseorgan-a="{{item}}" wx:for="{{organList}}" wx:key="index">{{item.orgaName}}</text>
+                    </scroll-view>
+                    <text catchtap="onSwitchOrgan" class="iconfont icon-zhankai closeBtn"></text>
+                </view>
+            </view>
+        </movable-view>
+    </movable-area>
+</view>

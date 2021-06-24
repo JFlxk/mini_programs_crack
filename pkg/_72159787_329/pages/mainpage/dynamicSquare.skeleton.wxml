@@ -1,0 +1,174 @@
+<template name="dynamicSquare">
+    <view class="sk-container">
+        <view class="page" style="padding-top:0">
+            <view class="dynamicSquare _3f3c364">
+                <view class="nav_wrapper _3f3c364" style="height:64px;">
+                    <view class="nav_bg _3f3c364 sk-image" style="background-image:url('https://reading.oss.iyougu.com/uploads/mpFront/ldtmp/applet/dynamic_square_banner.jpg')"></view>
+                </view>
+                <scroll-view class="_3f3c364" data-wpyscroll-a="true" id="scrollView" lowerThreshold="70" scrollWithAnimation="true" scrollY="true" style="height: 100%;">
+                    <view class="banner_wrapper _3f3c364">
+                        <view class="bg _3f3c364 sk-image" style="background-image:url('https://reading.oss.iyougu.com/uploads/mpFront/ldtmp/applet/dynamic_square_banner.jpg')"></view>
+                        <view class="tab _3f3c364">
+                            <view class="tab_item active _3f3c364" data-wpytabchange-a="0">
+                                <text class="_3f3c364 sk-transparent sk-text-18-7500-453 sk-text" style="background-position-x: 50%;">最新</text>
+                                <text class="line _3f3c364"></text>
+                            </view>
+                            <view class="tab_item _3f3c364" data-wpytabchange-a="1">
+                                <text class="_3f3c364 sk-transparent sk-text-18-7500-212 sk-text" style="background-position-x: 50%;">关注</text>
+                            </view>
+                            <view class="tab_item _3f3c364" data-wpytabchange-a="2">
+                                <text class="_3f3c364 sk-transparent sk-text-18-7500-832 sk-text" style="background-position-x: 50%;">热门</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="dynamic _3f3c364" style="padding-bottom: 64px;">
+                        <view class="dynamic_item _3f3c364" style="border: none;">
+                            <view class="attention _3f3c364 sk-transparent sk-text-18-7500-99 sk-text" data-wpyattention-a="0" style="border: none;">关注</view>
+                            <image class="avatar _3f3c364 sk-image" data-wpygoto-a="7917f8bc31ab460b8dd3a6d595a75b30" lazyLoad="true"></image>
+                            <view class="nickname _3f3c364 sk-transparent" data-wpygoto-a="7917f8bc31ab460b8dd3a6d595a75b30" style="true">
+                                <image class="nickname_V _3f3c364 sk-image" lazyLoad="true"></image>
+                Wanna
+              </view>
+                            <view class="_3f3c364" data-wpyskipopusdetail-a="23311" data-wpyskipopusdetail-b="null">
+                                <view class="time _3f3c364 sk-transparent sk-text-14-7059-427 sk-text">2020.11.20 18:07</view>
+                                <view class="dynamic_content _3f3c364 sk-transparent sk-text-14-2857-349 sk-text">合并后了</view>
+                                <view class="opus _3f3c364">
+                                    <text class="iconfont icon-bofang-jixubofang _3f3c364 sk-pseudo sk-pseudo-circle" data-wpyplay-a="0" data-wpyplay-b="http://reading.oss.iyougu.com/uploads/mp/opus/fd5da29a162741d8ba7603a027015265.mp3" data-wpyplay-c="mp3" data-wpyplay-d="null" data-wpyplay-e="null"></text>
+                                    <view class="opus_info _3f3c364">
+                                        <view class="opus_title _3f3c364 sk-transparent sk-text-3-3333-683 sk-text">绘本测试1</view>
+                                        <view class="opus_content _3f3c364">
+                                            <view class="tips _3f3c364 sk-transparent sk-text-14-2857-407 sk-text" style="border: none; background-position-x: 50%;">文本多级</view>
+                                            <view class="desc _3f3c364"></view>
+                                        </view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="dynamic_data _3f3c364" style="border: none;">
+                                <view class="data_item _3f3c364 sk-pseudo sk-pseudo-circle" data-wpylike-a="0">
+                                    <text class="iconfont icon-zuopin-aixin-dianzanliang _3f3c364 sk-pseudo sk-pseudo-circle"></text>
+                                    <text class="number _3f3c364 sk-transparent sk-opacity">5</text>
+                                </view>
+                                <view class="data_item _3f3c364 sk-pseudo sk-pseudo-circle" data-wpyshowcomment-a="绘本测试1" data-wpyshowcomment-b="7917f8bc31ab460b8dd3a6d595a75b30" data-wpyshowcomment-c="23311" data-wpyshowcomment-d="0">
+                                    <text class="iconfont icon-xiangqingye-pinglun _3f3c364 sk-pseudo sk-pseudo-circle"></text>
+                                    <text class="number _3f3c364 sk-transparent sk-opacity">19</text>
+                                </view>
+                                <view class="data_item _3f3c364 sk-pseudo sk-pseudo-circle">
+                                    <button class="share _3f3c364 sk-button sk-pseudo sk-pseudo-circle" data-sharemodel="23311,绘本测试1" openType="share">
+                                        <text class="iconfont icon-xiangqingye-fenxiang1 _3f3c364 sk-pseudo sk-pseudo-circle"></text>
+                                    </button>
+                                </view>
+                            </view>
+                            <view class="comment_list _3f3c364">
+                                <view class="content _3f3c364" style="max-height:80px;overflow:hidden">
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1547" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="0">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-843 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-514 sk-text">测试</text>
+                                    </view>
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1546" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="1">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-943 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-703 sk-text">测试</text>
+                                    </view>
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1545" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="2">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-587 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-495 sk-text">测试</text>
+                                    </view>
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1544" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="3">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-684 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-830 sk-text">测试</text>
+                                    </view>
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1543" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="4">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-605 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-46 sk-text">测试</text>
+                                    </view>
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1542" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="5">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-322 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-746 sk-text">测试</text>
+                                    </view>
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1541" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="6">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-444 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-477 sk-text">测试</text>
+                                    </view>
+                                    <view class="comment_item _3f3c364" data-wpyshowmore-a="23311" data-wpyshowmore-b="505" data-wpyshowmore-c="1540" data-wpyshowmore-d="0" data-wpyshowmore-e="0" data-wpyshowmore-f="7">
+                                        <text class="landlord _3f3c364 sk-transparent sk-text-15-0000-354 sk-text" data-wpygoto-a="34579e94698e469d971efeaa9d2d77da">厕所里面壁: </text>
+                                        <text class="_3f3c364 sk-transparent sk-text-15-0000-391 sk-text">测试</text>
+                                    </view>
+                                </view>
+                                <view class="more _3f3c364 sk-pseudo sk-pseudo-circle" data-wpyshowallcomment-a="0">
+                                    <text class="_3f3c364 sk-transparent sk-text-14-2857-146 sk-text" style="background-position-x: 50%;">查看全部19条评论</text>
+                                    <text class="iconfont icon-xiala _3f3c364 sk-pseudo sk-pseudo-circle" style="transform: rotate(0deg);"></text>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="dynamic_item _3f3c364" style="padding-bottom: 0px; border: none;">
+                            <view class="attention _3f3c364 sk-transparent sk-text-18-7500-917 sk-text" data-wpyattention-a="1" style="border: none;">关注</view>
+                            <image class="avatar _3f3c364 sk-image" data-wpygoto-a="3d9787e4a0e04c7584bc9e6ad6d7d5a7" lazyLoad="true"></image>
+                            <view class="nickname _3f3c364 sk-transparent sk-text-14-2857-536 sk-text" data-wpygoto-a="3d9787e4a0e04c7584bc9e6ad6d7d5a7" style="padding-left:0">
+                WannaLucky
+              </view>
+                            <view class="_3f3c364" data-wpyskipopusdetail-a="22768" data-wpyskipopusdetail-b="null">
+                                <view class="time _3f3c364 sk-transparent sk-text-14-7059-211 sk-text">2020.11.20 17:29</view>
+                                <view class="dynamic_content _3f3c364 sk-transparent sk-text-14-2857-957 sk-text">没合并前</view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="heightBox _3f3c364"></view>
+            <view class="select_typeBox _3f3c364" style="height:0;transition: all 0.3s;">
+                <view class="type_item _3f3c364" data-wpygo-a="news">
+                    <view class="iconfont icon-liushengkaxiangqing-weixin _3f3c364 sk-pseudo sk-pseudo-circle"></view>
+                    <view class="text _3f3c364 sk-transparent sk-text-13-3333-219 sk-text">消息</view>
+                </view>
+                <view class="type_item _3f3c364" data-wpygo-a="publishList">
+                    <view class="type_item_border1 _3f3c364 sk-image"></view>
+                    <view class="add_icon _3f3c364">
+                        <view class="icon_border1 _3f3c364"></view>
+                        <view class="icon_border2 _3f3c364"></view>
+                    </view>
+                    <view class="text _3f3c364 sk-transparent sk-text-13-3333-825 sk-text">发动态</view>
+                    <view class="type_item_border2 _3f3c364 sk-image"></view>
+                </view>
+                <view class="type_item _3f3c364" data-wpygo-a="myContent">
+                    <image class="user_img _3f3c364 sk-image" lazyLoad="true"></image>
+                    <view class="text _3f3c364 sk-transparent sk-text-13-3333-356 sk-text">我的</view>
+                </view>
+            </view>
+            <view class="select_btn _3f3c364 sk-image">
+                <view class="btn_border1 _3f3c364"></view>
+                <view class="btn_border2 _3f3c364"></view>
+            </view>
+            <view class="mainTabBar" style="border: none;">
+                <view class="home alike" data-wpytabchange-a="1" style="color:;">
+                    <view class="tab-icon iconfont icon-dibudaohanglan-remen-weixuanzhong sk-pseudo sk-pseudo-circle"></view>
+                    <view class="tab-text">
+                        <text class="sk-transparent sk-text-18-7500-526 sk-text">热门</text>
+                    </view>
+                </view>
+                <view class="material alike" data-wpytabchange-a="2" style="color:#3B87DD;">
+                    <view class="tab-icon iconfont icon-dongtaiguangchang sk-pseudo sk-pseudo-circle"></view>
+                    <view class="tab-text">
+                        <text class="sk-transparent sk-text-18-7500-914 sk-text">动态</text>
+                    </view>
+                </view>
+                <view class="recording alike" data-wpytabchange-a="3" style="color:;">
+                    <view class="tab-icon iconfont icon-qulangdu sk-pseudo sk-pseudo-circle"></view>
+                    <view class="tab-text">
+                        <text class="sk-transparent sk-text-18-7500-449 sk-text">朗读</text>
+                    </view>
+                </view>
+                <view class="activity alike" data-wpytabchange-a="4" style="color:;">
+                    <view class="tab-icon iconfont icon-dibudaohanglan-huodong-weixuanzhong sk-pseudo sk-pseudo-circle"></view>
+                    <view class="tab-text">
+                        <text class="sk-transparent sk-text-18-7500-273 sk-text">活动</text>
+                    </view>
+                </view>
+                <view class="my alike" data-wpytabchange-a="5" style="color:;">
+                    <view class="tab-icon iconfont icon-dibudaohanglan-wode-weixuanzhong sk-pseudo sk-pseudo-circle"></view>
+                    <view class="tab-text">
+                        <text class="sk-transparent sk-text-18-7500-153 sk-text">我的</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>

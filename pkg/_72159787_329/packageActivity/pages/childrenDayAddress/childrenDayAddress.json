@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "填写收货信息",
+    "usingComponents": {
+        "wxc-dialog": "../../../packages/@minui/wxc-dialog/dist/index"
+    }
+}

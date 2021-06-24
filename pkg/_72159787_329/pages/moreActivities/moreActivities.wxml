@@ -1,0 +1,151 @@
+<import src="moreActivities.skeleton.wxml"></import>
+<view bindtap="packup" class="moreActivities {{is_order?'is_z-index':''}}">
+    <template is="moreActivities" data="{{is_skeleton1:is_skeleton1,is_skeleton2:is_skeleton2}}" wx:if="{{loading}}"></template>
+    <view bindtap="showSearch" class="search-input" wx:if="{{!isShowSearch}}">
+        <text class="iconfont icon-sousuo"></text>
+        <text class="title-search">请输入活动名称</text>
+    </view>
+    <view class="tab-title fixed" hidden="{{!isFixed}}" style="top:{{newTab_h}}">
+        <text catchtap="pulldown" class="curStatus" data-wpypulldown-a="">{{curStatus}}</text>
+        <text catchtap="pulldown" class="iconfont icon-zhankai" data-wpypulldown-a="" style="transition: all .3s ease;transform: rotate({{isShowStatus?'-90deg':''}})"></text>
+        <view class="status {{isShowStatus?'slide':''}}">
+            <view bindtap="statusChange" class="status-item" data-wpystatuschange-a="{{item}}" data-wpystatuschange-b="{{index}}" wx:for="{{status}}" wx:key="item">{{item}}</view>
+        </view>
+        <text bindtap="tabChange" class=" tab-title-item {{activeIndex==index?'selected':''}}" data-wpytabchange-a="{{index}}" hidden="{{isAgencyZone&&index==2}}" style="{{activeIndex==index?'color:'+orgaColor:''}}" wx:for="{{tabs}}" wx:key="item">{{item}}</text>
+        <text bindtap="rule" class="iconfont icon-huodongliebiao-guize"></text>
+        <view bindtap="goReadPavilion" class="read-pavilion" data-wpygoreadpavilion-a="" hidden="{{isAgencyZone&&!isShowReadPavilion}}" style="color:{{orgaColor}}">
+            <text class="iconfont icon-gerenzhongxin-tingziweizhi"></text>
+            <text>朗读亭</text>
+        </view>
+    </view>
+    <scroll-view scrollY bindrefresherrefresh="refreshHandler" bindrefresherrestore="restoreHandler" bindscroll="scrolling" bindscrolltolower="scroll" class="scroll_view" enableBackToTop="true" lowerThreshold="50" refresherDefaultStyle="black" refresherEnabled="true" refresherTriggered="{{isRefresh}}" scrollWithAnimation="true" style="padding-bottom:{{isIPhoneX?'148rpx':'128rpx'}};">
+        <view data-skeleton-hide="is_skeleton1" hidden="{{!is_skeleton1}}">
+            <image catchtap="goActivityEmpty" class="banner-empty" src="https://reading.oss.iyougu.com/uploads/activityimage/792dfc6f8c234ce983808b741f60fc44.png" wx:if="{{isBannerEmpty}}"></image>
+            <swiper autoplay="true" class="swiper" duration="1000" indicatorActiveColor="{{orgaColor}}" indicatorColor="rgba(64,138,222,0.2)" indicatorDots="true" interval="5000" wx:if="{{!isBannerEmpty}}">
+                <swiper-item wx:for="{{recommendActivity}}" wx:key="index">
+                    <image bindtap="goActivity" class="recommend-image" data-wpygoactivity-a="{{index}}" data-wpygoactivity-b="{{item.id}}" data-wpygoactivity-c="{{item.activityName}}" data-wpygoactivity-d="{{item.templateType}}" data-wpygoactivity-e="{{item.valid}}" data-wpygoactivity-f="" data-wpygoactivity-g="" data-wpygoactivity-h="{{item.pathUrl}}" data-wpygoactivity-i="{{item}}" lazyLoad="true" src="{{item.imageUrl}}"></image>
+                </swiper-item>
+            </swiper>
+        </view>
+        <view data-skeleton-hide="is_skeleton2" hidden="{{!is_skeleton2}}">
+            <view class="tab-title">
+                <text catchtap="pulldown" class="curStatus" data-wpypulldown-a="">{{curStatus}}</text>
+                <text catchtap="pulldown" class="iconfont icon-zhankai" data-wpypulldown-a="" style="transition: all .3s ease;transform: rotate({{isShowStatus?'-90deg':''}})"></text>
+                <view class="status {{isShowStatus?'slide':''}}">
+                    <view bindtap="statusChange" class="status-item" data-wpystatuschange-a="{{item}}" data-wpystatuschange-b="{{index}}" wx:for="{{status}}" wx:key="item">{{item}}</view>
+                </view>
+                <text bindtap="tabChange" class=" tab-title-item {{activeIndex==index?'selected':''}}" data-wpytabchange-a="{{index}}" hidden="{{isAgencyZone&&index==2}}" style="{{activeIndex==index?'color:'+orgaColor:''}}" wx:for="{{tabs}}" wx:key="item">{{item}}</text>
+                <text bindtap="rule" class="iconfont icon-huodongliebiao-guize"></text>
+                <view bindtap="goReadPavilion" class="read-pavilion" data-wpygoreadpavilion-a="" hidden="{{isAgencyZone&&!isShowReadPavilion}}" style="color:{{orgaColor}}">
+                    <text class="iconfont icon-gerenzhongxin-tingziweizhi"></text>
+                    <text>朗读亭</text>
+                </view>
+            </view>
+            <view class="activity-list" hidden="{{activeIndex===2&&!longitude}}">
+                <view bindtap="goActivity" class="activity-list-item" data-wpygoactivity-a="{{-10}}" data-wpygoactivity-b="{{item.id}}" data-wpygoactivity-c="{{item.activityName}}" data-wpygoactivity-d="{{item.templateType}}" data-wpygoactivity-e="{{item.valid}}" data-wpygoactivity-f="{{item.projectLabel}}" wx:for="{{activityListData}}" wx:key="item">
+                    <view class="activity-list-top">
+                        <image class="activity-image" lazyLoad="lazy-load" src="{{item.imageUrl}}"></image>
+                    </view>
+                    <view class="activity-list-bottom">
+                        <text class="activity-title">{{item.activityName}}</text>
+                        <view class="activity-time">
+                            <text>{{item.beginTime}} - {{item.endTime}}</text>
+                        </view>
+                        <view class="hot" wx:if="{{item.templateType!=5}}">
+                            <text class="iconfont icon-redu"></text>
+                            <text class="hot-text">{{item.hotValue}}</text>
+                        </view>
+                        <view class="activityStatus {{item.valid==1?'underway':item.valid==2?'notStarted':'end'}}">{{item.valid==1?'进行中':item.valid==2?'即将开始':'已结束'}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class="activity-empty" wx:if="{{isEmpty}}">
+                <image class="empty-image" src="https://reading.oss.iyougu.com/uploads/mpicon/icon-empty.png"></image>
+                <view class="empty-text" wx:if="{{!longitude&&activeIndex===2}}">无法获取你的地理位置</view>
+                <view bindtap="toSetting" class="regain" wx:if="{{!longitude&&activeIndex===2}}">重新获取</view>
+                <view class="empty-text" wx:else>还没有记录哦～</view>
+            </view>
+        </view>
+        <view class="load _cb0b30b">
+            <view class="container _cb0b30b" style="display:{{$Load$state!=='loading'?'none':'flex'}}">
+                <view class="weui-loading _cb0b30b"></view>
+                <view class="_cb0b30b">正在加载</view>
+            </view>
+            <view class="container _cb0b30b" style="display:{{$Load$state!=='nomore'?'none':'flex'}}">
+                <view class="iconfont icon-wancheng _cb0b30b"></view>
+                <view class="_cb0b30b">加载完成</view>
+            </view>
+        </view>
+    </scroll-view>
+    <view bindtap="close" class="rule-mask" wx:if="{{isShowRule}}">
+        <view class="rule">
+            <view class="rule-title" style="color:{{orgaColor}}">显示规则</view>
+            <view class="explain alike">活动排列，默认按“热门”，可切换按 “时间、同城” 筛选排列。</view>
+            <view class="alike">
+                <view>1）<text class="subtitle">热门：</text>是根据报名人数、作品数、投票总数、浏览量等综合得出的热度值排行。</view>
+                <view> 注：即将开始的活动，热度值按浏览量。</view>
+            </view>
+            <view class="alike">2）<text class="subtitle">时间：</text>全部活动按活动开始时间。</view>
+            <view class="alike">3）<text class="subtitle">同城：</text>仅显示你所在城市的活动。 </view>
+            <text catchtap="close" class="iconfont icon-guanbi"></text>
+        </view>
+    </view>
+    <view class="search-mask" wx:if="{{isShowSearch}}">
+        <view class="search">
+            <text class="iconfont icon-sousuo"></text>
+            <text catchtap="clearWrite" class="iconfont icon-closefill"></text>
+            <input bindconfirm="search" bindinput="write" class="input" focus="true" placeholder="请输入活动名称" placeholderClass="phcolor" type="text" value="{{searchText}}"></input>
+            <text bindtap="cancel" class="cancel">取消</text>
+        </view>
+        <view hidden="{{searchText&&!activityListData.length}}" wx:if="{{!activityListData.length}}">
+            <view class="history same" wx:if="{{searchLogData.length}}">
+                <view class="same-title">历史记录</view>
+                <view bindtap="assign" class="same-item" data-wpyassign-a="{{item.keyword}}" wx:for="{{searchLogData}}" wx:key="index">{{item.keyword}}</view>
+                <view bindtap="clearSearchLog" class="clear">
+                    <text class="iconfont icon-sousuo-qingkong"></text>清空
+                    </view>
+            </view>
+            <view class="recommend same">
+                <view class="same-title">活动推荐<text class="iconfont icon-sousuo-tuijian" style="color:{{orgaColor}}"></text>
+                </view>
+                <view bindtap="goActivity" class="same-item" data-wpygoactivity-a="{{-10}}" data-wpygoactivity-b="{{item.id}}" data-wpygoactivity-c="{{item.activityName}}" data-wpygoactivity-d="{{item.templateType}}" data-wpygoactivity-e="{{item.valid}}" wx:if="{{item.id>=0&&item.activityName}}" wx:for="{{recommendActivity}}" wx:key="index">
+                            {{item.activityName}}</view>
+            </view>
+            <view class="recommend same">
+                <view class="same-title">热门搜索<text class="iconfont icon-redu"></text>
+                </view>
+                <view bindtap="goActivity" class="same-item" data-wpygoactivity-a="{{-10}}" data-wpygoactivity-b="{{item.id}}" data-wpygoactivity-c="{{item.activityName}}" data-wpygoactivity-d="{{item.templateType}}" data-wpygoactivity-e="{{item.valid}}" wx:for="{{hotSearchData}}" wx:key="index">
+                            {{item.activityName}}</view>
+            </view>
+        </view>
+        <scroll-view scrollY bindscrolltolower="scroll" class="search_scroll" lowerThreshold="50" scrollWithAnimation="true" wx:if="{{activityListData.length}}">
+            <view bindtap="goActivity" class="activity-list-item" data-wpygoactivity-a="{{-10}}" data-wpygoactivity-b="{{item.id}}" data-wpygoactivity-c="{{item.activityName}}" data-wpygoactivity-d="{{item.templateType}}" data-wpygoactivity-e="{{item.valid}}" data-wpygoactivity-f="{{item.projectLabel}}" data-wpygoactivity-g="{{searchText}}" wx:for="{{activityListData}}" wx:key="item">
+                <view class="activity-list-top">
+                    <image class="activity-image" lazyLoad="lazy-load" src="{{item.imageUrl}}"></image>
+                </view>
+                <view class="activity-list-bottom">
+                    <text class="activity-title">{{item.activityName}}</text>
+                    <view class="activity-time">
+                        <text>{{item.beginTime}} - {{item.endTime}}</text>
+                    </view>
+                    <view class="hot">
+                        <text class="iconfont icon-redu"></text>
+                        <text class="hot-text">{{item.hotValue}}</text>
+                    </view>
+                    <view class="activityStatus {{item.valid==1?'underway':item.valid==2?'notStarted':'end'}}">{{item.valid==1?'进行中':item.valid==2?'即将开始':'已结束'}}</view>
+                </view>
+            </view>
+            <view class="load _cb0b30b">
+                <view class="container _cb0b30b" style="display:{{$Load$state!=='loading'?'none':'flex'}}">
+                    <view class="weui-loading _cb0b30b"></view>
+                    <view class="_cb0b30b">正在加载</view>
+                </view>
+                <view class="container _cb0b30b" style="display:{{$Load$state!=='nomore'?'none':'flex'}}">
+                    <view class="iconfont icon-wancheng _cb0b30b"></view>
+                    <view class="_cb0b30b">加载完成</view>
+                </view>
+            </view>
+        </scroll-view>
+        <view class="empty" wx:if="{{searchText&&isEmpty}}">暂无相关活动数据</view>
+    </view>
+</view>

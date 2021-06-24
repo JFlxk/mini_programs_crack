@@ -1,0 +1,85 @@
+page .page {
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+page .page .input-item {
+    margin-top: 94rpx;
+}
+
+page .page .input-item.input-item-code {
+    box-sizing: border-box;
+    padding-left: 30rpx;
+    margin-top: 30rpx;
+}
+
+page .page .input-item.input-item-code .btn {
+    display: inline-block;
+    width: 216rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    text-align: center;
+    font-size: 30rpx;
+    background-color: transparent;
+    color: #3b87dd;
+    border-radius: 4rpx;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+page .page .input-item.input-item-code .btn::after {
+    border-color: #3b87dd;
+    background-color: transparent;
+    padding: 0;
+}
+
+page .page .input-item.input-item-code .btn.disabled {
+    color: #999;
+}
+
+page .page .input-item.input-item-code .btn.disabled::after {
+    border-color: #e6e6e6;
+    background-color: transparent;
+    padding: 0;
+}
+
+page .page .input-item .weui-input {
+    width: 690rpx;
+    height: 88rpx;
+    border: 1rpx solid #e5e5e5;
+    margin: 0 auto;
+    border-radius: 4rpx;
+    font-size: 30rpx;
+    color: #333;
+    box-sizing: border-box;
+    padding: 0 30rpx;
+}
+
+page .page .input-item .weui-input.code {
+    float: left;
+    width: 444rpx;
+    margin: 0 30rpx 0 0;
+}
+
+page .page .confirm {
+    width: 690rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    margin: 50rpx auto 0;
+    border-radius: 10rpx;
+    background-color: #3b87dd;
+    font-size: 34rpx;
+    font-family: PingFangSC-Medium,PingFang SC,NotoSansSC-Medium,Noto Sans SC;
+    font-weight: 400;
+    color: #fff;
+}
+
+page .page .confirm.c-disabled {
+    background-color: #6096ee;
+}
+
+page .page .confirm::before {
+    border: none;
+    color: #fff;
+    padding: 0;
+}

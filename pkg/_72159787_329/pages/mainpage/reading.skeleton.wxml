@@ -1,0 +1,248 @@
+<template name="reading">
+    <view class="sk-container">
+        <view class="page" style="padding-top:0px">
+            <view class="reading">
+                <view class="newTab_main" style="top:0px">
+                    <view class="newTab_box" style="border: none;">
+                        <view class="newTab_list">
+                            <view class="newTab_item newTab_item_active sk-transparent" data-wpytapnewtab-a="0">
+                文库朗读
+                <view class="newTab_border"></view>
+                            </view>
+                            <view class="newTab_item sk-transparent sk-text-18-7500-528 sk-text" data-wpytapnewtab-a="1">
+                趣味配音
+              </view>
+                            <view class="newTab_item sk-transparent sk-text-18-7500-261 sk-text" data-wpytapnewtab-a="2">
+                童声绘本
+              </view>
+                        </view>
+                        <view class="newTab_right">
+                            <view class="icon_gather sk-image">
+                                <view class="p1"></view>
+                                <view class="p2"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <scroll-view class="index-content" enableBackToTop="true" lowerThreshold="50" refresherDefaultStyle="black" refresherEnabled="true" scrollWithAnimation="true" scrollY="true" style="height:92%;">
+                    <view hidden="{{is_skeleton1}}">
+                        <view class="banner-categ">
+                            <view class="dots">
+                                <view class="dot active"></view>
+                                <view class="dot"></view>
+                                <view class="dot"></view>
+                            </view>
+                            <swiper autoplay="false" circular="true" current="0" style="height:100%;">
+                                <swiper-item style="position: absolute; width: 100%; height: 100%; transform: translate(0%, 0px) translateZ(0px);">
+                                    <view class="slide-item">
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-58 sk-text" style="background-position-x: 50%;">文本素材多级分类</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-693 sk-text" style="background-position-x: 50%;">唐诗宋词</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-292 sk-text" style="background-position-x: 50%;">段子合集</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-228 sk-text" style="background-position-x: 50%;">诗歌散文</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-584 sk-text" style="background-position-x: 50%;">原创作品</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-988 sk-text" style="background-position-x: 50%;">为你读诗</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-443 sk-text" style="background-position-x: 50%;">全民阅读</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-16 sk-text" style="background-position-x: 50%;">七夕特别篇</view>
+                                            </navigator>
+                                        </view>
+                                    </view>
+                                </swiper-item>
+                                <swiper-item style="position: absolute; width: 100%; height: 100%; transform: translate(-100%, 0px) translateZ(0px);">
+                                    <view class="slide-item">
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-336 sk-text" style="background-position-x: 50%;">测试视频配音003</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-980 sk-text" style="background-position-x: 50%;">韩国朗读</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-197 sk-text" style="background-position-x: 50%;">配音1111</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-606 sk-text" style="background-position-x: 50%;">测试视频多级分类1</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-709 sk-text" style="background-position-x: 50%;">致青春</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-320 sk-text" style="background-position-x: 50%;">红色家书</view>
+                                            </navigator>
+                                        </view>
+                                        <view class="categ-item">
+                                            <navigator hoverClass="none" style="height:100%;">
+                                                <view class="c-icon">
+                                                    <image class="categ-img sk-image" lazyLoad="true"></image>
+                                                </view>
+                                                <view class="categ-name hidden-t sk-transparent sk-text-0-0000-306 sk-text" style="background-position-x: 50%;">朗读类型</view>
+                                            </navigator>
+                                        </view>
+                                    </view>
+                                </swiper-item>
+                            </swiper>
+                        </view>
+                    </view>
+                    <view hidden="{{is_skeleton2}}">
+                        <view class="classify" style="border: none;">
+                            <view class="tab-title" style="border: none;">
+                                <view class="tab-title-item selected sk-transparent" data-wpytabchange-a="0">
+                                    <view class="active-border"></view>热门素材</view>
+                                <view class="tab-title-item sk-transparent sk-text-18-7500-1000 sk-text" data-wpytabchange-a="1">我的原创</view>
+                                <view class="tab-title-item sk-transparent sk-text-18-7500-609 sk-text" data-wpytabchange-a="2">我的收藏</view>
+                            </view>
+                            <view class="tab-content">
+                                <view class="material-list" data-wpygoto-a="34276" data-wpygoto-b="测试一下" data-wpygoto-c="徐志摩" data-wpygoto-d="10,000轻轻的我走了， 2正如我轻轻的来； 我3轻轻的招手， 作别3西天的云彩。 那河畔的金柳， 是夕阳中的新娘； 波光里的艳影， 在我的2心头荡漾。 软泥上2的青荇， 油油的在水底招摇； 在康河的柔波里， 我甘心做一条水草！ 那榆荫下的一潭， 不是4清泉， 是天上虹 揉碎在浮藻间， 沉淀着彩4虹似的梦。 4444444444 寻梦？撑一支长蒿， 向青草更青处漫溯； 满载一船星辉， 在星辉斑斓里放歌。 但我不能放歌， 悄悄是别离的笙箫； 夏虫也为我沉默， 沉默是今晚的康桥！ 悄悄的我走了， 正如我悄悄的来； 我挥一挥衣袖， 不带走一片云彩。" data-wpygoto-e="false" style="border: none;">
+                                    <view class="material-title sk-transparent sk-text-18-7500-544 sk-text">测试一下</view>
+                                    <view class="listen-btn sk-transparent" data-wpyaudition-a="2" data-wpyaudition-b="1139" style="border: none;">
+                                        <text class="iconfont icon-erji sk-pseudo sk-pseudo-circle"></text>试听
+                  </view>
+                                    <view class="reading-btn sk-transparent sk-image">
+                                        <text class="iconfont icon-icon-- sk-pseudo sk-pseudo-circle"></text>朗读
+                  </view>
+                                    <text class="material-content sk-transparent sk-text-18-7500-324 sk-text">轻轻的我走了，正如我轻轻的来；我轻轻的招手，作别西天的云彩。那河畔的金柳，是夕阳中的新娘；波光里的艳影，在我的心头荡漾。软泥上的青荇，油油的在水底招摇；在康桥的柔波里，我甘心做一条水草！那榆荫下的一潭，不是清泉，是天上虹揉碎在浮藻间，沉淀着彩虹似的梦。寻梦？撑一支长蒿，向青草更青处漫溯，满载一船星辉，在星辉斑斓里放歌。但我不能放歌，悄悄是别离的笙箫；夏</text>
+                                    <view class="bottom-tips">
+                                        <text class="counts sk-transparent sk-text-18-7500-177 sk-text">徐志摩</text>
+                                        <text class="counts sk-transparent sk-text-18-7500-38 sk-text">246字</text>
+                                        <text class="counts sk-transparent sk-text-18-7500-760 sk-text">76523人朗读</text>
+                                    </view>
+                                </view>
+                                <view class="material-list" data-wpygoto-a="34169" data-wpygoto-b="致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树" data-wpygoto-c="舒婷舒婷舒婷舒婷舒婷舒婷舒婷舒婷舒婷舒婷" data-wpygoto-d="我如果爱你—— 绝不像攀援的凌霄花， 借你的高枝炫耀自己； 我如果爱你—— 绝不学痴情的鸟儿， 为绿荫重复单调的歌曲； 也不止像泉源， 常年送来清凉的慰藉； 也不止像险峰， 增加你的高度，衬托你的威仪。 甚至日光。 甚至春雨。 不，这些都还不够！ 我必须是你近旁的一株木棉， 做为树的形象和你站在一起。 根，紧握在地下； 叶，相触在云里。 每一阵风过， 我们都互相致意， 但没有人， 听懂我们的言语。 你有你的铜枝铁干， 像刀、像剑， 也像戟； 我有我红硕的花朵， 像沉重的叹息， 又像英勇的火炬。 我们分担寒潮、风雷、霹雳； 我们共享雾霭、流岚、虹霓。 仿佛永远分离， 却又终身相依。 这才是伟大的爱情， 坚贞就在这里： 不仅爱你伟岸的身躯， 也爱你坚持的位置，脚下的土地。" data-wpygoto-e="false" style="border: none;">
+                                    <view class="material-title sk-transparent sk-text-18-7500-43 sk-text">致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树致橡树</view>
+                                    <view class="listen-btn sk-transparent" data-wpyaudition-a="2" data-wpyaudition-b="1146" style="border: none;">
+                                        <text class="iconfont icon-erji sk-pseudo sk-pseudo-circle"></text>试听
+                  </view>
+                                    <view class="reading-btn sk-transparent sk-image">
+                                        <text class="iconfont icon-icon-- sk-pseudo sk-pseudo-circle"></text>朗读
+                  </view>
+                                    <text class="material-content sk-transparent sk-text-18-7500-108 sk-text">我如果爱你——绝不像攀援的凌霄花，借你的高枝炫耀自己；我如果爱你——绝不学痴情的鸟儿，为绿荫重复单调的歌曲；也不止像泉源，常年送来清凉的慰藉；也不止像险峰，增加你的高度，衬托你的威仪。甚至日光。甚至春雨。不，这些都还不够！我必须是你近旁的一株木棉，做为树的形象和你站在一起。根，紧握在地下；叶，相触在云里。每一阵风过，我们都互相致意，但没有人，听懂我们的言语。你有你的铜枝铁干，像刀、像剑，也像戟；我</text>
+                                    <view class="bottom-tips">
+                                        <text class="counts sk-transparent sk-text-18-7500-949 sk-text">舒婷舒婷舒婷舒婷舒婷舒婷舒婷舒婷舒婷舒婷</text>
+                                        <text class="counts sk-transparent sk-text-18-7500-245 sk-text">304字</text>
+                                        <text class="counts sk-transparent sk-text-18-7500-322 sk-text">64713人朗读</text>
+                                    </view>
+                                </view>
+                                <view class="material-list" data-wpygoto-a="34212" data-wpygoto-b="乡愁" data-wpygoto-c="余光中" data-wpygoto-d="" data-wpygoto-e="false" style="border: none;">
+                                    <view class="material-title sk-transparent sk-text-18-7500-338 sk-text">乡愁</view>
+                                    <view class="listen-btn sk-transparent" data-wpyaudition-a="2" data-wpyaudition-b="1163" style="border: none;">
+                                        <text class="iconfont icon-erji sk-pseudo sk-pseudo-circle"></text>试听
+                  </view>
+                                    <view class="reading-btn sk-transparent sk-image">
+                                        <text class="iconfont icon-icon-- sk-pseudo sk-pseudo-circle"></text>朗读
+                  </view>
+                                    <text class="material-content sk-transparent sk-text-18-7500-914 sk-text">余光中小时候乡愁是一枚小小的邮票我在这头母亲在那头长大后乡愁是一张窄窄的船票我在这头新娘在那头后来啊乡愁是一方矮矮的坟墓我在外头母亲在里头而现在乡愁是一湾浅浅的海峡我在这头大陆在那头</text>
+                                    <view class="bottom-tips"></view>
+                                </view>
+                                <view class="material-list" data-wpygoto-a="34383" data-wpygoto-b="等你，在雨中" data-wpygoto-c="余光中" data-wpygoto-d="" data-wpygoto-e="false" style="border: none;"></view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="select_typeBox _3d954c2" style="height:0;transition: all 0.3s;">
+                <view class="type_item _3d954c2" data-wpygo-a="news">
+                    <view class="iconfont icon-liushengkaxiangqing-weixin _3d954c2 sk-pseudo sk-pseudo-circle"></view>
+                    <view class="text _3d954c2 sk-transparent sk-text-13-3333-536 sk-text">消息</view>
+                </view>
+                <view class="type_item _3d954c2" data-wpygo-a="publishList">
+                    <view class="type_item_border1 _3d954c2 sk-image"></view>
+                    <view class="add_icon _3d954c2">
+                        <view class="icon_border1 _3d954c2"></view>
+                        <view class="icon_border2 _3d954c2"></view>
+                    </view>
+                    <view class="text _3d954c2 sk-transparent sk-text-13-3333-708 sk-text">发动态</view>
+                    <view class="type_item_border2 _3d954c2 sk-image"></view>
+                </view>
+                <view class="type_item _3d954c2" data-wpygo-a="myContent">
+                    <image class="user_img _3d954c2 sk-image" lazyLoad="true"></image>
+                    <view class="text _3d954c2 sk-transparent sk-text-13-3333-383 sk-text">我的</view>
+                </view>
+            </view>
+            <view class="select_btn _3d954c2 sk-image">
+                <view class="btn_border1 _3d954c2"></view>
+                <view class="btn_border2 _3d954c2"></view>
+            </view>
+        </view>
+    </view>
+</template>
