@@ -1,5 +1,5 @@
 l = {
-    sessionId: "xxx",
+    sessionId: "680d4fc0459541e08cca7e4146aa2b35",
     phoneNumber: null,
     uid: null
 }
